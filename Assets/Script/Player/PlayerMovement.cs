@@ -6,8 +6,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("移動設定")]
     public float walkSpeed = 5f;    // 歩く速度
     public float runSpeed = 10f;    // 走る速度
-    public float jumpHeight = 2f;   // ジャンプの高さ
-    public float gravity = -9.81f;  // 重力
+    public float jumpHeight = 1.2f; // ジャンプの高さ（重力を強くした分、少し低くして自然に調整）
+    public float gravity = -25f;    // 重力（-9.81から-25に変更してキビキビ落とす）
 
     private CharacterController controller;
     private Vector3 velocity;       // 落下などの速度計算用
