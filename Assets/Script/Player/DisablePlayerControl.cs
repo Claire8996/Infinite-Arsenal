@@ -1,39 +1,61 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-// チュートリアルの1ステップ（ページ）を管理するためのクラス
+// ★追加：UIオブジェクト1つ1つに対して「非表示にするか」を設定できる新しいクラス
+[System.Serializable]
+public class UIElementSetting
+{
+    [Tooltip("対象のUIオブジェクト")]
+    public GameObject uiObject;
+
+    [Tooltip("チェックを入れるとゲーム開始時に自動で非表示にし、このステップの時だけ表示します")]
+    public bool hideAtStart = true;
+}
+
 [System.Serializable]
 public class TutorialStep
 {
-    [Tooltip("このステップで『暗転パネルの手前に出したい』UIオブジェクト")]
-    public GameObject[] stepUIElements;
+    // ★変更：ただのGameObject配列から、設定付きの配列に変更
+    public UIElementSetting[] stepUIElements;
 }
 
 public class DisablePlayerControl : MonoBehaviour
 {
-    [Header("UI設定")]
-    [Tooltip("画面を暗くするためのパネル（UI）")]
-    public GameObject darkPanel;
+    public static bool IsEventActive = false;
 
-    [Tooltip("チュートリアルの進行（各ステップごとに手前に出すUIを設定）")]
+    [Header("UI設定（前半）")]
+    public GameObject darkPanel;
     public TutorialStep[] tutorialSteps;
 
-    [Header("敵の設定")]
-    [Tooltip("チュートリアル終了時に出現させるスライムのプレハブ")]
-    public GameObject slimePrefab; // ★変更：プレハブを割り当てる枠に変更
+    [Header("UI設定（出現後）")]
+    public TutorialStep[] postSpawnSteps;
+    public float smokeWaitTime = 1.5f;
 
-    [Tooltip("スライムを出現させる位置（空のオブジェクトなどを指定）")]
+    [Header("敵の設定")]
+    public GameObject slimePrefab;
     public Transform slimeSpawnPosition;
 
+    [Header("エフェクト設定")]
+    public GameObject spawnSmokePrefab;
+
     private int currentStepIndex = 0;
-    private bool isTutorialActive = false;
+    private int postStepIndex = 0;
+
+    private enum EventPhase { Tutorial, Spawning, PostSpawnUI, Finished }
+    private EventPhase currentPhase = EventPhase.Tutorial;
 
     private PlayerMovement moveScript;
     private MouseLook lookScript;
 
     void Start()
     {
-        // 1. プレイヤーの操作を無効化し、スクリプトを変数に保存
+        IsEventActive = true;
+
+        // ★追加：設定されたUIの中で「Hide At Start」がオンのものを、ゲーム開始時に全て非表示にする
+        HideInitialUIElements(tutorialSteps);
+        HideInitialUIElements(postSpawnSteps);
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
@@ -44,60 +66,122 @@ public class DisablePlayerControl : MonoBehaviour
             if (lookScript != null) lookScript.enabled = false;
         }
 
-        // 2. マウスカーソルを表示する
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        // 3. 暗転パネルを表示
         if (darkPanel != null) darkPanel.SetActive(true);
 
-        // 4. チュートリアル開始
         if (tutorialSteps != null && tutorialSteps.Length > 0)
         {
-            isTutorialActive = true;
-            HighlightCurrentStepUI();
+            currentPhase = EventPhase.Tutorial;
+            HighlightCurrentStepUI(tutorialSteps, currentStepIndex);
         }
         else
         {
-            EndTutorial();
+            StartCoroutine(SpawnSlimeSequence());
+        }
+    }
+
+    // ★追加：ゲーム開始時にUIを隠すための共通メソッド
+    void HideInitialUIElements(TutorialStep[] steps)
+    {
+        if (steps == null) return;
+        foreach (TutorialStep step in steps)
+        {
+            foreach (UIElementSetting setting in step.stepUIElements)
+            {
+                if (setting.uiObject != null && setting.hideAtStart)
+                {
+                    setting.uiObject.SetActive(false);
+                }
+            }
         }
     }
 
     void Update()
     {
-        // チュートリアル中、Enterキーが押されたら次のステップへ進む
-        if (isTutorialActive && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            NextStep();
+            if (currentPhase == EventPhase.Tutorial)
+            {
+                NextTutorialStep();
+            }
+            else if (currentPhase == EventPhase.PostSpawnUI)
+            {
+                NextPostSpawnStep();
+            }
         }
     }
 
-    void NextStep()
+    void NextTutorialStep()
     {
-        // 今手前に出しているUIを、元の位置（暗転パネルの奥）に戻す
-        RemoveHighlightCurrentStepUI();
-
-        // ステップを1つ進める
+        RemoveHighlightCurrentStepUI(tutorialSteps, currentStepIndex);
         currentStepIndex++;
 
-        // まだ次のステップがある場合はそれを手前に出す
         if (currentStepIndex < tutorialSteps.Length)
         {
-            HighlightCurrentStepUI();
+            HighlightCurrentStepUI(tutorialSteps, currentStepIndex);
         }
         else
         {
-            // 全てのステップが終了した場合はチュートリアルを終える
-            EndTutorial();
+            StartCoroutine(SpawnSlimeSequence());
         }
     }
 
-    void HighlightCurrentStepUI()
+    IEnumerator SpawnSlimeSequence()
     {
-        foreach (GameObject ui in tutorialSteps[currentStepIndex].stepUIElements)
+        currentPhase = EventPhase.Spawning;
+
+        if (darkPanel != null) darkPanel.SetActive(false);
+
+        if (slimePrefab != null && slimeSpawnPosition != null)
         {
+            Instantiate(slimePrefab, slimeSpawnPosition.position, slimeSpawnPosition.rotation);
+            if (spawnSmokePrefab != null) Instantiate(spawnSmokePrefab, slimeSpawnPosition.position, slimeSpawnPosition.rotation);
+        }
+
+        yield return new WaitForSeconds(smokeWaitTime);
+
+        if (postSpawnSteps != null && postSpawnSteps.Length > 0)
+        {
+            currentPhase = EventPhase.PostSpawnUI;
+            if (darkPanel != null) darkPanel.SetActive(true);
+            HighlightCurrentStepUI(postSpawnSteps, postStepIndex);
+        }
+        else
+        {
+            EndAllEvents();
+        }
+    }
+
+    void NextPostSpawnStep()
+    {
+        RemoveHighlightCurrentStepUI(postSpawnSteps, postStepIndex);
+        postStepIndex++;
+
+        if (postStepIndex < postSpawnSteps.Length)
+        {
+            HighlightCurrentStepUI(postSpawnSteps, postStepIndex);
+        }
+        else
+        {
+            EndAllEvents();
+        }
+    }
+
+    void HighlightCurrentStepUI(TutorialStep[] steps, int index)
+    {
+        foreach (UIElementSetting setting in steps[index].stepUIElements)
+        {
+            GameObject ui = setting.uiObject;
             if (ui != null)
             {
+                // ★追加：このステップが来た時に、非表示設定だったUIを表示する
+                if (setting.hideAtStart)
+                {
+                    ui.SetActive(true);
+                }
+
                 Canvas canvas = ui.GetComponent<Canvas>();
                 if (canvas == null)
                 {
@@ -110,10 +194,11 @@ public class DisablePlayerControl : MonoBehaviour
         }
     }
 
-    void RemoveHighlightCurrentStepUI()
+    void RemoveHighlightCurrentStepUI(TutorialStep[] steps, int index)
     {
-        foreach (GameObject ui in tutorialSteps[currentStepIndex].stepUIElements)
+        foreach (UIElementSetting setting in steps[index].stepUIElements)
         {
+            GameObject ui = setting.uiObject;
             if (ui != null)
             {
                 GraphicRaycaster raycaster = ui.GetComponent<GraphicRaycaster>();
@@ -121,35 +206,28 @@ public class DisablePlayerControl : MonoBehaviour
 
                 Canvas canvas = ui.GetComponent<Canvas>();
                 if (canvas != null) Destroy(canvas);
+
+                // ★追加：ステップが終わったら、設定に合わせて再び非表示にする
+                if (setting.hideAtStart)
+                {
+                    ui.SetActive(false);
+                }
             }
         }
     }
 
-    // チュートリアル終了時の処理
-    void EndTutorial()
+    void EndAllEvents()
     {
-        isTutorialActive = false;
+        currentPhase = EventPhase.Finished;
 
-        // 暗転用パネルを非表示
+        IsEventActive = false;
+
         if (darkPanel != null) darkPanel.SetActive(false);
 
-        // プレイヤーの操作（移動と視点）を再び有効化する
         if (moveScript != null) moveScript.enabled = true;
         if (lookScript != null) lookScript.enabled = true;
 
-        // マウスカーソルをロックして非表示に戻す
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        // ★変更：チュートリアルが終わったらプレハブからスライムを生成する
-        if (slimePrefab != null && slimeSpawnPosition != null)
-        {
-            Instantiate(slimePrefab, slimeSpawnPosition.position, slimeSpawnPosition.rotation);
-        }
-        else if (slimePrefab != null)
-        {
-            // 万が一位置指定を忘れていた場合は原点(0,0,0)に出現させる
-            Instantiate(slimePrefab);
-        }
     }
 }

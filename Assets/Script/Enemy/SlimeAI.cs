@@ -1,23 +1,39 @@
+using System.Collections; // ★追加：コルーチン（数秒待機する処理）を使うために必要
 using UnityEngine;
 
 public class SlimeAI : MonoBehaviour
 {
+    [Header("スライムのステータス")]
+    public int maxHealth = 1000;
+    private int currentHealth;
+    private bool isDead = false;
+
     [Header("スライムの設定")]
-    public float moveSpeed = 2.0f;       // 歩くスピード
-    public float attackRange = 1.5f;     // 攻撃を開始する距離
-    public float attackCooldown = 2.0f;  // 次の攻撃までの待機時間
-    public int damage = 10;              // プレイヤーに与えるダメージ
+    public float moveSpeed = 2.0f;
+    public float attackRange = 1.5f;
+    public float attackCooldown = 2.0f;
+    public int damage = 10;
+
+    [Header("エフェクト設定")]
+    [Tooltip("ダメージを受けた時に点滅する色")]
+    public Color damageColor = Color.red; // ★追加：ダメージ時の色
+    [Tooltip("色が変わっている時間（秒）")]
+    public float flashDuration = 0.15f;   // ★追加：点滅時間
 
     private Transform player;
     private Animator animator;
     private float lastAttackTime;
     private bool hasDealtDamage = false;
-
-    // 現在再生中のアニメーション名を記憶する変数
     private string currentState = "";
+
+    // ★追加：色を変えるための変数
+    private Renderer[] renderers;
+    private Color[] originalColors;
 
     void Start()
     {
+        currentHealth = maxHealth;
+
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
         {
@@ -25,16 +41,23 @@ public class SlimeAI : MonoBehaviour
         }
 
         animator = GetComponent<Animator>();
+
+        // ★追加：スライムの3Dモデル（Renderer）を全て取得し、最初の「元の色」を記憶しておく
+        renderers = GetComponentsInChildren<Renderer>();
+        originalColors = new Color[renderers.Length];
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            originalColors[i] = renderers[i].material.color;
+        }
     }
 
     void Update()
     {
-        if (player == null) return;
+        if (DisablePlayerControl.IsEventActive) return;
+        if (player == null || isDead) return;
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        // アニメーションの切り替わり中、または攻撃アニメーション中（再生完了前）の場合は
-        // 上書きを防ぐために以後の移動やアニメーション変更処理を一時停止する
         if (animator.IsInTransition(0) || (stateInfo.IsName("Attack01") && stateInfo.normalizedTime < 0.9f))
         {
             return;
@@ -44,20 +67,17 @@ public class SlimeAI : MonoBehaviour
 
         if (distance <= attackRange)
         {
-            // 攻撃範囲内で、かつクールダウンが終わっていれば攻撃
             if (Time.time - lastAttackTime >= attackCooldown)
             {
                 Attack();
             }
             else
             {
-                // クールダウン中は待機
                 ChangeAnimation("IdleNormal");
             }
         }
         else
         {
-            // 攻撃範囲外なら追いかける
             Chase();
         }
     }
@@ -79,10 +99,8 @@ public class SlimeAI : MonoBehaviour
         ChangeAnimation("Attack01");
     }
 
-    // ★追加：アニメーションを安全に切り替えるための専用メソッド
     void ChangeAnimation(string newState)
     {
-        // 既に指定されたアニメーションを再生中なら、何もしない（毎フレーム再生を防ぐ）
         if (currentState == newState) return;
 
         animator.CrossFade(newState, 0.1f);
@@ -91,12 +109,76 @@ public class SlimeAI : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        // currentState を使って攻撃判定を行う
+        if (isDead) return;
+
         if (other.CompareTag("Player") && currentState == "Attack01" && !hasDealtDamage)
         {
-            Debug.Log("プレイヤーに " + damage + " のダメージ！");
+            PlayerHealth hpScript = other.GetComponent<PlayerHealth>();
+
+            if (hpScript != null)
+            {
+                hpScript.TakeDamage(damage);
+            }
 
             hasDealtDamage = true;
         }
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        if (isDead) return;
+
+        currentHealth -= damageAmount;
+        Debug.Log("スライムに " + damageAmount + " のダメージ！ 残りHP: " + currentHealth);
+
+        // ★追加：ダメージを受けたら赤く光らせる処理（コルーチン）をスタート
+        StartCoroutine(DamageFlash());
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            ChangeAnimation("GetHit");
+        }
+    }
+
+    // ★追加：一瞬だけ色を変えて、また元に戻す処理
+    private IEnumerator DamageFlash()
+    {
+        // 1. 全てのパーツを赤色（damageColor）にする
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            if (renderers[i] != null)
+            {
+                renderers[i].material.color = damageColor;
+            }
+        }
+
+        // 2. 指定した時間（0.15秒）だけここで処理をストップして待つ
+        yield return new WaitForSeconds(flashDuration);
+
+        // 3. 時間が経ったら元の色に戻す
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            if (renderers[i] != null && !isDead) // 待っている間に死んで消滅していないかチェック
+            {
+                renderers[i].material.color = originalColors[i];
+            }
+        }
+    }
+
+    void Die()
+    {
+        isDead = true;
+        currentHealth = 0;
+
+        ChangeAnimation("Die");
+
+        Collider col = GetComponent<Collider>();
+        if (col != null) col.enabled = false;
+
+        Destroy(gameObject, 3f);
     }
 }

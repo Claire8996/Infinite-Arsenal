@@ -2,24 +2,24 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // 物理的な衝突をした時の処理（ColliderのIsTriggerがオフの場合）
+    [Tooltip("弾が与えるダメージ")]
+    public int damage = 100; // ★追加：ダメージ量
+
     void OnCollisionEnter(Collision collision)
     {
-        // ぶつかった相手のタグが"Ground"だった場合
-        if (collision.gameObject.CompareTag("Ground"))
+        // ぶつかった相手が「Enemy」タグを持っていた場合
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            // 弾自身を消滅させて貫通を防ぐ
-            Destroy(gameObject);
-        }
-    }
+            // 相手にくっついている SlimeAI スクリプトを取得する
+            SlimeAI slime = collision.gameObject.GetComponent<SlimeAI>();
 
-    // センサーとして接触した時の処理（ColliderのIsTriggerがオンの場合）
-    void OnTriggerEnter(Collider other)
-    {
-        // 触れた相手のタグが"Ground"だった場合
-        if (other.CompareTag("Ground"))
-        {
-            // 弾自身を消滅させて貫通を防ぐ
+            // スクリプトが見つかったらダメージを与える
+            if (slime != null)
+            {
+                slime.TakeDamage(damage);
+            }
+
+            // 敵に当たった場合は弾を消滅させる
             Destroy(gameObject);
         }
     }

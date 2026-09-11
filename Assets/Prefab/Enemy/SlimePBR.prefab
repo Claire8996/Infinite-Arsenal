@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 5361893379322701281}
   m_Layer: 0
   m_Name: SlimePBR
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -290,10 +290,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7e0ceeb8e89e9469fc8bb6ba89831a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 1000
   moveSpeed: 2
   attackRange: 1.5
   attackCooldown: 2
-  damage: 10
+  damage: 100
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.15
 --- !u!135 &7313753690858529562
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -309,7 +312,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

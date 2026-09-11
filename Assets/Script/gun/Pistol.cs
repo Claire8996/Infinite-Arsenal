@@ -21,31 +21,31 @@ public class Pistol : MonoBehaviour
 
     [Header("UI設定")]
     [Tooltip("このピストル専用のレティクル（照準）UI")]
-    public GameObject reticleUI; // ★追加：レティクルの枠
+    public GameObject reticleUI;
 
     private float nextFireTime = 0f;
 
-    // ★追加：この銃がアクティブ（装備）になった時に呼ばれる
-    void OnEnable()
+    void Awake()
     {
-        if (reticleUI != null)
+        if (reticleUI == null)
         {
-            reticleUI.SetActive(true); // レティクルを表示
+            reticleUI = GameObject.Find("PistolReticle");
         }
     }
 
-    // ★追加：この銃が非アクティブ（別の武器に切り替え等）になった時に呼ばれる
+    void OnEnable()
+    {
+        if (reticleUI != null) reticleUI.SetActive(true);
+    }
+
     void OnDisable()
     {
-        if (reticleUI != null)
-        {
-            reticleUI.SetActive(false); // レティクルを非表示
-        }
+        if (reticleUI != null) reticleUI.SetActive(false);
     }
 
     void Update()
     {
-        // GetButtonDownを使うことで、押しっぱなし（フルオート）を無効化し単発撃ちにする
+        if (DisablePlayerControl.IsEventActive) return;
         if (Input.GetButtonDown("Fire1") && Time.time >= nextFireTime)
         {
             Shoot();
@@ -56,10 +56,33 @@ public class Pistol : MonoBehaviour
     {
         nextFireTime = Time.time + fireRate;
 
-        // 1. 弾丸の生成と発射
         if (bulletPrefab != null && muzzlePoint != null)
         {
-            GameObject bullet = Instantiate(bulletPrefab, muzzlePoint.position, muzzlePoint.rotation);
+            // --- ★ここから射撃方向の計算処理 ---
+
+            // 1. 画面のど真ん中（レティクルの位置）から奥に向かってRay（光線）を飛ばす
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+            Vector3 targetPoint;
+
+            // 2. もしRayが何かにぶつかったら、そこを「着弾予定地」にする
+            if (Physics.Raycast(ray, out hit))
+            {
+                targetPoint = hit.point;
+            }
+            else
+            {
+                // 何もぶつからなかった場合（空などを撃った場合）は、カメラのずっと奥をターゲットにする
+                targetPoint = ray.GetPoint(100f);
+            }
+
+            // 3. 銃口から着弾予定地に向かう「方向」を計算する
+            Vector3 shootDirection = (targetPoint - muzzlePoint.position).normalized;
+
+            // --- ★ここまで ---
+
+            // 4. 計算した方向に向けて弾丸の角度を合わせて生成する
+            GameObject bullet = Instantiate(bulletPrefab, muzzlePoint.position, Quaternion.LookRotation(shootDirection));
 
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             if (rb == null)
@@ -67,13 +90,12 @@ public class Pistol : MonoBehaviour
                 rb = bullet.AddComponent<Rigidbody>();
             }
 
-            rb.velocity = muzzlePoint.forward * bulletSpeed;
+            // 5. 計算した方向に向かって弾を飛ばす
+            rb.velocity = shootDirection * bulletSpeed;
 
-            // 3秒後に弾を消す
             Destroy(bullet, 3f);
         }
 
-        // 2. 煙パーティクルの再生
         if (smokeParticle != null)
         {
             smokeParticle.Play();
