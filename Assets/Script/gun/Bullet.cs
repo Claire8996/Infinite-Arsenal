@@ -3,20 +3,25 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [Tooltip("弾が与えるダメージ")]
-    public int damage = 100; // ★追加：ダメージ量
+    public int damage = 100;
 
     void OnCollisionEnter(Collision collision)
     {
         // ぶつかった相手が「Enemy」タグを持っていた場合
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // 相手にくっついている SlimeAI スクリプトを取得する
+            // 1. スライムかどうかチェック
             SlimeAI slime = collision.gameObject.GetComponent<SlimeAI>();
-
-            // スクリプトが見つかったらダメージを与える
             if (slime != null)
             {
                 slime.TakeDamage(damage);
+            }
+
+            // 2. タートルシェルかどうかチェック
+            TurtleShellAI turtle = collision.gameObject.GetComponent<TurtleShellAI>();
+            if (turtle != null)
+            {
+                turtle.TakeDamage(damage);
             }
 
             // 敵に当たった場合は弾を消滅させる

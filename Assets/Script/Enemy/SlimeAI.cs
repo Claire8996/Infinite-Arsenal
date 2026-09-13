@@ -1,4 +1,4 @@
-using System.Collections; // ★追加：コルーチン（数秒待機する処理）を使うために必要
+using System.Collections;
 using UnityEngine;
 
 public class SlimeAI : MonoBehaviour
@@ -15,10 +15,8 @@ public class SlimeAI : MonoBehaviour
     public int damage = 10;
 
     [Header("エフェクト設定")]
-    [Tooltip("ダメージを受けた時に点滅する色")]
-    public Color damageColor = Color.red; // ★追加：ダメージ時の色
-    [Tooltip("色が変わっている時間（秒）")]
-    public float flashDuration = 0.15f;   // ★追加：点滅時間
+    public Color damageColor = Color.red;
+    public float flashDuration = 0.15f;
 
     private Transform player;
     private Animator animator;
@@ -26,23 +24,17 @@ public class SlimeAI : MonoBehaviour
     private bool hasDealtDamage = false;
     private string currentState = "";
 
-    // ★追加：色を変えるための変数
     private Renderer[] renderers;
     private Color[] originalColors;
 
     void Start()
     {
         currentHealth = maxHealth;
-
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
-        {
-            player = playerObj.transform;
-        }
+        if (playerObj != null) player = playerObj.transform;
 
         animator = GetComponent<Animator>();
 
-        // ★追加：スライムの3Dモデル（Renderer）を全て取得し、最初の「元の色」を記憶しておく
         renderers = GetComponentsInChildren<Renderer>();
         originalColors = new Color[renderers.Length];
         for (int i = 0; i < renderers.Length; i++)
@@ -58,23 +50,44 @@ public class SlimeAI : MonoBehaviour
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (animator.IsInTransition(0) || (stateInfo.IsName("Attack01") && stateInfo.normalizedTime < 0.9f))
+        bool isAttacking = stateInfo.IsName("Attack01");
+        bool isGettingHit = stateInfo.IsName("GetHit");
+
+        if (animator.IsInTransition(0)) return;
+
+        // ==============================================
+        // ★大改修：物理(Collider)に頼らない確実なダメージ判定
+        // ==============================================
+        if (isAttacking)
         {
-            return;
+            // アニメーションが半分（0.5f）進んだ、攻撃を振り下ろすタイミングで判定
+            if (stateInfo.normalizedTime >= 0.5f && !hasDealtDamage)
+            {
+                // プレイヤーとの実際の距離を計算
+                float currentDist = Vector3.Distance(transform.position, player.position);
+
+                // 攻撃範囲内（少しオマケして +0.5f 広め）にいれば確実にダメージ！
+                if (currentDist <= attackRange + 0.5f)
+                {
+                    PlayerHealth hpScript = player.GetComponent<PlayerHealth>();
+                    if (hpScript != null) hpScript.TakeDamage(damage);
+                }
+                hasDealtDamage = true; // 当たっても外れても1回の攻撃で1度だけ判定
+            }
+
+            // アニメーションが90%終わるまでは動かない
+            if (stateInfo.normalizedTime < 0.9f) return;
         }
 
+        if (isGettingHit && stateInfo.normalizedTime < 0.9f) return;
+
+        // 以降は移動・攻撃の判断
         float distance = Vector3.Distance(transform.position, player.position);
 
         if (distance <= attackRange)
         {
-            if (Time.time - lastAttackTime >= attackCooldown)
-            {
-                Attack();
-            }
-            else
-            {
-                ChangeAnimation("IdleNormal");
-            }
+            if (Time.time - lastAttackTime >= attackCooldown) Attack();
+            else ChangeAnimation("IdleNormal");
         }
         else
         {
@@ -87,7 +100,6 @@ public class SlimeAI : MonoBehaviour
         Vector3 targetPos = new Vector3(player.position.x, transform.position.y, player.position.z);
         transform.LookAt(targetPos);
         transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
-
         ChangeAnimation("WalkFWD");
     }
 
@@ -95,34 +107,17 @@ public class SlimeAI : MonoBehaviour
     {
         lastAttackTime = Time.time;
         hasDealtDamage = false;
-
         ChangeAnimation("Attack01");
     }
 
     void ChangeAnimation(string newState)
     {
         if (currentState == newState) return;
-
         animator.CrossFade(newState, 0.1f);
         currentState = newState;
     }
 
-    void OnTriggerStay(Collider other)
-    {
-        if (isDead) return;
-
-        if (other.CompareTag("Player") && currentState == "Attack01" && !hasDealtDamage)
-        {
-            PlayerHealth hpScript = other.GetComponent<PlayerHealth>();
-
-            if (hpScript != null)
-            {
-                hpScript.TakeDamage(damage);
-            }
-
-            hasDealtDamage = true;
-        }
-    }
+    // ※ OnTriggerStay は削除しました！
 
     public void TakeDamage(int damageAmount)
     {
@@ -131,7 +126,6 @@ public class SlimeAI : MonoBehaviour
         currentHealth -= damageAmount;
         Debug.Log("スライムに " + damageAmount + " のダメージ！ 残りHP: " + currentHealth);
 
-        // ★追加：ダメージを受けたら赤く光らせる処理（コルーチン）をスタート
         StartCoroutine(DamageFlash());
 
         if (currentHealth <= 0)
@@ -141,31 +135,20 @@ public class SlimeAI : MonoBehaviour
         else
         {
             ChangeAnimation("GetHit");
+            animator.Play("GetHit", 0, 0f);
         }
     }
 
-    // ★追加：一瞬だけ色を変えて、また元に戻す処理
     private IEnumerator DamageFlash()
     {
-        // 1. 全てのパーツを赤色（damageColor）にする
         for (int i = 0; i < renderers.Length; i++)
         {
-            if (renderers[i] != null)
-            {
-                renderers[i].material.color = damageColor;
-            }
+            if (renderers[i] != null) renderers[i].material.color = damageColor;
         }
-
-        // 2. 指定した時間（0.15秒）だけここで処理をストップして待つ
         yield return new WaitForSeconds(flashDuration);
-
-        // 3. 時間が経ったら元の色に戻す
         for (int i = 0; i < renderers.Length; i++)
         {
-            if (renderers[i] != null && !isDead) // 待っている間に死んで消滅していないかチェック
-            {
-                renderers[i].material.color = originalColors[i];
-            }
+            if (renderers[i] != null && !isDead) renderers[i].material.color = originalColors[i];
         }
     }
 
@@ -173,12 +156,9 @@ public class SlimeAI : MonoBehaviour
     {
         isDead = true;
         currentHealth = 0;
-
         ChangeAnimation("Die");
-
         Collider col = GetComponent<Collider>();
         if (col != null) col.enabled = false;
-
         Destroy(gameObject, 3f);
     }
 }
