@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro; // ★追加：TextMeshProのテキストを操作するために必要
 
 [System.Serializable]
 public class UIElementSetting
@@ -70,6 +71,14 @@ public class DisablePlayerControl : MonoBehaviour
     private PlayerMovement moveScript;
     private MouseLook lookScript;
 
+    // ==========================================
+    // ★追加：タイプライター演出用の変数
+    // ==========================================
+    private Dictionary<TextMeshProUGUI, string> originalTexts = new Dictionary<TextMeshProUGUI, string>();
+    private bool isTyping = false;
+    private Coroutine typingCoroutine;
+    public float typeDelay = 0.05f; // 1文字表示されるスピード（秒）
+
     void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -122,6 +131,13 @@ public class DisablePlayerControl : MonoBehaviour
     {
         if (IsEventActive && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
         {
+            // ★追加：テキストがカタカタと表示されている最中にEnterを押したら、スキップして全文表示する
+            if (isTyping)
+            {
+                SkipTyping();
+                return; // 今回のEnterキー入力では次のステップに進まず、文字をすべて表示するだけにする
+            }
+
             if (currentPhase == EventPhase.InitialTutorial)
                 AdvanceStep(initialTutorialSteps, () => StartWave(0));
             else if (currentPhase == EventPhase.PreSpawnUI)
@@ -172,6 +188,55 @@ public class DisablePlayerControl : MonoBehaviour
         }
     }
 
+    // ==========================================
+    // ★追加：テキストの1文字ずつ表示（タイプライター）
+    // ==========================================
+    IEnumerator TypewriterCoroutine(List<TextMeshProUGUI> textComps)
+    {
+        isTyping = true;
+
+        // まず全てのテキストを空にする
+        foreach (var t in textComps) t.text = "";
+
+        // 最も長い文章の文字数を取得
+        int maxLength = 0;
+        foreach (var t in textComps)
+        {
+            if (originalTexts[t].Length > maxLength) maxLength = originalTexts[t].Length;
+        }
+
+        // 1文字ずつ順番に追加していく
+        for (int i = 0; i < maxLength; i++)
+        {
+            foreach (var t in textComps)
+            {
+                if (i < originalTexts[t].Length)
+                {
+                    t.text += originalTexts[t][i];
+                }
+            }
+            // 指定した秒数だけ待つ
+            yield return new WaitForSeconds(typeDelay);
+        }
+
+        isTyping = false;
+    }
+
+    // ★追加：タイプライター演出をスキップして全文を一気に表示する
+    void SkipTyping()
+    {
+        if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+
+        foreach (var kvp in originalTexts)
+        {
+            if (kvp.Key != null && kvp.Key.gameObject.activeInHierarchy)
+            {
+                kvp.Key.text = kvp.Value;
+            }
+        }
+        isTyping = false;
+    }
+
     IEnumerator AllEnemiesClearedSequence()
     {
         currentPhase = EventPhase.ForcedLook;
@@ -198,7 +263,6 @@ public class DisablePlayerControl : MonoBehaviour
             mainCam.transform.rotation = targetLookRot;
         }
 
-        // ★修正：確実に振り向いた「後」に、光を脱出ポイントに移動させてから再生する
         if (clearParticle != null && exitPoint != null)
         {
             clearParticle.transform.position = exitPoint.position;
@@ -241,10 +305,8 @@ public class DisablePlayerControl : MonoBehaviour
             mainCam.transform.rotation = cinematicCameraPoint.rotation;
         }
 
-        // ★大改修：宝箱が確実に開くように計算方法を変更し、アニメーターの干渉を防ぐ
         if (chestLid != null)
         {
-            // 宝箱にAnimatorがついていたら強制的にオフにする
             Animator anim = chestLid.GetComponent<Animator>();
             if (anim != null) anim.enabled = false;
             Animator parentAnim = chestLid.parent?.GetComponent<Animator>();
@@ -258,7 +320,6 @@ public class DisablePlayerControl : MonoBehaviour
             while (t < 1f)
             {
                 t += Time.deltaTime / duration;
-                // X軸だけを現在の角度から -105.96度 に向かって安全に回転させる
                 float currentX = Mathf.LerpAngle(startEuler.x, -105.96f, t);
                 chestLid.localEulerAngles = new Vector3(currentX, startEuler.y, startEuler.z);
                 yield return null;
@@ -333,6 +394,61 @@ public class DisablePlayerControl : MonoBehaviour
 
         yield return new WaitForSeconds(smokeWaitTime);
 
+        // ==========================================
+        // ★大改修：第1陣（Element 0）出現時のカメラズームと硬直演出
+        // ==========================================
+        if (currentWaveIndex == 0 && activeEnemies.Count > 0 && activeEnemies[0] != null)
+        {
+            Camera mainCam = Camera.main;
+            GameObject targetEnemy = activeEnemies[0];
+
+            if (mainCam != null && playerTransform != null)
+            {
+                // 元のカメラ位置を保存（プレイヤーの子オブジェクトなのでLocalで保存）
+                Vector3 origLocalPos = mainCam.transform.localPosition;
+                Quaternion origLocalRot = mainCam.transform.localRotation;
+
+                // ワールド空間での元の位置（戻る時用）
+                Vector3 worldOrigPos = mainCam.transform.parent.TransformPoint(origLocalPos);
+                Quaternion worldOrigRot = mainCam.transform.parent.rotation * origLocalRot;
+
+                // 敵の少し手前を計算
+                Vector3 dirToEnemy = (targetEnemy.transform.position - playerTransform.position).normalized;
+                Vector3 targetPos = targetEnemy.transform.position - dirToEnemy * 2.5f + Vector3.up * 1.0f; // 敵の手前2.5m、少し上の位置
+                Quaternion targetRot = Quaternion.LookRotation(targetEnemy.transform.position + Vector3.up * 0.5f - targetPos);
+
+                // ズームイン（0.5秒かけて移動）
+                float t = 0;
+                while (t < 1f)
+                {
+                    t += Time.deltaTime / 0.5f;
+                    float smoothT = Mathf.SmoothStep(0, 1, t);
+                    mainCam.transform.position = Vector3.Lerp(worldOrigPos, targetPos, smoothT);
+                    mainCam.transform.rotation = Quaternion.Slerp(worldOrigRot, targetRot, smoothT);
+                    yield return null;
+                }
+
+                // カメラがズームしきった状態で指定秒数（1.5秒）硬直
+                yield return new WaitForSeconds(1.5f);
+
+                // ズームアウト（0.5秒かけて元の位置に戻る）
+                t = 0;
+                while (t < 1f)
+                {
+                    t += Time.deltaTime / 0.5f;
+                    float smoothT = Mathf.SmoothStep(0, 1, t);
+                    mainCam.transform.position = Vector3.Lerp(targetPos, worldOrigPos, smoothT);
+                    mainCam.transform.rotation = Quaternion.Slerp(targetRot, worldOrigRot, smoothT);
+                    yield return null;
+                }
+
+                // ピッタリ元の位置へリセット
+                mainCam.transform.localPosition = origLocalPos;
+                mainCam.transform.localRotation = origLocalRot;
+            }
+        }
+
+        // 演出後に設定されているUI（テキスト等）を表示する
         if (wave.postSpawnUI != null && wave.postSpawnUI.Length > 0)
         {
             currentPhase = EventPhase.PostSpawnUI;
@@ -362,8 +478,11 @@ public class DisablePlayerControl : MonoBehaviour
         Cursor.visible = isEvent;
     }
 
+    // ★大改修：UIを表示する際に、TextMeshProを探してタイプライターをスタートさせる
     void HighlightCurrentStepUI(TutorialStep[] steps, int index)
     {
+        List<TextMeshProUGUI> textsToType = new List<TextMeshProUGUI>();
+
         foreach (UIElementSetting setting in steps[index].stepUIElements)
         {
             GameObject ui = setting.uiObject;
@@ -378,7 +497,26 @@ public class DisablePlayerControl : MonoBehaviour
                 }
                 canvas.overrideSorting = true;
                 canvas.sortingOrder = 100;
+
+                // UIの中にTextMeshPro（テキスト）があればリストに追加する
+                TextMeshProUGUI[] tmpros = ui.GetComponentsInChildren<TextMeshProUGUI>();
+                foreach (var tmp in tmpros)
+                {
+                    // 最初に書かれていたテキストを辞書に記憶しておく
+                    if (!originalTexts.ContainsKey(tmp))
+                    {
+                        originalTexts[tmp] = tmp.text;
+                    }
+                    textsToType.Add(tmp);
+                }
             }
+        }
+
+        // テキストが見つかったらタイプライター演出をスタート
+        if (textsToType.Count > 0)
+        {
+            if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+            typingCoroutine = StartCoroutine(TypewriterCoroutine(textsToType));
         }
     }
 
