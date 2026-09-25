@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro; // ★追加：TextMeshProを操作するために必要
 
 [System.Serializable]
 public class WaveData
@@ -15,6 +16,17 @@ public class WaveData
 
 public class WaveManager : MonoBehaviour
 {
+    // ==========================================
+    // ★追加：ウェーブと敵の進行状況UI
+    // ==========================================
+    [Header("進行状況UI設定")]
+    [Tooltip("剣のアイコンの方のテキスト（例: 1 / 3）")]
+    public TextMeshProUGUI waveProgressText;
+
+    [Tooltip("ボスの顔アイコンの方のテキスト（例: 2 / 5）")]
+    public TextMeshProUGUI enemyCountText;
+    // ==========================================
+
     [Header("シーン開始時のUI演出")]
     [Tooltip("表示したいUIのCanvasGroup（透明度操作用）")]
     public CanvasGroup introUIGroup;
@@ -27,16 +39,12 @@ public class WaveManager : MonoBehaviour
     public GameObject spawnSmokePrefab;
     public float smokeWaitTime = 1.5f;
 
-    // ==========================================
-    // ★追加：ボス戦（最終ウェーブ）専用設定
-    // ==========================================
     [Header("ボス戦（最終ウェーブ）のワープ設定")]
     [Tooltip("ボス戦突入時にプレイヤーをワープさせる地点")]
     public Transform bossPlayerSpawnPoint;
 
     [Tooltip("ボス戦突入時にアクティブ（表示）にするオブジェクト（ステージや壁など）")]
     public GameObject bossStageObject;
-    // ==========================================
 
     [Header("クリア後の脱出・宝箱設定")]
     public Transform chestLookTarget;
@@ -57,6 +65,7 @@ public class WaveManager : MonoBehaviour
     private int currentWaveIndex = 0;
     private int currentRewardIndex = 0;
     private List<GameObject> activeEnemies = new List<GameObject>();
+    private int initialEnemyCountForCurrentWave = 0; // ★追加：そのウェーブで最初に出現した敵の総数
 
     private enum WavePhase
     {
@@ -71,7 +80,6 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
-        // プレイヤーの情報を取得
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
@@ -80,7 +88,6 @@ public class WaveManager : MonoBehaviour
             lookScript = player.GetComponentInChildren<MouseLook>();
         }
 
-        // 初期設定：UIやエフェクトを隠す
         if (exitUIText != null) exitUIText.SetActive(false);
         if (clearRewardUIs != null)
         {
@@ -90,7 +97,6 @@ public class WaveManager : MonoBehaviour
             }
         }
 
-        // ★追加：ボスステージ用オブジェクトを最初は非表示にしておく
         if (bossStageObject != null)
         {
             bossStageObject.SetActive(false);
@@ -99,17 +105,21 @@ public class WaveManager : MonoBehaviour
         if (introUIGroup != null) introUIGroup.alpha = 0f;
         if (introUITransform != null) introUITransform.localScale = Vector3.one * 0.5f;
 
-        // ゲーム開始時にUI演出をスタート（この間プレイヤーは動ける）
+        // ★追加：ゲーム開始時のUI表示（0 / 最大数）
+        UpdateProgressUI(0, 0, 0);
+
         SetEventMode(false);
         StartCoroutine(IntroUIAnimCoroutine());
     }
 
     void Update()
     {
-        // バトル中の全滅チェック
         if (currentPhase == WavePhase.Battling)
         {
             activeEnemies.RemoveAll(enemy => enemy == null);
+
+            // ★追加：毎フレーム敵の残数をUIに反映する
+            UpdateProgressUI(currentWaveIndex + 1, activeEnemies.Count, initialEnemyCountForCurrentWave);
 
             if (activeEnemies.Count == 0)
             {
@@ -120,13 +130,11 @@ public class WaveManager : MonoBehaviour
                 }
                 else
                 {
-                    // すべてのウェーブをクリアしたら、宝箱への注目演出へ
                     StartCoroutine(AllEnemiesClearedSequence());
                 }
             }
         }
 
-        // Eキーで宝箱を開ける判定
         if (currentPhase == WavePhase.GoalReady)
         {
             if (playerTransform != null && exitPoint != null)
@@ -148,7 +156,6 @@ public class WaveManager : MonoBehaviour
             }
         }
 
-        // クリア報酬UIをEnterキーで進める処理
         if (currentPhase == WavePhase.ClearRewardUI)
         {
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
@@ -173,6 +180,26 @@ public class WaveManager : MonoBehaviour
                     LoadNextScene();
                 }
             }
+        }
+    }
+
+    // ==========================================
+    // ★追加：UIのテキストを更新する専用メソッド
+    // ==========================================
+    void UpdateProgressUI(int displayWaveNumber, int currentEnemies, int totalEnemies)
+    {
+        // 剣アイコン側のテキスト（現在のウェーブ / 最大ウェーブ）
+        if (waveProgressText != null)
+        {
+            int maxWaves = enemyWaves.Length;
+            // Intro中など、まだウェーブが始まっていない時は 0/3 のように表示する
+            waveProgressText.text = displayWaveNumber.ToString() + " / " + maxWaves.ToString();
+        }
+
+        // ボス顔アイコン側のテキスト（残りの敵 / そのウェーブの総敵数）
+        if (enemyCountText != null)
+        {
+            enemyCountText.text = currentEnemies.ToString() + " / " + totalEnemies.ToString();
         }
     }
 
@@ -222,28 +249,18 @@ public class WaveManager : MonoBehaviour
     {
         currentPhase = WavePhase.Spawning;
         activeEnemies.Clear();
+        initialEnemyCountForCurrentWave = 0; // 初期化
 
-        // =========================================================
-        // ★追加：最後のウェーブ（ボス戦）の場合のワープ＆オブジェクト表示
-        // =========================================================
         bool isBossWave = (currentWaveIndex == enemyWaves.Length - 1);
         if (isBossWave)
         {
-            // 1. ボスステージのオブジェクトを表示
-            if (bossStageObject != null)
-            {
-                bossStageObject.SetActive(true);
-            }
-
-            // 2. プレイヤーを指定の場所へワープ
+            if (bossStageObject != null) bossStageObject.SetActive(true);
             if (bossPlayerSpawnPoint != null && playerTransform != null)
             {
                 WarpPlayer(bossPlayerSpawnPoint.position, bossPlayerSpawnPoint.rotation);
             }
         }
-        // =========================================================
 
-        // 敵と煙のスポーン
         for (int i = 0; i < wave.enemyPrefabs.Length; i++)
         {
             if (wave.enemyPrefabs[i] != null && i < wave.spawnPositions.Length && wave.spawnPositions[i] != null)
@@ -255,26 +272,32 @@ public class WaveManager : MonoBehaviour
             }
         }
 
+        // ★追加：このウェーブで出現した敵の総数を記録してUIを更新
+        initialEnemyCountForCurrentWave = activeEnemies.Count;
+        UpdateProgressUI(currentWaveIndex + 1, activeEnemies.Count, initialEnemyCountForCurrentWave);
+
         yield return new WaitForSeconds(smokeWaitTime);
         currentPhase = WavePhase.Battling;
     }
 
-    // ★追加：CharacterControllerの干渉を受けずに確実にワープさせる専用メソッド
     void WarpPlayer(Vector3 targetPosition, Quaternion targetRotation)
     {
         CharacterController cc = playerTransform.GetComponent<CharacterController>();
-        if (cc != null) cc.enabled = false; // 一時的にオフ
+        if (cc != null) cc.enabled = false;
 
         playerTransform.position = targetPosition;
         playerTransform.rotation = targetRotation;
 
-        if (cc != null) cc.enabled = true; // オンに戻す
+        if (cc != null) cc.enabled = true;
     }
 
     IEnumerator AllEnemiesClearedSequence()
     {
         currentPhase = WavePhase.ForcedLook;
         SetEventMode(true);
+
+        // ★追加：全クリア時は敵の数を 0 / 0 などに整える
+        UpdateProgressUI(enemyWaves.Length, 0, initialEnemyCountForCurrentWave);
 
         Camera mainCam = Camera.main;
         if (chestLookTarget != null && mainCam != null && playerTransform != null)

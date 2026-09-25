@@ -5,13 +5,38 @@ public class Bullet : MonoBehaviour
     [Tooltip("弾が与えるダメージ")]
     public int damage = 100;
 
+    void Start()
+    {
+        // =========================================================
+        // ★追加：「Wall」タグのついたオブジェクトを貫通する処理
+        // =========================================================
+        Collider myCollider = GetComponent<Collider>();
+        if (myCollider != null)
+        {
+            // シーン内の「Wall」タグがついたオブジェクトを全て取得
+            GameObject[] walls = GameObject.FindGameObjectsWithTag("Wall");
+            foreach (GameObject wall in walls)
+            {
+                if (wall == null) continue;
+
+                // 親だけでなく、子供に付いているColliderも全て取得
+                Collider[] wallColliders = wall.GetComponentsInChildren<Collider>();
+                foreach (Collider wallCol in wallColliders)
+                {
+                    // 弾のColliderと壁のColliderの「物理的な衝突」を無視する！
+                    Physics.IgnoreCollision(myCollider, wallCol, true);
+                }
+            }
+        }
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         // ぶつかった相手が「Enemy」タグを持っていた場合
         if (collision.gameObject.CompareTag("Enemy"))
         {
             // =========================================================
-            // ★改修：敵が物理的な衝撃で「上」にも吹き飛ばないようにする処理
+            // 敵が物理的な衝撃で「上」にも吹き飛ばないようにする処理
             // =========================================================
             Rigidbody enemyRb = collision.gameObject.GetComponent<Rigidbody>();
             if (enemyRb != null)
