@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2022.3/respin/2022.3.62f2-4af31df585-v2' branch; Version is '2022.3.62f3 (96770f904ca7) revision 9860879'; Using compiler version '192829333'; Build Type 'Release'
-OS: 'Windows 11  (10.0.26200) 64bit Professional' Language: 'ja' Physical Memory: 32486 MB
+OS: 'Windows 11  (10.0.26200) 64bit Core' Language: 'ja' Physical Memory: 32478 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
 
 COMMAND LINE ARGUMENTS:
@@ -11,13 +11,13 @@ C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Unity.exe
 -name
 AssetImportWorker2
 -projectPath
-D:/å€‹äººè£½ä½œï¼’/Infinite Arsenal/Infinite Arsenal
+C:/Users/ailic/OneDrive/Infinite-Arsenal
 -logFile
 Logs/AssetImportWorker2.log
 -srvPort
-64575
-Successfully changed project path to: D:/å€‹äººè£½ä½œï¼’/Infinite Arsenal/Infinite Arsenal
-D:/å€‹äººè£½ä½œï¼’/Infinite Arsenal/Infinite Arsenal
+52920
+Successfully changed project path to: C:/Users/ailic/OneDrive/Infinite-Arsenal
+C:/Users/ailic/OneDrive/Infinite-Arsenal
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
     "memorysetup-bucket-allocator-granularity=16"
     "memorysetup-bucket-allocator-bucket-count=8"
@@ -49,67 +49,67 @@ D:/å€‹äººè£½ä½œï¼’/Infinite Arsenal/Infinite Arsenal
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [10856]  Target information:
+Player connection [15636]  Target information:
 
-Player connection [10856]  * "[IP] 10.219.32.102 [Port] 0 [Flags] 2 [Guid] 477655258 [EditorId] 477655258 [Version] 1048832 [Id] WindowsEditor(7,KIC-GAME-B-02) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [15636]  * "[IP] 192.168.3.36 [Port] 0 [Flags] 2 [Guid] 2420420828 [EditorId] 2420420828 [Version] 1048832 [Id] WindowsEditor(7,Claire) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [10856] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [10856] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [15636] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [15636] Host joined alternative multi-casting on [225.0.0.222:34997]...
 Input System module state changed to: Initialized.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-Refreshing native plugins compatible for Editor in 5.84 ms, found 6 plugins.
+[PhysX] Initialized MultithreadedTaskDispatcher with 28 workers.
+Refreshing native plugins compatible for Editor in 14.25 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.3.62f3 (96770f904ca7)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path D:/å€‹äººè£½ä½œï¼’/Infinite Arsenal/Infinite Arsenal/Assets
+[Subsystems] Discovering subsystems at path C:/Users/ailic/OneDrive/Infinite-Arsenal/Assets
 GfxDevice: creating device client; threaded=0; jobified=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
-    Renderer: NVIDIA GeForce RTX 4060 Ti (ID=0x2803)
+    Renderer: NVIDIA GeForce RTX 5070 (ID=0x2f04)
     Vendor:   NVIDIA
-    VRAM:     7949 MB
-    Driver:   32.0.16.1060
+    VRAM:     11943 MB
+    Driver:   32.0.16.1088
 Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56096
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56904
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.004186 seconds.
-- Loaded All Assemblies, in  0.214 seconds
+Registered in 0.005173 seconds.
+- Loaded All Assemblies, in  0.247 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.163 seconds
-Domain Reload Profiling: 376ms
-	BeginReloadAssembly (70ms)
+- Finished resetting the current domain, in  0.181 seconds
+Domain Reload Profiling: 427ms
+	BeginReloadAssembly (79ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (0ms)
-	RebuildCommonClasses (22ms)
+		CreateAndSetChildDomain (1ms)
+	RebuildCommonClasses (25ms)
 	RebuildNativeTypeToScriptingClass (6ms)
-	initialDomainReloadingComplete (35ms)
-	LoadAllAssembliesAndSetupDomain (81ms)
-		LoadAssemblies (68ms)
+	initialDomainReloadingComplete (43ms)
+	LoadAllAssembliesAndSetupDomain (93ms)
+		LoadAssemblies (77ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (80ms)
-			TypeCache.Refresh (79ms)
-				TypeCache.ScanAssembly (71ms)
+		AnalyzeDomain (91ms)
+			TypeCache.Refresh (90ms)
+				TypeCache.ScanAssembly (81ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (0ms)
-	FinalizeReload (163ms)
+	FinalizeReload (181ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (135ms)
+		SetupLoadedEditorAssemblies (151ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (6ms)
-			SetLoadedEditorAssemblies (5ms)
+			SetLoadedEditorAssemblies (6ms)
 			RefreshPlugins (0ms)
 			BeforeProcessingInitializeOnLoad (1ms)
-			ProcessInitializeOnLoadAttributes (91ms)
+			ProcessInitializeOnLoadAttributes (105ms)
 			ProcessInitializeOnLoadMethodAttributes (32ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
@@ -119,54 +119,53 @@ Domain Reload Profiling: 376ms
 Worker process is ready to serve import requests
 Caller must complete domain reload
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.445 seconds
+- Loaded All Assemblies, in  0.439 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.815 seconds
-Domain Reload Profiling: 1260ms
-	BeginReloadAssembly (90ms)
+- Finished resetting the current domain, in  0.927 seconds
+Domain Reload Profiling: 1364ms
+	BeginReloadAssembly (88ms)
 		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (4ms)
+		DisableScriptedObjects (3ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (13ms)
-	RebuildCommonClasses (21ms)
-	RebuildNativeTypeToScriptingClass (6ms)
-	initialDomainReloadingComplete (25ms)
-	LoadAllAssembliesAndSetupDomain (303ms)
-		LoadAssemblies (217ms)
+		CreateAndSetChildDomain (12ms)
+	RebuildCommonClasses (20ms)
+	RebuildNativeTypeToScriptingClass (7ms)
+	initialDomainReloadingComplete (28ms)
+	LoadAllAssembliesAndSetupDomain (294ms)
+		LoadAssemblies (211ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (138ms)
-			TypeCache.Refresh (118ms)
-				TypeCache.ScanAssembly (108ms)
-			ScanForSourceGeneratedMonoScriptInfo (14ms)
+		AnalyzeDomain (135ms)
+			TypeCache.Refresh (117ms)
+				TypeCache.ScanAssembly (107ms)
+			ScanForSourceGeneratedMonoScriptInfo (13ms)
 			ResolveRequiredComponents (3ms)
-	FinalizeReload (816ms)
+	FinalizeReload (928ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (724ms)
+		SetupLoadedEditorAssemblies (833ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (4ms)
 			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (48ms)
-			ProcessInitializeOnLoadAttributes (621ms)
-			ProcessInitializeOnLoadMethodAttributes (45ms)
-			AfterProcessingInitializeOnLoad (4ms)
+			BeforeProcessingInitializeOnLoad (49ms)
+			ProcessInitializeOnLoadAttributes (728ms)
+			ProcessInitializeOnLoadMethodAttributes (44ms)
+			AfterProcessingInitializeOnLoad (5ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (4ms)
+		AwakeInstancesAfterBackupRestoration (5ms)
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 4.21 ms, found 6 plugins.
+Refreshing native plugins compatible for Editor in 7.21 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5168 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 737 unused Assets / (0.7 MB). Loaded Objects now: 5490.
-Memory consumption went from 247.4 MB to 246.7 MB.
-Total: 3.013000 ms (FindLiveObjects: 0.271700 ms CreateObjectMapping: 0.133500 ms MarkObjects: 1.974900 ms  DeleteObjects: 0.632200 ms)
+Unloading 5174 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 751 unused Assets / (0.7 MB). Loaded Objects now: 5492.
+Memory consumption went from 252.2 MB to 251.5 MB.
+Total: 3.365200 ms (FindLiveObjects: 0.269300 ms CreateObjectMapping: 0.133100 ms MarkObjects: 2.289700 ms  DeleteObjects: 0.672500 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
   custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
@@ -178,6 +177,55 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 2969.151791 seconds.
+  path: Assets/Island/Textures/Bark.tga
+  artifactKey: Guid(9db6b06ea6927364e9d7a412560b56e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Island/Textures/Bark.tga using Guid(9db6b06ea6927364e9d7a412560b56e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 28 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 28 workers.
+ -> (artifact id: '47ecaeaa23fa13d2f77350a05aacdf01') in 0.036294 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.029388 seconds.
+  path: Assets/Island/Textures/Sand.tga
+  artifactKey: Guid(6ac95165231738c4d9371d2023f6f6d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Island/Textures/Sand.tga using Guid(6ac95165231738c4d9371d2023f6f6d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 28 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 28 workers.
+ -> (artifact id: 'e707c13df38d39ba13bc7cd13335eb15') in 0.010949 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 4.234587 seconds.
+  path: Assets/Island/Prefabs
+  artifactKey: Guid(80888571ec433a348b8aa74c6d2e9079) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Island/Prefabs using Guid(80888571ec433a348b8aa74c6d2e9079) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 28 workers.
+ -> (artifact id: '93cacba93f0ce96daafbb74c341295e7') in 0.000702 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.080235 seconds.
+  path: Assets/Island/Prefabs/Chest.prefab
+  artifactKey: Guid(cae8e749c8d3eb44da3bdd1e6c9f42fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Island/Prefabs/Chest.prefab using Guid(cae8e749c8d3eb44da3bdd1e6c9f42fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 28 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 28 workers.
+ -> (artifact id: '1bd49470ebd9a709eb2cc745274d8a4b') in 0.043778 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 18
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Island/Prefabs/Water_plane.prefab
+  artifactKey: Guid(d1f03074e612bbd4b84736d2d7aee882) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Island/Prefabs/Water_plane.prefab using Guid(d1f03074e612bbd4b84736d2d7aee882) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 28 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 28 workers.
+ -> (artifact id: 'c641136fe1f79b721bc05524002fbd54') in 0.024240 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 10
 Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
 TcpMessagingSession - receive error: operation aborted. errorcode: 995, details: ƒXƒŒƒbƒh‚ÌI—¹‚Ü‚½‚ÍƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ì—v‹‚É‚æ‚Á‚ÄAI/O ˆ—‚Í’†~‚³‚ê‚Ü‚µ‚½B
 AssetImportWorker is now disconnected from the server
