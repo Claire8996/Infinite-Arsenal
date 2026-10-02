@@ -15,7 +15,7 @@ D:/å€‹äººè£½ä½œï¼’/Infinite Arsenal/Infinite Arsenal
 -logFile
 Logs/AssetImportWorker1.log
 -srvPort
-64575
+52912
 Successfully changed project path to: D:/å€‹äººè£½ä½œï¼’/Infinite Arsenal/Infinite Arsenal
 D:/å€‹äººè£½ä½œï¼’/Infinite Arsenal/Infinite Arsenal
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -49,15 +49,15 @@ D:/å€‹äººè£½ä½œï¼’/Infinite Arsenal/Infinite Arsenal
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [5716]  Target information:
+Player connection [21272]  Target information:
 
-Player connection [5716]  * "[IP] 10.219.32.102 [Port] 0 [Flags] 2 [Guid] 1476296600 [EditorId] 1476296600 [Version] 1048832 [Id] WindowsEditor(7,KIC-GAME-B-02) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [21272]  * "[IP] 10.219.32.102 [Port] 0 [Flags] 2 [Guid] 2246443283 [EditorId] 2246443283 [Version] 1048832 [Id] WindowsEditor(7,KIC-GAME-B-02) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [5716] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [5716] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [21272] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [21272] Host joined alternative multi-casting on [225.0.0.222:34997]...
 Input System module state changed to: Initialized.
 [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-Refreshing native plugins compatible for Editor in 257.04 ms, found 6 plugins.
+Refreshing native plugins compatible for Editor in 566.52 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.3.62f3 (96770f904ca7)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/Resources/UnitySubsystems
@@ -73,44 +73,44 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56308
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56168
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.004439 seconds.
-- Loaded All Assemblies, in  0.283 seconds
+Registered in 0.005150 seconds.
+- Loaded All Assemblies, in  0.939 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.168 seconds
-Domain Reload Profiling: 450ms
-	BeginReloadAssembly (65ms)
+- Finished resetting the current domain, in  0.200 seconds
+Domain Reload Profiling: 1138ms
+	BeginReloadAssembly (89ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (0ms)
-	RebuildCommonClasses (19ms)
+	RebuildCommonClasses (222ms)
 	RebuildNativeTypeToScriptingClass (6ms)
-	initialDomainReloadingComplete (36ms)
-	LoadAllAssembliesAndSetupDomain (155ms)
-		LoadAssemblies (64ms)
+	initialDomainReloadingComplete (39ms)
+	LoadAllAssembliesAndSetupDomain (583ms)
+		LoadAssemblies (88ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (154ms)
-			TypeCache.Refresh (153ms)
-				TypeCache.ScanAssembly (145ms)
+		AnalyzeDomain (582ms)
+			TypeCache.Refresh (581ms)
+				TypeCache.ScanAssembly (260ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (0ms)
-	FinalizeReload (169ms)
+	FinalizeReload (200ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (141ms)
+		SetupLoadedEditorAssemblies (169ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (6ms)
 			SetLoadedEditorAssemblies (5ms)
 			RefreshPlugins (0ms)
 			BeforeProcessingInitializeOnLoad (1ms)
-			ProcessInitializeOnLoadAttributes (91ms)
-			ProcessInitializeOnLoadMethodAttributes (38ms)
+			ProcessInitializeOnLoadAttributes (96ms)
+			ProcessInitializeOnLoadMethodAttributes (60ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -119,50 +119,50 @@ Domain Reload Profiling: 450ms
 Worker process is ready to serve import requests
 Caller must complete domain reload
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.412 seconds
+- Loaded All Assemblies, in  1.546 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.030 seconds
-Domain Reload Profiling: 1441ms
-	BeginReloadAssembly (91ms)
+- Finished resetting the current domain, in  6.214 seconds
+Domain Reload Profiling: 7759ms
+	BeginReloadAssembly (96ms)
 		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (3ms)
+		DisableScriptedObjects (5ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (13ms)
-	RebuildCommonClasses (19ms)
+		CreateAndSetChildDomain (14ms)
+	RebuildCommonClasses (20ms)
 	RebuildNativeTypeToScriptingClass (6ms)
 	initialDomainReloadingComplete (25ms)
-	LoadAllAssembliesAndSetupDomain (269ms)
-		LoadAssemblies (190ms)
+	LoadAllAssembliesAndSetupDomain (1397ms)
+		LoadAssemblies (1225ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (133ms)
-			TypeCache.Refresh (114ms)
-				TypeCache.ScanAssembly (104ms)
-			ScanForSourceGeneratedMonoScriptInfo (14ms)
-			ResolveRequiredComponents (4ms)
-	FinalizeReload (1031ms)
+		AnalyzeDomain (228ms)
+			TypeCache.Refresh (207ms)
+				TypeCache.ScanAssembly (197ms)
+			ScanForSourceGeneratedMonoScriptInfo (15ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (6214ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (687ms)
+		SetupLoadedEditorAssemblies (6122ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (4ms)
 			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (45ms)
-			ProcessInitializeOnLoadAttributes (588ms)
-			ProcessInitializeOnLoadMethodAttributes (44ms)
-			AfterProcessingInitializeOnLoad (4ms)
+			BeforeProcessingInitializeOnLoad (48ms)
+			ProcessInitializeOnLoadAttributes (6015ms)
+			ProcessInitializeOnLoadMethodAttributes (47ms)
+			AfterProcessingInitializeOnLoad (5ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (4ms)
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
-Refreshing native plugins compatible for Editor in 3.17 ms, found 6 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
+Refreshing native plugins compatible for Editor in 3.29 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5168 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 737 unused Assets / (0.7 MB). Loaded Objects now: 5490.
-Memory consumption went from 247.4 MB to 246.7 MB.
-Total: 2.757100 ms (FindLiveObjects: 0.252600 ms CreateObjectMapping: 0.095500 ms MarkObjects: 1.821800 ms  DeleteObjects: 0.586200 ms)
+Unloading 5174 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 751 unused Assets / (0.7 MB). Loaded Objects now: 5492.
+Memory consumption went from 252.1 MB to 251.4 MB.
+Total: 3.701300 ms (FindLiveObjects: 0.392900 ms CreateObjectMapping: 0.190800 ms MarkObjects: 2.369800 ms  DeleteObjects: 0.747100 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
@@ -180,123 +180,24 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 86255.942337 seconds.
-  path: Assets/Readme.asset
-  artifactKey: Guid(83c2ed844a8c74b779a4c823d16594b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Readme.asset using Guid(83c2ed844a8c74b779a4c823d16594b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '0b467bca68172512ca310815b015c153') in 0.002731 seconds
+  Time since last request: 351435.233392 seconds.
+  path: Assets/Sprite/Gacha/è™¹è‰²ã‚¬ãƒãƒ£ç‰ã®5é€£å›ã™ãƒœã‚¿ãƒ³.png
+  artifactKey: Guid(eaa14fd5dfc15184d9412b39499ea357) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprite/Gacha/è™¹è‰²ã‚¬ãƒãƒ£ç‰ã®5é€£å›ã™ãƒœã‚¿ãƒ³.png using Guid(eaa14fd5dfc15184d9412b39499ea357) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a3a1bbfd4ada81afa22b15ab80625d3d') in 0.092796 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
+Number of asset objects unloaded after import = 3
 ========================================================================
 Received Import Request.
-  Time since last request: 42.705576 seconds.
-  path: Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/ArrowThree.prefab
-  artifactKey: Guid(b47ad05af5bffa94587c2de476295311) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/ArrowThree.prefab using Guid(b47ad05af5bffa94587c2de476295311) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Sprite/Gacha/è¼ãã€Œ4é€£å›ã™ã€ã‚¬ãƒãƒ£ãƒœã‚¿ãƒ³.png
+  artifactKey: Guid(d52d53ad336fce340a9769f282875967) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprite/Gacha/è¼ãã€Œ4é€£å›ã™ã€ã‚¬ãƒãƒ£ãƒœã‚¿ãƒ³.png using Guid(d52d53ad336fce340a9769f282875967) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
 [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '553448c9f269bfe1f6140d8a7a957105') in 0.128491 seconds
+ -> (artifact id: 'cd7f63a9e466e5e9295f155d9d6b25f7') in 0.034306 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000016 seconds.
-  path: Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/QuiverOne.prefab
-  artifactKey: Guid(bf74c712c01a1014ba6bcfab4540c308) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/QuiverOne.prefab using Guid(bf74c712c01a1014ba6bcfab4540c308) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '655b9bab8ade8745c71bd21bb3da5004') in 0.011593 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000020 seconds.
-  path: Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/QuiverThree.prefab
-  artifactKey: Guid(2795f33bbbabc2643a31aae75547e745) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/QuiverThree.prefab using Guid(2795f33bbbabc2643a31aae75547e745) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '3763c66d240ab78fa1d41c5ffdddfd59') in 0.009789 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000016 seconds.
-  path: Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/ShieldThree.prefab
-  artifactKey: Guid(e20592e05f934f043898d41917f3b7ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/ShieldThree.prefab using Guid(e20592e05f934f043898d41917f3b7ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: 'f013ddc8e23488b16f09eee9009720c9') in 0.009444 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000018 seconds.
-  path: Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/SwordThree.prefab
-  artifactKey: Guid(088bed86c5758f549a96d81b11f72272) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/SwordThree.prefab using Guid(088bed86c5758f549a96d81b11f72272) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '7d1dfe9227e0b45f7eba824939b2de5b') in 0.008817 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000014 seconds.
-  path: Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/ArrowTwo.prefab
-  artifactKey: Guid(7a3cc8e2504e49d42ba15b7b05fc288f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/ArrowTwo.prefab using Guid(7a3cc8e2504e49d42ba15b7b05fc288f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '0441b729befc50e24a395784cd9137ad') in 0.009669 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000013 seconds.
-  path: Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/BowThree.prefab
-  artifactKey: Guid(dab36bb1a25f920418b7e26ef2556be0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/BowThree.prefab using Guid(dab36bb1a25f920418b7e26ef2556be0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '8f14f2adf5524b89016492a1aa1c9ba5') in 0.009740 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000016 seconds.
-  path: Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/AxeThree.prefab
-  artifactKey: Guid(72fe5fc707cc4ab4094c21385547978a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/AxeThree.prefab using Guid(72fe5fc707cc4ab4094c21385547978a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '5ecab6ce81175a60d47747a29cf3b1e2') in 0.009924 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000013 seconds.
-  path: Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/ShieldTwo.prefab
-  artifactKey: Guid(7c56232770c0aaf49a44306bb91e6fc0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/ShieldTwo.prefab using Guid(7c56232770c0aaf49a44306bb91e6fc0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '227c255888f1cf1c503ffa6100924850') in 0.010103 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000010 seconds.
-  path: Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/BowTwo.prefab
-  artifactKey: Guid(3515b5827ce8901479f2134a76840495) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/BowTwo.prefab using Guid(3515b5827ce8901479f2134a76840495) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '5d6fc954697cf5382d83710bb54682f0') in 0.011810 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/BluntTwo.prefab
-  artifactKey: Guid(32e33390d35dd254d95d3a9ea794d017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/GameLair/MedievalFantasyWeaponPack/Prefabs/BluntTwo.prefab using Guid(32e33390d35dd254d95d3a9ea794d017) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '4581362c0bb7a7b5e54dd10fd4c7eaab') in 0.009551 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
+Number of asset objects unloaded after import = 3
 Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
 TcpMessagingSession - receive error: operation aborted. errorcode: 995, details: ƒXƒŒƒbƒh‚ÌI—¹‚Ü‚½‚ÍƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ì—v‹‚É‚æ‚Á‚ÄAI/O ˆ—‚Í’†~‚³‚ê‚Ü‚µ‚½B
 AssetImportWorker is now disconnected from the server

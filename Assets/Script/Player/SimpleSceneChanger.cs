@@ -9,6 +9,8 @@ public class SimpleSceneChanger : MonoBehaviour
     // ===============================================
     public void LoadSceneByName(string sceneName)
     {
+        Debug.Log("ボタンが押されました！次のシーンをロードします: " + sceneName);
+
         // 念のため、シーン名が空っぽでないかチェック
         if (!string.IsNullOrEmpty(sceneName))
         {
