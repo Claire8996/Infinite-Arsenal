@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,72 +6,78 @@ using UnityEngine.UI;
 [System.Serializable]
 public class GachaItem
 {
-    public string itemName = "ƒJƒvƒZƒ‹–¼";
+    public string itemName = "ã‚«ãƒ—ã‚»ãƒ«å";
     public GameObject capsulePrefab;
     public float probabilityWeight;
+    [Tooltip("ãƒã‚§ãƒƒã‚¯ã‚’å…¥ã‚Œã‚‹ã¨ã€ã“ã®ã‚«ãƒ—ã‚»ãƒ«ã¯æ’å‡ºã•ã‚Œãªããªã‚Šã¾ã™ï¼ˆç¢ºç‡0%ï¼‰")]
+    public bool isProbabilityZero;
 }
 
 [System.Serializable]
 public class PullLayout
 {
-    [Tooltip("‚±‚ÌƒŒƒCƒAƒEƒg‚ğg—p‚·‚é˜A”i—áF3A6A10‚È‚Çj")]
+    [Tooltip("ã“ã®ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã‚’ä½¿ç”¨ã™ã‚‹é€£æ•°ï¼ˆä¾‹ï¼š3ã€6ã€10ãªã©ï¼‰")]
     public int pullCount;
-    [Tooltip("‚»‚Ì˜A”‚ÅƒJƒvƒZƒ‹‚ª”ò‚ñ‚Å‚¢‚­ÅI–Ú“I’n‚ÌƒŠƒXƒg")]
+    [Tooltip("ãã®é€£æ•°ã§ã‚«ãƒ—ã‚»ãƒ«ãŒé£›ã‚“ã§ã„ãæœ€çµ‚ç›®çš„åœ°ã®ãƒªã‚¹ãƒˆ")]
     public RectTransform[] targetPositions;
 }
 
 public class GachaSystem : MonoBehaviour
 {
-    [Header("yƒGƒƒ‰ƒ‹ƒhİ’èz")]
-    public int currentEmeralds = 1000;
+    [Header("ã€ã‚¨ãƒ¡ãƒ©ãƒ«ãƒ‰è¨­å®šã€‘")]
+    [Tooltip("Inspectorã§ã®åˆæœŸå€¤ï¼ˆâ€»ã‚²ãƒ¼ãƒ å†…ã§ä¸€åº¦ã§ã‚‚ä¿å­˜ã•ã‚ŒãŸå¾Œã¯ã€ã“ã®æ•°å€¤ã‚ˆã‚Šã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒå„ªå…ˆã•ã‚Œã¾ã™ï¼‰")]
+    public int initialEmeralds = 1000; // ğŸ’¡ åå‰ã‚’å¤‰æ›´ã—ã€ã‚ãã¾ã§ã€ŒåˆæœŸå€¤ã€ã¨ã—ã¦æ‰±ã„ã¾ã™
+
+    // ğŸ’¡ å®Ÿéš›ã®ç¾åœ¨ã®ã‚¨ãƒ¡ãƒ©ãƒ«ãƒ‰æ•°ï¼ˆInspectorã‹ã‚‰ç›´æ¥ã„ã˜ã‚‰ãªã„ã‚ˆã†ã«éš ã—ã¾ã™ï¼‰
+    [HideInInspector]
+    public int currentEmeralds;
+
     public int costPerPull = 300;
 
-    [Header("yƒfƒoƒbƒOİ’èz")]
+    [Header("ã€ãƒ‡ãƒãƒƒã‚°è¨­å®šã€‘")]
     public bool isDebugModeFreePull = false;
 
-    [Header("yƒKƒ`ƒƒƒ{ƒ^ƒ“UIİ’èz")]
+    [Header("ã€ã‚¬ãƒãƒ£ãƒœã‚¿ãƒ³UIè¨­å®šã€‘")]
     public GameObject singlePullButton;
-    // š’Ç‰ÁF1˜A—p‚Ì–îˆó
-    [Tooltip("1˜AƒKƒ`ƒƒ—p‚Ì–îˆóUIiImagej")]
+    [Tooltip("1é€£ã‚¬ãƒãƒ£ç”¨ã®çŸ¢å°UIï¼ˆImageï¼‰")]
     public Image singlePullArrow;
 
-    [Tooltip("ƒCƒ“ƒfƒbƒNƒX”Ô†˜A”‚Æ‚µ‚Ä“o˜^‚µ‚Ä‚­‚¾‚³‚¢i0‚Æ1‚Í‹ó‚ÅOKA2‚É2˜Aƒ{ƒ^ƒ“A10‚É10˜Aƒ{ƒ^ƒ“j")]
+    [Tooltip("ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ï¼é€£æ•°ã¨ã—ã¦ç™»éŒ²ã—ã¦ãã ã•ã„ï¼ˆ0ã¨1ã¯ç©ºã§OKã€2ã«2é€£ãƒœã‚¿ãƒ³ã€10ã«10é€£ãƒœã‚¿ãƒ³ï¼‰")]
     public GameObject[] multiPullButtons = new GameObject[11];
-    // š’Ç‰ÁF•¡”˜A—p‚Ì–îˆó
-    [Tooltip("•¡”˜A—p‚Ì–îˆóUIiƒ{ƒ^ƒ“‚Æ“¯‚¶ƒCƒ“ƒfƒbƒNƒX”Ô†‚É“o˜^j")]
+    [Tooltip("è¤‡æ•°é€£ç”¨ã®çŸ¢å°UIï¼ˆãƒœã‚¿ãƒ³ã¨åŒã˜ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ã«ç™»éŒ²ï¼‰")]
     public Image[] multiPullArrows = new Image[11];
 
-    [Header("y‰‰oƒIƒuƒWƒFƒNƒgİ’èz")]
+    [Header("ã€æ¼”å‡ºã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆè¨­å®šã€‘")]
     public RectTransform handleTransform;
     public RectTransform startPos;
     public RectTransform endPos;
     public Transform initialCapsuleParent;
 
-    [Header("y”wŒiƒtƒF[ƒh‰‰oİ’èz")]
-    [Tooltip("Œ‹‰Ê•\¦‚ÉŒã‚ë‚É•\¦‚·‚éŠDF‚Ì”wŒii”¼“§–¾‚Ì•‚È‚Çj")]
+    [Header("ã€èƒŒæ™¯ãƒ•ã‚§ãƒ¼ãƒ‰æ¼”å‡ºè¨­å®šã€‘")]
+    [Tooltip("çµæœè¡¨ç¤ºæ™‚ã«å¾Œã‚ã«è¡¨ç¤ºã™ã‚‹ç°è‰²ã®èƒŒæ™¯ï¼ˆåŠé€æ˜ã®é»’ãªã©ï¼‰")]
     public Image backgroundFadeImage;
-    [Tooltip("”wŒi‚ªƒtƒF[ƒhƒCƒ“‚µ‚«‚é‚Ü‚Å‚ÌŠÔ")]
+    [Tooltip("èƒŒæ™¯ãŒãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³ã—ãã‚‹ã¾ã§ã®æ™‚é–“")]
     public float backgroundFadeTime = 0.5f;
 
-    [Header("yˆêŠ‡ŠJ••ƒ{ƒ^ƒ“İ’èz")]
-    [Tooltip("ˆêŠ‡ŠJ••ƒ{ƒ^ƒ“iCanvas GroupƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ•t‚¯‚Ä‚­‚¾‚³‚¢j")]
+    [Header("ã€ä¸€æ‹¬é–‹å°ãƒœã‚¿ãƒ³è¨­å®šã€‘")]
+    [Tooltip("ä¸€æ‹¬é–‹å°ãƒœã‚¿ãƒ³ï¼ˆCanvas Groupã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’ä»˜ã‘ã¦ãã ã•ã„ï¼‰")]
     public CanvasGroup openAllButtonCanvasGroup;
-    [Tooltip("ˆêŠ‡ŠJ••ƒ{ƒ^ƒ“‚ªƒtƒF[ƒhƒCƒ“‚·‚éŠÔ")]
+    [Tooltip("ä¸€æ‹¬é–‹å°ãƒœã‚¿ãƒ³ãŒãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³ã™ã‚‹æ™‚é–“")]
     public float openAllButtonFadeTime = 0.5f;
 
-    [Header("yƒKƒ`ƒƒŒ‹‰Ê‚ÌƒŒƒCƒAƒEƒgİ’èz")]
+    [Header("ã€ã‚¬ãƒãƒ£çµæœã®ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆè¨­å®šã€‘")]
     public List<PullLayout> layouts;
-    [Tooltip("1˜AƒKƒ`ƒƒ‚Ì‚ÉƒJƒvƒZƒ‹‚ª”ò‚ñ‚Å‚¢‚­êŠ")]
+    [Tooltip("1é€£ã‚¬ãƒãƒ£ã®æ™‚ã«ã‚«ãƒ—ã‚»ãƒ«ãŒé£›ã‚“ã§ã„ãå ´æ‰€")]
     public RectTransform singlePullTargetPos;
 
-    [Header("yƒAƒjƒ[ƒVƒ‡ƒ“İ’èz")]
+    [Header("ã€ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³è¨­å®šã€‘")]
     public float handleRotateTime = 1.5f;
     public float rollTime = 1.0f;
     public float flyTime = 0.8f;
     public Vector3 finalScale = new Vector3(3f, 3f, 3f);
     public float spawnInterval = 0.15f;
 
-    [Header("y”roƒAƒCƒeƒ€ˆê——iŠm—¦İ’èjz")]
+    [Header("ã€æ’å‡ºã‚¢ã‚¤ãƒ†ãƒ ä¸€è¦§ï¼ˆç¢ºç‡è¨­å®šï¼‰ã€‘")]
     public List<GachaItem> gachaItems;
 
     private bool isPulling = false;
@@ -79,6 +85,12 @@ public class GachaSystem : MonoBehaviour
 
     private void Start()
     {
+        // ==========================================
+        // ğŸ’¡ è¿½åŠ ï¼šã‚¨ãƒ¡ãƒ©ãƒ«ãƒ‰ã®ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚€
+        // ï¼ˆã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒç„¡ã‘ã‚Œã°ã€initialEmeralds ã‚’åˆæœŸå€¤ã«ã™ã‚‹ï¼‰
+        // ==========================================
+        currentEmeralds = PlayerPrefs.GetInt("PlayerEmeralds", initialEmeralds);
+
         UpdateButtonVisibility();
 
         if (backgroundFadeImage != null)
@@ -107,13 +119,19 @@ public class GachaSystem : MonoBehaviour
         {
             if (currentEmeralds < totalCost)
             {
-                Debug.Log("ƒGƒƒ‰ƒ‹ƒh‚ª‘«‚è‚Ü‚¹‚ñI");
+                Debug.Log("ã‚¨ãƒ¡ãƒ©ãƒ«ãƒ‰ãŒè¶³ã‚Šã¾ã›ã‚“ï¼");
                 return;
             }
+
+            // ==========================================
+            // ğŸ’¡ è¿½åŠ ï¼šã‚¨ãƒ¡ãƒ©ãƒ«ãƒ‰ã‚’æ¸›ã‚‰ã—ãŸã‚‰ã™ãã«ã‚»ãƒ¼ãƒ–ã™ã‚‹
+            // ==========================================
             currentEmeralds -= totalCost;
+            PlayerPrefs.SetInt("PlayerEmeralds", currentEmeralds);
+            PlayerPrefs.Save();
         }
 
-        Debug.Log($"{pullCount}˜AƒKƒ`ƒƒÀsI c‚èƒGƒƒ‰ƒ‹ƒh: {currentEmeralds}");
+        Debug.Log($"{pullCount}é€£ã‚¬ãƒãƒ£å®Ÿè¡Œï¼ æ®‹ã‚Šã‚¨ãƒ¡ãƒ©ãƒ«ãƒ‰: {currentEmeralds}");
 
         UpdateButtonVisibility();
 
@@ -142,7 +160,6 @@ public class GachaSystem : MonoBehaviour
             bool canAfford = currentEmeralds >= costPerPull || isDebugModeFreePull;
             SetButtonState(singlePullButton, canAfford);
 
-            // š’Ç‰ÁF1˜A—p‚Ì–îˆó‚ÌF‚ğ•Ï‚¦‚é
             if (singlePullArrow != null)
             {
                 singlePullArrow.color = canAfford ? Color.white : disabledColor;
@@ -160,7 +177,6 @@ public class GachaSystem : MonoBehaviour
                 {
                     multiPullButtons[i].SetActive(true);
 
-                    // š’Ç‰ÁFƒ{ƒ^ƒ“‚ª•\¦‚³‚ê‚é‚È‚çA‘Î‰‚·‚é–îˆó‚à•\¦‚·‚é
                     if (multiPullArrows.Length > i && multiPullArrows[i] != null)
                     {
                         multiPullArrows[i].gameObject.SetActive(true);
@@ -169,7 +185,6 @@ public class GachaSystem : MonoBehaviour
                     bool canAfford = (currentEmeralds >= (costPerPull * i)) || isDebugModeFreePull;
                     SetButtonState(multiPullButtons[i], canAfford);
 
-                    // š’Ç‰ÁF•¡”˜A—p‚Ì–îˆó‚ÌF‚ğ•Ï‚¦‚é
                     if (multiPullArrows.Length > i && multiPullArrows[i] != null)
                     {
                         multiPullArrows[i].color = canAfford ? Color.white : disabledColor;
@@ -179,7 +194,6 @@ public class GachaSystem : MonoBehaviour
                 {
                     multiPullButtons[i].SetActive(false);
 
-                    // š’Ç‰ÁFƒ{ƒ^ƒ“‚ª”ñ•\¦‚È‚çA‘Î‰‚·‚é–îˆó‚à”ñ•\¦‚É‚·‚é
                     if (multiPullArrows.Length > i && multiPullArrows[i] != null)
                     {
                         multiPullArrows[i].gameObject.SetActive(false);
@@ -390,7 +404,7 @@ public class GachaSystem : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"yŒxz{index + 1}ŒÂ–Ú‚ÌƒJƒvƒZƒ‹‚Ì”ò‚ÔˆÊ’u‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñI‚»‚Ì‚Ü‚Ü—‰ºˆÊ’u‚É—¯‚Ü‚è‚Ü‚·B");
+            Debug.LogWarning($"ã€è­¦å‘Šã€‘{index + 1}å€‹ç›®ã®ã‚«ãƒ—ã‚»ãƒ«ã®é£›ã¶ä½ç½®ãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“ï¼ãã®ã¾ã¾è½ä¸‹ä½ç½®ã«ç•™ã¾ã‚Šã¾ã™ã€‚");
         }
 
         elapsed = 0f;
@@ -420,14 +434,21 @@ public class GachaSystem : MonoBehaviour
         float totalWeight = 0;
         foreach (var item in gachaItems)
         {
-            totalWeight += item.probabilityWeight;
+            if (!item.isProbabilityZero)
+            {
+                totalWeight += item.probabilityWeight;
+            }
         }
+
+        if (totalWeight <= 0f) return null;
 
         float randomValue = Random.Range(0, totalWeight);
         float currentWeight = 0;
 
         foreach (var item in gachaItems)
         {
+            if (item.isProbabilityZero) continue;
+
             currentWeight += item.probabilityWeight;
             if (randomValue <= currentWeight)
             {

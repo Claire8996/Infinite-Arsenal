@@ -4806,9 +4806,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 634bf60018ccebb4092382f912de4c82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialEmeralds: 3000
   currentEmeralds: 3000
   costPerPull: 300
-  isDebugModeFreePull: 0
+  isDebugModeFreePull: 1
   singlePullButton: {fileID: 759807252}
   singlePullArrow: {fileID: 1479756408}
   multiPullButtons:
@@ -4926,21 +4927,27 @@ MonoBehaviour:
   - itemName: WhiteCapsule
     capsulePrefab: {fileID: 6529148549701624195, guid: 4ee1340538a84e8499552d0d88397a4a, type: 3}
     probabilityWeight: 45
+    isProbabilityZero: 0
   - itemName: GreenCapsule
     capsulePrefab: {fileID: 1084831788273193483, guid: ef74476718fdebb498b1bdc884102f9c, type: 3}
     probabilityWeight: 30
+    isProbabilityZero: 1
   - itemName: BlueCapsule
     capsulePrefab: {fileID: 2978188671204996651, guid: 064ac52992e796c41b2034a3d850b98e, type: 3}
     probabilityWeight: 19
+    isProbabilityZero: 1
   - itemName: ParpleCapsule
     capsulePrefab: {fileID: 6472410866988152336, guid: 445dbd835b47a7840807650318010510, type: 3}
     probabilityWeight: 4.9
+    isProbabilityZero: 1
   - itemName: GoldCapsule
     capsulePrefab: {fileID: 7636800561100365389, guid: d290e1e547ab2dc4da831141edee3d90, type: 3}
     probabilityWeight: 1
+    isProbabilityZero: 1
   - itemName: RedCapsule
     capsulePrefab: {fileID: 1525869114540657091, guid: 68414552634811d4e8362098a6f653ff, type: 3}
     probabilityWeight: 0.1
+    isProbabilityZero: 1
 --- !u!4 &1575087090
 Transform:
   m_ObjectHideFlags: 0

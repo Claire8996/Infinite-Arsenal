@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,32 +7,38 @@ using UnityEngine.UI;
 public class InnerItem
 {
     public string itemName;
-    [Tooltip("ƒKƒ`ƒƒ‹Ê‚©‚ç”ò‚Ño‚·‰‰o—p‚ÌPrefab")]
+    [Tooltip("ã‚¬ãƒãƒ£ç‰ã‹ã‚‰é£›ã³å‡ºã™æ¼”å‡ºç”¨ã®Prefab")]
     public GameObject itemPrefab;
 
-    [Tooltip("ƒCƒ“ƒxƒ“ƒgƒŠ‰æ–Ê‚É’Ç‰Á‚³‚ê‚éUI—pPrefab")]
+    [Tooltip("ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªç”»é¢ã«è¿½åŠ ã•ã‚Œã‚‹UIç”¨Prefab")]
     public GameObject inventoryUIPrefab;
 
     public float probabilityWeight;
+
+    // ==========================================
+    // ğŸ’¡ è¿½åŠ ï¼šç¢ºç‡ã‚’0%ã«ã™ã‚‹ãƒã‚§ãƒƒã‚¯ãƒœãƒƒã‚¯ã‚¹
+    // ==========================================
+    [Tooltip("ãƒã‚§ãƒƒã‚¯ã‚’å…¥ã‚Œã‚‹ã¨ã€ã“ã®ã‚¢ã‚¤ãƒ†ãƒ ã¯æ’å‡ºã•ã‚Œãªããªã‚Šã¾ã™ï¼ˆç¢ºç‡0%ï¼‰")]
+    public bool isProbabilityZero;
 }
 
 public class CapsuleOpener : MonoBehaviour
 {
-    [Header("yƒJƒvƒZƒ‹‚Ìƒp[ƒcİ’èz")]
+    [Header("ã€ã‚«ãƒ—ã‚»ãƒ«ã®ãƒ‘ãƒ¼ãƒ„è¨­å®šã€‘")]
     public RectTransform topHalf;
     public RectTransform bottomHalf;
 
-    [Header("yƒAƒjƒ[ƒVƒ‡ƒ“İ’èz")]
+    [Header("ã€ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³è¨­å®šã€‘")]
     public float openDistance = 30f;
     public float openDuration = 0.3f;
 
-    [Header("yƒGƒtƒFƒNƒgİ’èz")]
+    [Header("ã€ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè¨­å®šã€‘")]
     public GameObject smokeEffectPrefab;
 
-    [Tooltip("Ÿ‚ÌƒJƒvƒZƒ‹‚ğŠJ‚¯‚ç‚ê‚é‚æ‚¤‚É‚È‚é‚Ü‚Å‚Ì‘Ò‹@ŠÔi‰Œ‚ªÁ‚¦‚é‚Ü‚Å‚ÌŠÔj")]
+    [Tooltip("æ¬¡ã®ã‚«ãƒ—ã‚»ãƒ«ã‚’é–‹ã‘ã‚‰ã‚Œã‚‹ã‚ˆã†ã«ãªã‚‹ã¾ã§ã®å¾…æ©Ÿæ™‚é–“ï¼ˆç…™ãŒæ¶ˆãˆã‚‹ã¾ã§ã®æ™‚é–“ï¼‰")]
     public float destroyDelay = 1.5f;
 
-    [Header("y’†g‚ÌƒAƒCƒeƒ€iŠm—¦İ’èjz")]
+    [Header("ã€ä¸­èº«ã®ã‚¢ã‚¤ãƒ†ãƒ ï¼ˆç¢ºç‡è¨­å®šï¼‰ã€‘")]
     public List<InnerItem> innerItems;
 
     private Button myButton;
@@ -155,11 +161,10 @@ public class CapsuleOpener : MonoBehaviour
                 spawnedItem.tag = "GachaResultItem";
             }
 
-            // š•ÏXF•Ê‚ÌƒV[ƒ“‚Ö‚Á‚Ä‚¢‚­‚½‚ß‚ÉA‹¤—Lƒf[ƒ^’u‚«êiWeaponDataKeeperj‚É•Û‘¶‚·‚é
             if (drawnItem.inventoryUIPrefab != null)
             {
                 WeaponDataKeeper.gachaResultWeapons.Add(drawnItem.inventoryUIPrefab);
-                Debug.Log($"ˆø‚¢‚½•ŠíUI {drawnItem.inventoryUIPrefab.name} ‚ğ‚¿•¨ƒŠƒXƒg‚Éˆê•Û‘¶‚µ‚Ü‚µ‚½");
+                Debug.Log($"å¼•ã„ãŸæ­¦å™¨UI {drawnItem.inventoryUIPrefab.name} ã‚’æŒã¡ç‰©ãƒªã‚¹ãƒˆã«ä¸€æ™‚ä¿å­˜ã—ã¾ã—ãŸ");
             }
         }
 
@@ -197,14 +202,28 @@ public class CapsuleOpener : MonoBehaviour
         float totalWeight = 0;
         foreach (var item in innerItems)
         {
-            totalWeight += item.probabilityWeight;
+            // ==========================================
+            // ğŸ’¡ ä¿®æ­£ï¼šãƒã‚§ãƒƒã‚¯ãŒå…¥ã£ã¦ã„ãªã„ï¼ˆç¢ºç‡0%ã˜ã‚ƒãªã„ï¼‰æ™‚ã ã‘é‡ã¿ã‚’è¶³ã™
+            // ==========================================
+            if (!item.isProbabilityZero)
+            {
+                totalWeight += item.probabilityWeight;
+            }
         }
+
+        // å…¨ã¦ã®ã‚¢ã‚¤ãƒ†ãƒ ã«ãƒã‚§ãƒƒã‚¯ãŒå…¥ã£ã¦ã„ã‚‹ç­‰ã§åˆè¨ˆãŒ0ã®å ´åˆã¯ä½•ã‚‚å‡ºã•ãªã„
+        if (totalWeight <= 0f) return null;
 
         float randomValue = Random.Range(0, totalWeight);
         float currentWeight = 0;
 
         foreach (var item in innerItems)
         {
+            // ==========================================
+            // ğŸ’¡ ä¿®æ­£ï¼šãƒã‚§ãƒƒã‚¯ãŒå…¥ã£ã¦ã„ã‚‹ã‚‚ã®ã¯ã‚¹ã‚­ãƒƒãƒ—ã—ã¦æ¬¡ã«é€²ã‚€
+            // ==========================================
+            if (item.isProbabilityZero) continue;
+
             currentWeight += item.probabilityWeight;
             if (randomValue <= currentWeight)
             {
