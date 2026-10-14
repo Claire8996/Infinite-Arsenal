@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6896425611978731159}
   - component: {fileID: 453040596108112884}
   - component: {fileID: 6965967975530093859}
+  - component: {fileID: 1650129879655291763}
   m_Layer: 5
   m_Name: M107
   m_TagString: Untagged
@@ -35,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 80}
+  m_SizeDelta: {x: 100, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &453040596108112884
 CanvasRenderer:
@@ -75,6 +76,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1650129879655291763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3445688903866519375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c722cd0c87a604f4c9223edb9005f925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customWidth: 160
+  customHeight: 80
 --- !u!1 &6774397993061209640
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +101,7 @@ GameObject:
   - component: {fileID: 4245161223134395893}
   - component: {fileID: 4219326195728266942}
   - component: {fileID: 1964326100811381030}
+  - component: {fileID: -5625757292555126643}
   m_Layer: 5
   m_Name: 3GunFrame-Blue
   m_TagString: Untagged
@@ -151,3 +167,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-5625757292555126643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6774397993061209640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d083a2e3ecc604eb6d582a2ce5d8c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualWeaponPrefab: {fileID: 5986161445693207544, guid: 86ba1d497f9921e458ff7e1e94ade560, type: 3}

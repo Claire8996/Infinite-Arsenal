@@ -109,6 +109,7 @@
 -define:ENABLE_UNITY_COLLECTIONS_CHECKS
 -define:ENABLE_BURST_AOT
 -define:UNITY_TEAM_LICENSE
+-define:UNITY_PRO_LICENSE
 -define:ENABLE_CUSTOM_RENDER_TEXTURE
 -define:ENABLE_DIRECTOR
 -define:ENABLE_LOCALIZATION
@@ -381,6 +382,7 @@
 "Assets/Script/Enemy/SlimeAI.cs"
 "Assets/Script/Enemy/TurtleShellAI.cs"
 "Assets/Script/Enemy/WeaponItemUI.cs"
+"Assets/Script/gacha/ArmorItemLinker.cs"
 "Assets/Script/gacha/CapsuleOpener.cs"
 "Assets/Script/gacha/EmeraldDisplay.cs"
 "Assets/Script/gacha/GachaSystem.cs"
@@ -388,12 +390,21 @@
 "Assets/Script/gacha/UIFloatingAnim.cs"
 "Assets/Script/gun/AK47.cs"
 "Assets/Script/gun/Bullet.cs"
+"Assets/Script/gun/EquippedWeaponDisplay.cs"
+"Assets/Script/gun/LMG.cs"
+"Assets/Script/gun/M107.cs"
+"Assets/Script/gun/M249.cs"
 "Assets/Script/gun/M4.cs"
 "Assets/Script/gun/Pistol.cs"
+"Assets/Script/gun/RocketBullet.cs"
+"Assets/Script/gun/RPG7.cs"
+"Assets/Script/gun/Shotgun.cs"
 "Assets/Script/gun/StageWeaponDisplay.cs"
 "Assets/Script/gun/WeaponDataKeeper1.cs"
 "Assets/Script/gun/WeaponInventoryManager.cs"
 "Assets/Script/gun/WeaponManager.cs"
+"Assets/Script/gun/WeaponModelLinker.cs"
+"Assets/Script/gun/WeaponSizeAdjuster.cs"
 "Assets/Script/Player/DisablePlayerControl.cs"
 "Assets/Script/Player/EnergyManager.cs"
 "Assets/Script/Player/MouseLook.cs"

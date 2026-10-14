@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5031299641127899343}
   - component: {fileID: 1019725650743802891}
   - component: {fileID: 5752209310744604217}
+  - component: {fileID: 6809997259789887277}
   m_Layer: 5
   m_Name: 1GunFrame-White
   m_TagString: Untagged
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6809997259789887277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4702489643828105982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d083a2e3ecc604eb6d582a2ce5d8c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualWeaponPrefab: {fileID: 5986161445693207544, guid: b4a00ed7c4fdb204dac10fdc637846e1, type: 3}
 --- !u!1 &8675704667548360718
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,6 +101,7 @@ GameObject:
   - component: {fileID: 3888756661294584501}
   - component: {fileID: 4364764530359004923}
   - component: {fileID: 587163831483932079}
+  - component: {fileID: 951091267958406708}
   m_Layer: 5
   m_Name: LMG
   m_TagString: Untagged
@@ -151,3 +166,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &951091267958406708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8675704667548360718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c722cd0c87a604f4c9223edb9005f925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customWidth: 160
+  customHeight: 80

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2784927248858874711}
   - component: {fileID: 1305343011357335412}
   - component: {fileID: 1381014969021849669}
+  - component: {fileID: -8079197726614516529}
   m_Layer: 5
   m_Name: 4GunFrame-Parple
   m_TagString: Untagged
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-8079197726614516529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3794539500481967041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d083a2e3ecc604eb6d582a2ce5d8c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualWeaponPrefab: {fileID: 5986161445693207544, guid: 61233c5521444104db9b84c24416aae4, type: 3}
 --- !u!1 &6664350408561669671
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,6 +101,7 @@ GameObject:
   - component: {fileID: 7505792983872680699}
   - component: {fileID: 3001218333695790641}
   - component: {fileID: 5092140295608882906}
+  - component: {fileID: 1190125338583232591}
   m_Layer: 5
   m_Name: LMG
   m_TagString: Untagged
@@ -151,3 +166,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1190125338583232591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6664350408561669671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c722cd0c87a604f4c9223edb9005f925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customWidth: 160
+  customHeight: 80

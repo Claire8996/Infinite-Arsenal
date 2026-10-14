@@ -3,6 +3,10 @@ using UnityEngine.UI;
 
 public class StageWeaponDisplay : MonoBehaviour
 {
+    [Header("【連携設定】")]
+    [Tooltip("プレイヤーについている WeaponManager をドラッグ＆ドロップしてください")]
+    public WeaponManager playerWeaponManager;
+
     // 生成した武器アイコンを管理・記憶する配列
     private GameObject[] spawnedWeaponIcons = new GameObject[3];
 
@@ -53,9 +57,6 @@ public class StageWeaponDisplay : MonoBehaviour
 
     void Update()
     {
-        // ==========================================
-        // 1. 数字キーでの切り替えチェック
-        // ==========================================
         if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
         {
             SetActiveSlot(0);
@@ -69,54 +70,64 @@ public class StageWeaponDisplay : MonoBehaviour
             SetActiveSlot(2);
         }
 
-        // ==========================================
-        // ★追加：2. マウスホイールでの切り替えチェック
-        // ==========================================
         float scrollAmount = Input.GetAxis("Mouse ScrollWheel");
 
         if (scrollAmount > 0f)
         {
-            // 上に回した時：次のスロットへ（3の次は1に戻るようにループさせる）
             int nextSlot = currentActiveSlotIndex + 1;
             if (nextSlot > 2) nextSlot = 0;
-
             SetActiveSlot(nextSlot);
         }
         else if (scrollAmount < 0f)
         {
-            // 下に回した時：前のスロットへ（1の次は3に戻るようにループさせる）
             int prevSlot = currentActiveSlotIndex - 1;
             if (prevSlot < 0) prevSlot = 2;
-
             SetActiveSlot(prevSlot);
         }
     }
 
-    // スロットの選択状態と色を更新するメソッド
+    // スロットの選択状態と色を更新し、武器を持ち替えるメソッド
     void SetActiveSlot(int slotIndex)
     {
         currentActiveSlotIndex = slotIndex;
 
         for (int i = 0; i < 3; i++)
         {
-            // そのスロットに武器が存在していれば色を変える
             if (spawnedWeaponIcons[i] != null)
             {
-                // その武器プレハブに含まれる「すべての画像（枠線や銃本体など）」を取得
                 Image[] images = spawnedWeaponIcons[i].GetComponentsInChildren<Image>();
 
                 foreach (Image img in images)
                 {
                     if (i == currentActiveSlotIndex)
                     {
-                        // 選ばれている武器：元の色（白）に戻して明るくする
                         img.color = Color.white;
                     }
                     else
                     {
-                        // 選ばれていない武器：暗い灰色（グレー）にして目立たなくする
                         img.color = new Color(0.3f, 0.3f, 0.3f, 1f);
                     }
+                }
+            }
+        }
+
+        // ==========================================
+        // ★追加：選択されたスロットのPrefabから、実際の3Dモデルを取得して装備する
+        // ==========================================
+        if (playerWeaponManager != null)
+        {
+            // インベントリから引き継いだ元のPrefabデータを確認
+            GameObject selectedSlotPrefab = WeaponDataKeeper.equippedWeaponPrefabs[currentActiveSlotIndex];
+
+            if (selectedSlotPrefab != null)
+            {
+                // アタッチした新しいスクリプト（WeaponModelLinker）を見つける
+                WeaponModelLinker linker = selectedSlotPrefab.GetComponent<WeaponModelLinker>();
+
+                if (linker != null && linker.actualWeaponPrefab != null)
+                {
+                    // WeaponManager の weaponPrefab に安全に上書きし、再装備させる
+                    playerWeaponManager.ChangeWeapon(linker.actualWeaponPrefab);
                 }
             }
         }

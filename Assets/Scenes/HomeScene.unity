@@ -365,7 +365,7 @@ MonoBehaviour:
   fadeDuration: 0.8
   waitBeforeFade: 0.5
   energyManager: {fileID: 1460110860}
-  requiredEnergy: 5
+  requiredEnergy: 0
 --- !u!4 &86389297
 Transform:
   m_ObjectHideFlags: 0
@@ -786,6 +786,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1979631514}
+  - {fileID: 624903946}
   - {fileID: 969801668}
   - {fileID: 1278478566}
   - {fileID: 242479131}
@@ -795,7 +796,6 @@ RectTransform:
   - {fileID: 489211731}
   - {fileID: 884789196}
   - {fileID: 1021388520}
-  - {fileID: 624903946}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7040092722157567494}
   - component: {fileID: 4704167051758782345}
   - component: {fileID: 9087221008801216791}
+  - component: {fileID: 3456557423547250728}
   m_Layer: 5
   m_Name: M249
   m_TagString: Untagged
@@ -35,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 154.8, y: 80}
+  m_SizeDelta: {x: 100, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4704167051758782345
 CanvasRenderer:
@@ -75,6 +76,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3456557423547250728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2377985271857078482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c722cd0c87a604f4c9223edb9005f925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customWidth: 160
+  customHeight: 80
 --- !u!1 &4852763289396410823
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +101,7 @@ GameObject:
   - component: {fileID: 776680859360119378}
   - component: {fileID: 7353727731421717551}
   - component: {fileID: 5060558989029615321}
+  - component: {fileID: -6399961799568701174}
   m_Layer: 5
   m_Name: 2GunFrame-Green
   m_TagString: Untagged
@@ -151,3 +167,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-6399961799568701174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4852763289396410823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d083a2e3ecc604eb6d582a2ce5d8c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualWeaponPrefab: {fileID: 5986161445693207544, guid: 151c1db327840794784a6770f46226e4, type: 3}

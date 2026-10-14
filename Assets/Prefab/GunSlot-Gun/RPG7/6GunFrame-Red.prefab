@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9031360071256090307}
   - component: {fileID: 8158029837494399886}
   - component: {fileID: 5896075262019264113}
+  - component: {fileID: 1780805699401745146}
   m_Layer: 5
   m_Name: RPG7
   m_TagString: Untagged
@@ -35,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 80}
+  m_SizeDelta: {x: 130, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8158029837494399886
 CanvasRenderer:
@@ -75,6 +76,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1780805699401745146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8033685546304500075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c722cd0c87a604f4c9223edb9005f925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customWidth: 160
+  customHeight: 80
 --- !u!1 &8140510749928287357
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +101,7 @@ GameObject:
   - component: {fileID: 6238605035297080150}
   - component: {fileID: 7578595171163363323}
   - component: {fileID: 8693550119175151540}
+  - component: {fileID: 5146614249368769616}
   m_Layer: 5
   m_Name: 6GunFrame-Red
   m_TagString: Untagged
@@ -151,3 +167,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5146614249368769616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8140510749928287357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d083a2e3ecc604eb6d582a2ce5d8c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualWeaponPrefab: {fileID: 2823827163008208632, guid: 0c017c54fc26ec644898158698634af6, type: 3}

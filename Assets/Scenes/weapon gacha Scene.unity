@@ -4810,6 +4810,10 @@ MonoBehaviour:
   currentEmeralds: 3000
   costPerPull: 300
   isDebugModeFreePull: 1
+  weaponGachaButtonImage: {fileID: 0}
+  armorGachaButtonImage: {fileID: 0}
+  selectedTypeColor: {r: 1, g: 1, b: 1, a: 1}
+  unselectedTypeColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   singlePullButton: {fileID: 759807252}
   singlePullArrow: {fileID: 1479756408}
   multiPullButtons:
@@ -4931,23 +4935,28 @@ MonoBehaviour:
   - itemName: GreenCapsule
     capsulePrefab: {fileID: 1084831788273193483, guid: ef74476718fdebb498b1bdc884102f9c, type: 3}
     probabilityWeight: 30
-    isProbabilityZero: 1
+    isProbabilityZero: 0
   - itemName: BlueCapsule
     capsulePrefab: {fileID: 2978188671204996651, guid: 064ac52992e796c41b2034a3d850b98e, type: 3}
     probabilityWeight: 19
-    isProbabilityZero: 1
+    isProbabilityZero: 0
   - itemName: ParpleCapsule
     capsulePrefab: {fileID: 6472410866988152336, guid: 445dbd835b47a7840807650318010510, type: 3}
     probabilityWeight: 4.9
-    isProbabilityZero: 1
+    isProbabilityZero: 0
   - itemName: GoldCapsule
     capsulePrefab: {fileID: 7636800561100365389, guid: d290e1e547ab2dc4da831141edee3d90, type: 3}
     probabilityWeight: 1
-    isProbabilityZero: 1
+    isProbabilityZero: 0
   - itemName: RedCapsule
     capsulePrefab: {fileID: 1525869114540657091, guid: 68414552634811d4e8362098a6f653ff, type: 3}
     probabilityWeight: 0.1
-    isProbabilityZero: 1
+    isProbabilityZero: 0
+  armorGachaItems:
+  - itemName: 
+    capsulePrefab: {fileID: 0}
+    probabilityWeight: 0
+    isProbabilityZero: 0
 --- !u!4 &1575087090
 Transform:
   m_ObjectHideFlags: 0

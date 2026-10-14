@@ -10,20 +10,29 @@ public class InnerItem
     [Tooltip("ガチャ玉から飛び出す演出用のPrefab")]
     public GameObject itemPrefab;
 
-    [Tooltip("インベントリ画面に追加されるUI用Prefab")]
+    [Tooltip("インベントリ画面のContentに追加されるUI用Prefab")]
     public GameObject inventoryUIPrefab;
+
+    // ==========================================
+    // 💡 追加：武器か防具か（どのContent・配列に入れるか）を判別するチェックボックス
+    // ==========================================
+    [Tooltip("チェックを入れると「防具」として判別され、WeaponInventoryManagerの防具リスト（armorPrefabs）に入ります。\nチェックを外すと「武器」として扱われます。")]
+    public bool isArmor;
 
     public float probabilityWeight;
 
-    // ==========================================
-    // 💡 追加：確率を0%にするチェックボックス
-    // ==========================================
     [Tooltip("チェックを入れると、このアイテムは排出されなくなります（確率0%）")]
     public bool isProbabilityZero;
 }
 
 public class CapsuleOpener : MonoBehaviour
 {
+    // ==========================================
+    // 💡 追加：ガチャで引いた「防具のinventoryUIPrefab」を一時保存してインベントリへ渡すリスト
+    // （WeaponDataKeeperを書き換えなくてもそのまま動くようにここに持たせています）
+    // ==========================================
+    public static List<GameObject> gachaResultArmors = new List<GameObject>();
+
     [Header("【カプセルのパーツ設定】")]
     public RectTransform topHalf;
     public RectTransform bottomHalf;
@@ -163,8 +172,19 @@ public class CapsuleOpener : MonoBehaviour
 
             if (drawnItem.inventoryUIPrefab != null)
             {
-                WeaponDataKeeper.gachaResultWeapons.Add(drawnItem.inventoryUIPrefab);
-                Debug.Log($"引いた武器UI {drawnItem.inventoryUIPrefab.name} を持ち物リストに一時保存しました");
+                // ==========================================
+                // 💡 修正：isArmor のチェック状態を見て、防具用と武器用の保存先に振り分ける
+                // ==========================================
+                if (drawnItem.isArmor)
+                {
+                    gachaResultArmors.Add(drawnItem.inventoryUIPrefab);
+                    Debug.Log($"引いた防具UI {drawnItem.inventoryUIPrefab.name} を防具持ち物リストに一時保存しました");
+                }
+                else
+                {
+                    WeaponDataKeeper.gachaResultWeapons.Add(drawnItem.inventoryUIPrefab);
+                    Debug.Log($"引いた武器UI {drawnItem.inventoryUIPrefab.name} を武器持ち物リストに一時保存しました");
+                }
             }
         }
 
@@ -202,16 +222,12 @@ public class CapsuleOpener : MonoBehaviour
         float totalWeight = 0;
         foreach (var item in innerItems)
         {
-            // ==========================================
-            // 💡 修正：チェックが入っていない（確率0%じゃない）時だけ重みを足す
-            // ==========================================
             if (!item.isProbabilityZero)
             {
                 totalWeight += item.probabilityWeight;
             }
         }
 
-        // 全てのアイテムにチェックが入っている等で合計が0の場合は何も出さない
         if (totalWeight <= 0f) return null;
 
         float randomValue = Random.Range(0, totalWeight);
@@ -219,9 +235,6 @@ public class CapsuleOpener : MonoBehaviour
 
         foreach (var item in innerItems)
         {
-            // ==========================================
-            // 💡 修正：チェックが入っているものはスキップして次に進む
-            // ==========================================
             if (item.isProbabilityZero) continue;
 
             currentWeight += item.probabilityWeight;

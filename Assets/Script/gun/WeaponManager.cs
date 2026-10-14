@@ -6,14 +6,14 @@ public class WeaponManager : MonoBehaviour
     [Tooltip("武器を表示する位置（座標と向きの基準用）")]
     public Transform weaponHoldPosition;
 
-    [Tooltip("装備する銃のプレハブ")]
+    [Tooltip("装備する銃のプレハブ（※ここはスクリプトによって自動で切り替わります）")]
     public GameObject weaponPrefab;
 
     private GameObject currentWeapon;
 
     void Start()
     {
-        EquipWeapon();
+        // 初期装備は StageWeaponDisplay 側から自動で指示が来るため、ここは空でOKです
     }
 
     // 武器を装備・表示する処理
@@ -25,6 +25,7 @@ public class WeaponManager : MonoBehaviour
             return;
         }
 
+        // 古い武器を握っていたら削除する
         if (currentWeapon != null)
         {
             Destroy(currentWeapon);
@@ -35,5 +36,14 @@ public class WeaponManager : MonoBehaviour
 
         // 2. 生成した銃の親を「このスクリプトがアタッチされているオブジェクト（Player）」に設定する
         currentWeapon.transform.SetParent(transform);
+    }
+
+    // ==========================================
+    // ★追加：外部からPrefabを受け取って weaponPrefab の枠を上書きし、装備し直す
+    // ==========================================
+    public void ChangeWeapon(GameObject newPrefab)
+    {
+        weaponPrefab = newPrefab;
+        EquipWeapon();
     }
 }

@@ -1,0 +1,2160 @@
+Using pre-set license
+Built from '2022.3/respin/2022.3.62f2-4af31df585-v2' branch; Version is '2022.3.62f3 (96770f904ca7) revision 9860879'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 11  (10.0.26200) 64bit Professional' Language: 'ja' Physical Memory: 32486 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker15
+-projectPath
+D:/個人製作２/Infinite Arsenal/Infinite Arsenal
+-logFile
+Logs/AssetImportWorker15.log
+-srvPort
+62816
+Successfully changed project path to: D:/個人製作２/Infinite Arsenal/Infinite Arsenal
+D:/個人製作２/Infinite Arsenal/Infinite Arsenal
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [175392]  Target information:
+
+Player connection [175392]  * "[IP] 10.219.32.102 [Port] 0 [Flags] 2 [Guid] 1281890899 [EditorId] 1281890899 [Version] 1048832 [Id] WindowsEditor(7,KIC-GAME-B-02) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [175392] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [175392] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+Refreshing native plugins compatible for Editor in 5.66 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2022.3.62f3 (96770f904ca7)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/個人製作２/Infinite Arsenal/Infinite Arsenal/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 4060 Ti (ID=0x2803)
+    Vendor:   NVIDIA
+    VRAM:     7949 MB
+    Driver:   32.0.16.1060
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56732
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.003490 seconds.
+- Loaded All Assemblies, in  0.204 seconds
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.156 seconds
+Domain Reload Profiling: 359ms
+	BeginReloadAssembly (62ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (0ms)
+	RebuildCommonClasses (20ms)
+	RebuildNativeTypeToScriptingClass (6ms)
+	initialDomainReloadingComplete (36ms)
+	LoadAllAssembliesAndSetupDomain (79ms)
+		LoadAssemblies (61ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (78ms)
+			TypeCache.Refresh (77ms)
+				TypeCache.ScanAssembly (69ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (0ms)
+	FinalizeReload (156ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (129ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (6ms)
+			SetLoadedEditorAssemblies (4ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (1ms)
+			ProcessInitializeOnLoadAttributes (89ms)
+			ProcessInitializeOnLoadMethodAttributes (28ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+========================================================================
+Worker process is ready to serve import requests
+Caller must complete domain reload
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  1.374 seconds
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  3.370 seconds
+Domain Reload Profiling: 4744ms
+	BeginReloadAssembly (82ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (3ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (11ms)
+	RebuildCommonClasses (19ms)
+	RebuildNativeTypeToScriptingClass (5ms)
+	initialDomainReloadingComplete (23ms)
+	LoadAllAssembliesAndSetupDomain (1243ms)
+		LoadAssemblies (1163ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (129ms)
+			TypeCache.Refresh (110ms)
+				TypeCache.ScanAssembly (101ms)
+			ScanForSourceGeneratedMonoScriptInfo (13ms)
+			ResolveRequiredComponents (4ms)
+	FinalizeReload (3371ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (3284ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (3ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (44ms)
+			ProcessInitializeOnLoadAttributes (3184ms)
+			ProcessInitializeOnLoadMethodAttributes (46ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (4ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
+Refreshing native plugins compatible for Editor in 5.82 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5188 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 751 unused Assets / (0.8 MB). Loaded Objects now: 5506.
+Memory consumption went from 252.3 MB to 251.5 MB.
+Total: 2.834000 ms (FindLiveObjects: 0.240300 ms CreateObjectMapping: 0.079500 ms MarkObjects: 1.810600 ms  DeleteObjects: 0.702900 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 1406082.893826 seconds.
+  path: Assets/Prefab/GunSlot-armor/2chestplate/1GunFrame-White.prefab
+  artifactKey: Guid(00f2e8e9c84b6a54ca9727f97334cdf4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/2chestplate/1GunFrame-White.prefab using Guid(00f2e8e9c84b6a54ca9727f97334cdf4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'd0a7a3402f0180d3c2decfe168af1e9b') in 0.017608 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 12.112706 seconds.
+  path: Assets/Prefab/GunSlot-armor/2chestplate/2GunFrame-Green.prefab
+  artifactKey: Guid(b248b20a3db66ec4eb6afda694a89986) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/2chestplate/2GunFrame-Green.prefab using Guid(b248b20a3db66ec4eb6afda694a89986) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b5ba156eddc12acdf91510f5cac4da10') in 0.001518 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 0.964734 seconds.
+  path: Assets/Prefab/GunSlot-armor/2chestplate/2GunFrame-Green.prefab
+  artifactKey: Guid(b248b20a3db66ec4eb6afda694a89986) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/2chestplate/2GunFrame-Green.prefab using Guid(b248b20a3db66ec4eb6afda694a89986) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'bb9387283441f0d1559728130aecfd6b') in 0.001534 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 14.552294 seconds.
+  path: Assets/Prefab/GunSlot-armor/2chestplate/3GunFrame-Blue.prefab
+  artifactKey: Guid(e44ca9aa889d4a646b0912c03f22a9e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/2chestplate/3GunFrame-Blue.prefab using Guid(e44ca9aa889d4a646b0912c03f22a9e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '1f9c90a7880712913c240fb43281d719') in 0.001538 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.664982 seconds.
+  path: Assets/Prefab/GunSlot-armor/2chestplate/3GunFrame-Blue.prefab
+  artifactKey: Guid(e44ca9aa889d4a646b0912c03f22a9e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/2chestplate/3GunFrame-Blue.prefab using Guid(e44ca9aa889d4a646b0912c03f22a9e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '5e130831aa0a329284ee71365e8dd1d9') in 0.001523 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 6.244349 seconds.
+  path: Assets/Prefab/GunSlot-armor/2chestplate/4GunFrame-Parple.prefab
+  artifactKey: Guid(60e32b0581f6ada489f2a5c4f2fbbf94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/2chestplate/4GunFrame-Parple.prefab using Guid(60e32b0581f6ada489f2a5c4f2fbbf94) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '62bc90d3e3c9b7f69c230013501a938f') in 0.002001 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 5.994604 seconds.
+  path: Assets/Prefab/GunSlot-armor/2chestplate/4GunFrame-Parple.prefab
+  artifactKey: Guid(60e32b0581f6ada489f2a5c4f2fbbf94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/2chestplate/4GunFrame-Parple.prefab using Guid(60e32b0581f6ada489f2a5c4f2fbbf94) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'be09c039a1a34ea1d6983a4062b4a9b5') in 0.001465 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 8.319894 seconds.
+  path: Assets/Prefab/GunSlot-armor/2chestplate/5GunFrame-Gold.prefab
+  artifactKey: Guid(40809b1d6e7c9d247b2030e225ffda58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/2chestplate/5GunFrame-Gold.prefab using Guid(40809b1d6e7c9d247b2030e225ffda58) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b3b6e884ed4231a860c5a3cf688e6fe3') in 0.001692 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.695843 seconds.
+  path: Assets/Prefab/GunSlot-armor/2chestplate/5GunFrame-Gold.prefab
+  artifactKey: Guid(40809b1d6e7c9d247b2030e225ffda58) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/2chestplate/5GunFrame-Gold.prefab using Guid(40809b1d6e7c9d247b2030e225ffda58) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'ab860ae933d73db33468c181708b4a9f') in 0.001473 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 7.090981 seconds.
+  path: Assets/Prefab/GunSlot-armor/2chestplate/6GunFrame-Red.prefab
+  artifactKey: Guid(fa456c8770c55f243abc5188b0c25811) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/2chestplate/6GunFrame-Red.prefab using Guid(fa456c8770c55f243abc5188b0c25811) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c150b388c2384c2356c789052d7975e1') in 0.001493 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.648230 seconds.
+  path: Assets/Prefab/GunSlot-armor/2chestplate/6GunFrame-Red.prefab
+  artifactKey: Guid(fa456c8770c55f243abc5188b0c25811) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/2chestplate/6GunFrame-Red.prefab using Guid(fa456c8770c55f243abc5188b0c25811) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a7b2f1120c4c8ef2d7cbe6b75e15df0c') in 0.002463 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 13.001370 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/1GunFrame-White.prefab
+  artifactKey: Guid(39d006d7219432e4c8975e4f9c60678f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/1GunFrame-White.prefab using Guid(39d006d7219432e4c8975e4f9c60678f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c39e8828f952f79151e990ee89004714') in 0.633908 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 90
+========================================================================
+Received Import Request.
+  Time since last request: 0.000902 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/5GunFrame-Gold.prefab
+  artifactKey: Guid(7f6c6236ab106aa4fb5577d987b23ea1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/5GunFrame-Gold.prefab using Guid(7f6c6236ab106aa4fb5577d987b23ea1) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '6c7ef9f5ab82f53408a122b5525db7d3') in 0.077969 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 90
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/6GunFrame-Red.prefab
+  artifactKey: Guid(f72dea001825c874dbcd736100389bea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/6GunFrame-Red.prefab using Guid(f72dea001825c874dbcd736100389bea) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a87ec89b1697ebca57c6e01fe46a1e7b') in 0.026569 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 90
+========================================================================
+Received Import Request.
+  Time since last request: 8.351787 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/1GunFrame-White.prefab
+  artifactKey: Guid(39d006d7219432e4c8975e4f9c60678f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/1GunFrame-White.prefab using Guid(39d006d7219432e4c8975e4f9c60678f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '67d14efe7c8a98a42201429e9c5ad71b') in 0.001607 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 0.031403 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/2GunFrame-Green.prefab
+  artifactKey: Guid(3de144d016af1074ab022bfb5a7bc276) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/2GunFrame-Green.prefab using Guid(3de144d016af1074ab022bfb5a7bc276) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c84eb128c8b12873cb5a8e3114a4418c') in 0.001785 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/5GunFrame-Gold.prefab
+  artifactKey: Guid(7f6c6236ab106aa4fb5577d987b23ea1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/5GunFrame-Gold.prefab using Guid(7f6c6236ab106aa4fb5577d987b23ea1) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'fdc15f31bd3f6ac7e850ba39ecc8276a') in 0.001280 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 10.402867 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/1GunFrame-White.prefab
+  artifactKey: Guid(39d006d7219432e4c8975e4f9c60678f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/1GunFrame-White.prefab using Guid(39d006d7219432e4c8975e4f9c60678f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'de75412006eff8bc87dab549266dd3c0') in 0.001520 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 3.438417 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/1GunFrame-White.prefab
+  artifactKey: Guid(39d006d7219432e4c8975e4f9c60678f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/1GunFrame-White.prefab using Guid(39d006d7219432e4c8975e4f9c60678f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f73d3680176a06c3314848b89043d878') in 0.001552 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 13.788159 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/2GunFrame-Green.prefab
+  artifactKey: Guid(3de144d016af1074ab022bfb5a7bc276) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/2GunFrame-Green.prefab using Guid(3de144d016af1074ab022bfb5a7bc276) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f8300429300596025674b6b650742c6f') in 0.001907 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 9.890000 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/3GunFrame-Blue.prefab
+  artifactKey: Guid(d28b044a4fa25dd44ab0fd503334b03d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/3GunFrame-Blue.prefab using Guid(d28b044a4fa25dd44ab0fd503334b03d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '1d0533abdde513600362afba3874aba8') in 0.001758 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 5.919862 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/2GunFrame-Green.prefab
+  artifactKey: Guid(3de144d016af1074ab022bfb5a7bc276) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/2GunFrame-Green.prefab using Guid(3de144d016af1074ab022bfb5a7bc276) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a7a3e70555c912a6a4e361b3ce874fcf') in 0.001626 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 8.518353 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/3GunFrame-Blue.prefab
+  artifactKey: Guid(d28b044a4fa25dd44ab0fd503334b03d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/3GunFrame-Blue.prefab using Guid(d28b044a4fa25dd44ab0fd503334b03d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'e634409fb0f256c9d3d30acc8baf6c5f') in 0.001649 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 7.076484 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/4GunFrame-Parple.prefab
+  artifactKey: Guid(5e345b0f2cca8d54380422aedd45b2ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/4GunFrame-Parple.prefab using Guid(5e345b0f2cca8d54380422aedd45b2ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '230ad43c1f4ae8bfc62dd5b11cc34977') in 0.001537 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 3.833551 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/4GunFrame-Parple.prefab
+  artifactKey: Guid(5e345b0f2cca8d54380422aedd45b2ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/4GunFrame-Parple.prefab using Guid(5e345b0f2cca8d54380422aedd45b2ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '74b65c48e2265847a6884a9e517ffaa7') in 0.001495 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 6.447422 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/5GunFrame-Gold.prefab
+  artifactKey: Guid(7f6c6236ab106aa4fb5577d987b23ea1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/5GunFrame-Gold.prefab using Guid(7f6c6236ab106aa4fb5577d987b23ea1) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b62afb9fc7f23611b465953f18103669') in 0.001422 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 3.482995 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/5GunFrame-Gold.prefab
+  artifactKey: Guid(7f6c6236ab106aa4fb5577d987b23ea1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/5GunFrame-Gold.prefab using Guid(7f6c6236ab106aa4fb5577d987b23ea1) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c3849e88aeb9048d8be0613e46d4b9fa') in 0.001489 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 7.649781 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/6GunFrame-Red.prefab
+  artifactKey: Guid(f72dea001825c874dbcd736100389bea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/6GunFrame-Red.prefab using Guid(f72dea001825c874dbcd736100389bea) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '84d1f8eec01fef438adc4ad6880516a9') in 0.001561 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 6.205638 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/6GunFrame-Red.prefab
+  artifactKey: Guid(f72dea001825c874dbcd736100389bea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/6GunFrame-Red.prefab using Guid(f72dea001825c874dbcd736100389bea) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f666d4a1dd091e5ea72263a6cd7e9292') in 0.001638 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 4.816621 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/6GunFrame-Red.prefab
+  artifactKey: Guid(f72dea001825c874dbcd736100389bea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/6GunFrame-Red.prefab using Guid(f72dea001825c874dbcd736100389bea) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '13c1b36eb064f512ce06265170c4f964') in 0.001443 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 7.054623 seconds.
+  path: Assets/Prefab/GunSlot-armor/3leggings/6GunFrame-Red.prefab
+  artifactKey: Guid(f72dea001825c874dbcd736100389bea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/3leggings/6GunFrame-Red.prefab using Guid(f72dea001825c874dbcd736100389bea) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '69215af73592691c623e601b9cf51728') in 0.001906 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 4.205955 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/1GunFrame-White.prefab
+  artifactKey: Guid(bb179a3031698b2479de7dffb226fc65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/1GunFrame-White.prefab using Guid(bb179a3031698b2479de7dffb226fc65) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '1a2869dc8774435017cfccc09b3b7685') in 0.056957 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 90
+========================================================================
+Received Import Request.
+  Time since last request: 0.002231 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/3GunFrame-Blue.prefab
+  artifactKey: Guid(2ab85c93783623742af6af5e4316c95e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/3GunFrame-Blue.prefab using Guid(2ab85c93783623742af6af5e4316c95e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '36df0977160caa37115c87f5fa43c223') in 0.023901 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 90
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/6GunFrame-Red.prefab
+  artifactKey: Guid(eb620336686288c4f883ac6c2db143ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/6GunFrame-Red.prefab using Guid(eb620336686288c4f883ac6c2db143ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7115ac9767332e280cd428d4a04ad3f0') in 0.010812 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 90
+========================================================================
+Received Import Request.
+  Time since last request: 16.297734 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/6GunFrame-Red.prefab
+  artifactKey: Guid(eb620336686288c4f883ac6c2db143ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/6GunFrame-Red.prefab using Guid(eb620336686288c4f883ac6c2db143ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'cc8623657ec370442403a54886623f81') in 0.001682 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/3GunFrame-Blue.prefab
+  artifactKey: Guid(2ab85c93783623742af6af5e4316c95e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/3GunFrame-Blue.prefab using Guid(2ab85c93783623742af6af5e4316c95e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a90dad83cee21b2ca380d8b3149f4728') in 0.001374 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/4GunFrame-Parple.prefab
+  artifactKey: Guid(ef8d084c6db4c1943980b7e598d4a6b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/4GunFrame-Parple.prefab using Guid(ef8d084c6db4c1943980b7e598d4a6b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '8fcb29c67e67fd6ec81b9c82087e7cfa') in 0.001577 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 10.685259 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/1GunFrame-White.prefab
+  artifactKey: Guid(bb179a3031698b2479de7dffb226fc65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/1GunFrame-White.prefab using Guid(bb179a3031698b2479de7dffb226fc65) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f54890617e17fcaba68ddd0a5bdbfc2d') in 0.001537 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.066450 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/1GunFrame-White.prefab
+  artifactKey: Guid(bb179a3031698b2479de7dffb226fc65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/1GunFrame-White.prefab using Guid(bb179a3031698b2479de7dffb226fc65) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'ebd68d2ecb0e1171e1226f48434d4b97') in 0.001634 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 5.497366 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/2GunFrame-Green.prefab
+  artifactKey: Guid(385a1570b4f14854ca3d2b14fe68675f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/2GunFrame-Green.prefab using Guid(385a1570b4f14854ca3d2b14fe68675f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '77bea50256a2b97f31150adf344db550') in 0.001791 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.538030 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/2GunFrame-Green.prefab
+  artifactKey: Guid(385a1570b4f14854ca3d2b14fe68675f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/2GunFrame-Green.prefab using Guid(385a1570b4f14854ca3d2b14fe68675f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'ee6460748ffae837fc821b89b2ffaa0d') in 0.001526 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 42.937743 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/3GunFrame-Blue.prefab
+  artifactKey: Guid(2ab85c93783623742af6af5e4316c95e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/3GunFrame-Blue.prefab using Guid(2ab85c93783623742af6af5e4316c95e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '279a65dc38394189132a3530e6593185') in 0.001561 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.827930 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/3GunFrame-Blue.prefab
+  artifactKey: Guid(2ab85c93783623742af6af5e4316c95e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/3GunFrame-Blue.prefab using Guid(2ab85c93783623742af6af5e4316c95e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c1affa4808db8b27db0f849fc90d17cd') in 0.002192 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 4.466770 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/4GunFrame-Parple.prefab
+  artifactKey: Guid(ef8d084c6db4c1943980b7e598d4a6b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/4GunFrame-Parple.prefab using Guid(ef8d084c6db4c1943980b7e598d4a6b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '471fe4a40f6eaf5af5ab53daa4d9b810') in 0.001531 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.344124 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/4GunFrame-Parple.prefab
+  artifactKey: Guid(ef8d084c6db4c1943980b7e598d4a6b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/4GunFrame-Parple.prefab using Guid(ef8d084c6db4c1943980b7e598d4a6b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '2d69e99965403da9158799e6123ed603') in 0.002281 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 6.451282 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/5GunFrame-Gold.prefab
+  artifactKey: Guid(4174d55c266e8a241a226d93dbf02844) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/5GunFrame-Gold.prefab using Guid(4174d55c266e8a241a226d93dbf02844) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'be2757bb7f99ab533312cd2e3872c5f8') in 0.001621 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.372561 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/5GunFrame-Gold.prefab
+  artifactKey: Guid(4174d55c266e8a241a226d93dbf02844) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/5GunFrame-Gold.prefab using Guid(4174d55c266e8a241a226d93dbf02844) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '1e82b92539b12d9b47c9d7f393dad518') in 0.001437 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 14.232081 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/6GunFrame-Red.prefab
+  artifactKey: Guid(eb620336686288c4f883ac6c2db143ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/6GunFrame-Red.prefab using Guid(eb620336686288c4f883ac6c2db143ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '96d3816028b11d0db3d4ca3d86f6163b') in 0.001476 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 3.186692 seconds.
+  path: Assets/Prefab/GunSlot-armor/4boots/6GunFrame-Red.prefab
+  artifactKey: Guid(eb620336686288c4f883ac6c2db143ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/4boots/6GunFrame-Red.prefab using Guid(eb620336686288c4f883ac6c2db143ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'cc05afc8e6d218666b3f1ef37e9ec58f') in 0.001555 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 3.334284 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/1GunFrame-White.prefab
+  artifactKey: Guid(cc736a5dcddb48b41b98d1429a1d694a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/1GunFrame-White.prefab using Guid(cc736a5dcddb48b41b98d1429a1d694a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '98c39fcddd6d2583a321a08841a293db') in 0.056177 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 90
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/4GunFrame-Parple.prefab
+  artifactKey: Guid(fe7a9f1f664b7f749a6fcb684472e657) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/4GunFrame-Parple.prefab using Guid(fe7a9f1f664b7f749a6fcb684472e657) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '3dc878269513018897e9472e36dce364') in 0.083681 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 90
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/6GunFrame-Red.prefab
+  artifactKey: Guid(85b61bfd7a8f19b4e81e5ef9266606d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/6GunFrame-Red.prefab using Guid(85b61bfd7a8f19b4e81e5ef9266606d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c895234a5052500515d6f361bd96960f') in 0.022022 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 90
+========================================================================
+Received Import Request.
+  Time since last request: 14.710486 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/1GunFrame-White.prefab
+  artifactKey: Guid(cc736a5dcddb48b41b98d1429a1d694a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/1GunFrame-White.prefab using Guid(cc736a5dcddb48b41b98d1429a1d694a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c000713a86d9621f66fb304c357b3bbb') in 0.001685 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 15.049145 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/2GunFrame-Green.prefab
+  artifactKey: Guid(4e9e166874f7a3f4281d2e69339f1cfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/2GunFrame-Green.prefab using Guid(4e9e166874f7a3f4281d2e69339f1cfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f6a581dd28846f9b04736835360e8002') in 0.001728 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/6GunFrame-Red.prefab
+  artifactKey: Guid(85b61bfd7a8f19b4e81e5ef9266606d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/6GunFrame-Red.prefab using Guid(85b61bfd7a8f19b4e81e5ef9266606d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c2b8be85e347d75794362a3e315d8b7f') in 0.001357 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 8.584261 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/1GunFrame-White.prefab
+  artifactKey: Guid(cc736a5dcddb48b41b98d1429a1d694a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/1GunFrame-White.prefab using Guid(cc736a5dcddb48b41b98d1429a1d694a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a9eca546fbb18386b2cdfd54a051f2e4') in 0.001520 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 3.508722 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/1GunFrame-White.prefab
+  artifactKey: Guid(cc736a5dcddb48b41b98d1429a1d694a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/1GunFrame-White.prefab using Guid(cc736a5dcddb48b41b98d1429a1d694a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'eecbde2eeabc35abaf5a5fa3897109cc') in 0.001489 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 7.847252 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/2GunFrame-Green.prefab
+  artifactKey: Guid(4e9e166874f7a3f4281d2e69339f1cfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/2GunFrame-Green.prefab using Guid(4e9e166874f7a3f4281d2e69339f1cfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a27e3da4cea09ef4c919dd940fe6d5c8') in 0.001600 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.361244 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/2GunFrame-Green.prefab
+  artifactKey: Guid(4e9e166874f7a3f4281d2e69339f1cfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/2GunFrame-Green.prefab using Guid(4e9e166874f7a3f4281d2e69339f1cfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b55a95111864ad830670ddd6056b0048') in 0.001480 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 9.290325 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/3GunFrame-Blue.prefab
+  artifactKey: Guid(66b43ce779a699749b196aafe69e8574) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/3GunFrame-Blue.prefab using Guid(66b43ce779a699749b196aafe69e8574) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'e80e5c337906fca3a66e777ca3144dd2') in 0.001715 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 3.477949 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/3GunFrame-Blue.prefab
+  artifactKey: Guid(66b43ce779a699749b196aafe69e8574) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/3GunFrame-Blue.prefab using Guid(66b43ce779a699749b196aafe69e8574) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '70084a53af337f3c53257db34c10308d') in 0.001462 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 6.268735 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/4GunFrame-Parple.prefab
+  artifactKey: Guid(fe7a9f1f664b7f749a6fcb684472e657) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/4GunFrame-Parple.prefab using Guid(fe7a9f1f664b7f749a6fcb684472e657) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '6f54d16f13a9b3867aa16fee05a3c24a') in 0.001570 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.657714 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/4GunFrame-Parple.prefab
+  artifactKey: Guid(fe7a9f1f664b7f749a6fcb684472e657) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/4GunFrame-Parple.prefab using Guid(fe7a9f1f664b7f749a6fcb684472e657) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '522e663620f56a06768577307c466808') in 0.001582 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 11.057317 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/5GunFrame-Gold.prefab
+  artifactKey: Guid(791f87873c4408d469f784f08f3e4c38) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/5GunFrame-Gold.prefab using Guid(791f87873c4408d469f784f08f3e4c38) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c090366221ddb287dff4da81515918bd') in 0.001978 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.314439 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/5GunFrame-Gold.prefab
+  artifactKey: Guid(791f87873c4408d469f784f08f3e4c38) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/5GunFrame-Gold.prefab using Guid(791f87873c4408d469f784f08f3e4c38) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '26b64e8f809aa2bc6616dc71d68c4dec') in 0.001593 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 7.679292 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/6GunFrame-Red.prefab
+  artifactKey: Guid(85b61bfd7a8f19b4e81e5ef9266606d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/6GunFrame-Red.prefab using Guid(85b61bfd7a8f19b4e81e5ef9266606d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'e4f1f589d03fb3714ab3e0440e44c336') in 0.001609 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.895523 seconds.
+  path: Assets/Prefab/GunSlot-armor/5bracelet/6GunFrame-Red.prefab
+  artifactKey: Guid(85b61bfd7a8f19b4e81e5ef9266606d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/5bracelet/6GunFrame-Red.prefab using Guid(85b61bfd7a8f19b4e81e5ef9266606d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f55f33bac2b1e79119f3ce988d82dff5') in 0.001865 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 7.737177 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/1GunFrame-White.prefab
+  artifactKey: Guid(62fc3b8b5e53f544a90aef38a84499bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/1GunFrame-White.prefab using Guid(62fc3b8b5e53f544a90aef38a84499bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '8e10e6306a4373525a6fc54caae3e377') in 0.071961 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 90
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/4GunFrame-Parple.prefab
+  artifactKey: Guid(561ba55bf5d5f084c8a6d01916370c54) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/4GunFrame-Parple.prefab using Guid(561ba55bf5d5f084c8a6d01916370c54) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '4b0f50c6b85828dbbc3c347b4d6eaa91') in 0.036272 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 90
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/6GunFrame-Red.prefab
+  artifactKey: Guid(593bfb27bdc17284b9d3de9dc64b0e9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/6GunFrame-Red.prefab using Guid(593bfb27bdc17284b9d3de9dc64b0e9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f813427a06fe1222585de1c60a4ffc84') in 0.021672 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 90
+========================================================================
+Received Import Request.
+  Time since last request: 15.174305 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/6GunFrame-Red.prefab
+  artifactKey: Guid(593bfb27bdc17284b9d3de9dc64b0e9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/6GunFrame-Red.prefab using Guid(593bfb27bdc17284b9d3de9dc64b0e9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a5ba2b3d13bb72245970a139769198b3') in 0.001774 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 0.027816 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/1GunFrame-White.prefab
+  artifactKey: Guid(62fc3b8b5e53f544a90aef38a84499bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/1GunFrame-White.prefab using Guid(62fc3b8b5e53f544a90aef38a84499bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '9fda725da598328b590aeeac06d292cc') in 0.001694 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/4GunFrame-Parple.prefab
+  artifactKey: Guid(561ba55bf5d5f084c8a6d01916370c54) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/4GunFrame-Parple.prefab using Guid(561ba55bf5d5f084c8a6d01916370c54) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '2fe1824719baf0031c9b8fa5cd8d160a') in 0.001305 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 8.502314 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/1GunFrame-White.prefab
+  artifactKey: Guid(62fc3b8b5e53f544a90aef38a84499bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/1GunFrame-White.prefab using Guid(62fc3b8b5e53f544a90aef38a84499bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '498794b7eea559898fa055d478252699') in 0.001705 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.316826 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/1GunFrame-White.prefab
+  artifactKey: Guid(62fc3b8b5e53f544a90aef38a84499bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/1GunFrame-White.prefab using Guid(62fc3b8b5e53f544a90aef38a84499bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'efc5c56a2c724d4543b7c76d7d684b67') in 0.001686 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 6.122761 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/2GunFrame-Green.prefab
+  artifactKey: Guid(0ae0fe09a6430624a96aedbe10979c5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/2GunFrame-Green.prefab using Guid(0ae0fe09a6430624a96aedbe10979c5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'eb3f3a13f180e9eeb06c02fd2a5778a5') in 0.001675 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.827111 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/2GunFrame-Green.prefab
+  artifactKey: Guid(0ae0fe09a6430624a96aedbe10979c5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/2GunFrame-Green.prefab using Guid(0ae0fe09a6430624a96aedbe10979c5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '24395e67d229d34d10830376f1c6e513') in 0.001485 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 9.476107 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/3GunFrame-Blue.prefab
+  artifactKey: Guid(74147b1fb6e43b3449a838f07b8fc48f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/3GunFrame-Blue.prefab using Guid(74147b1fb6e43b3449a838f07b8fc48f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '225417ff075c27fb3b07e04a7ee1abac') in 0.001698 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.383901 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/3GunFrame-Blue.prefab
+  artifactKey: Guid(74147b1fb6e43b3449a838f07b8fc48f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/3GunFrame-Blue.prefab using Guid(74147b1fb6e43b3449a838f07b8fc48f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'e264de34ee728f52d6852b931d3554f2') in 0.001598 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 5.971294 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/4GunFrame-Parple.prefab
+  artifactKey: Guid(561ba55bf5d5f084c8a6d01916370c54) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/4GunFrame-Parple.prefab using Guid(561ba55bf5d5f084c8a6d01916370c54) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a43704c39d6f0c97d70985482f62b3d3') in 0.001540 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.338379 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/4GunFrame-Parple.prefab
+  artifactKey: Guid(561ba55bf5d5f084c8a6d01916370c54) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/4GunFrame-Parple.prefab using Guid(561ba55bf5d5f084c8a6d01916370c54) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b5b765cf93d720dbd78366f85f2b157f') in 0.001532 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 5.061623 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/5GunFrame-Gold.prefab
+  artifactKey: Guid(c05a6fd8758b41740bc55023d65fc98d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/5GunFrame-Gold.prefab using Guid(c05a6fd8758b41740bc55023d65fc98d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f9a63164604a7e8ebb081c21b42c8744') in 0.001532 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.078035 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/5GunFrame-Gold.prefab
+  artifactKey: Guid(c05a6fd8758b41740bc55023d65fc98d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/5GunFrame-Gold.prefab using Guid(c05a6fd8758b41740bc55023d65fc98d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'fee19f2b31672ed7485cae49578747ff') in 0.001518 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 6.721307 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/6GunFrame-Red.prefab
+  artifactKey: Guid(593bfb27bdc17284b9d3de9dc64b0e9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/6GunFrame-Red.prefab using Guid(593bfb27bdc17284b9d3de9dc64b0e9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b97cf4f175351f29593b36d1a52f5313') in 0.001639 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.808832 seconds.
+  path: Assets/Prefab/GunSlot-armor/6neckles/6GunFrame-Red.prefab
+  artifactKey: Guid(593bfb27bdc17284b9d3de9dc64b0e9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/6neckles/6GunFrame-Red.prefab using Guid(593bfb27bdc17284b9d3de9dc64b0e9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c64f08d8a5929df2d5c25ad0081f1713') in 0.001475 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.432399 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/1GunFrame-White.prefab
+  artifactKey: Guid(f067879e13f31c84db741170fd046af8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/1GunFrame-White.prefab using Guid(f067879e13f31c84db741170fd046af8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c9f435d56f5ef12eb02ec0635d28aeea') in 0.073677 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 89
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/4GunFrame-Parple.prefab
+  artifactKey: Guid(6097ff0bba5da0346b45c794dfa0aa64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/4GunFrame-Parple.prefab using Guid(6097ff0bba5da0346b45c794dfa0aa64) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '88e985dcf4c5309f39c6c4f0d7ee7968') in 0.038896 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 89
+========================================================================
+Received Import Request.
+  Time since last request: 9.676136 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/4GunFrame-Parple.prefab
+  artifactKey: Guid(6097ff0bba5da0346b45c794dfa0aa64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/4GunFrame-Parple.prefab using Guid(6097ff0bba5da0346b45c794dfa0aa64) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '346d95de755a4fa17282de1bd894fd68') in 0.001649 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 0.026597 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/1GunFrame-White.prefab
+  artifactKey: Guid(f067879e13f31c84db741170fd046af8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/1GunFrame-White.prefab using Guid(f067879e13f31c84db741170fd046af8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'aee406772c491dd66115ff6da9c6522d') in 0.001669 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/6GunFrame-Red.prefab
+  artifactKey: Guid(fca37bc996ad3b7409c943f579ae82fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/6GunFrame-Red.prefab using Guid(fca37bc996ad3b7409c943f579ae82fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a2b2401baea2a6b5357b1e0074545c10') in 0.001318 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 9.170094 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/1GunFrame-White.prefab
+  artifactKey: Guid(f067879e13f31c84db741170fd046af8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/1GunFrame-White.prefab using Guid(f067879e13f31c84db741170fd046af8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c6dbf4430eedae370a8070c9b41e470e') in 0.001646 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.549756 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/1GunFrame-White.prefab
+  artifactKey: Guid(f067879e13f31c84db741170fd046af8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/1GunFrame-White.prefab using Guid(f067879e13f31c84db741170fd046af8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '70cf3327d1e909c5a373be154f89308c') in 0.001451 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 10.884669 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/2GunFrame-Green.prefab
+  artifactKey: Guid(5264eb80fba7bee419ee653fb722b510) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/2GunFrame-Green.prefab using Guid(5264eb80fba7bee419ee653fb722b510) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7db6080afabd14a9eea791a25e939b55') in 0.001522 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 0.886998 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/2GunFrame-Green.prefab
+  artifactKey: Guid(5264eb80fba7bee419ee653fb722b510) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/2GunFrame-Green.prefab using Guid(5264eb80fba7bee419ee653fb722b510) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a0c283734d2c2244258d5d285567561e') in 0.001574 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 6.268507 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/3GunFrame-Blue.prefab
+  artifactKey: Guid(9c28006521cafa24f92d0d315c0f7aa7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/3GunFrame-Blue.prefab using Guid(9c28006521cafa24f92d0d315c0f7aa7) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '5b9ea917dd7f9f184f633d64422a8441') in 0.001545 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.860273 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/3GunFrame-Blue.prefab
+  artifactKey: Guid(9c28006521cafa24f92d0d315c0f7aa7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/3GunFrame-Blue.prefab using Guid(9c28006521cafa24f92d0d315c0f7aa7) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '3e8b8e7fb27ab37035223130c7306d9d') in 0.001690 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 5.214174 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/4GunFrame-Parple.prefab
+  artifactKey: Guid(6097ff0bba5da0346b45c794dfa0aa64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/4GunFrame-Parple.prefab using Guid(6097ff0bba5da0346b45c794dfa0aa64) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '87e7433edb39e5f2dcdc6f1fdaf620c3') in 0.001536 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.015997 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/4GunFrame-Parple.prefab
+  artifactKey: Guid(6097ff0bba5da0346b45c794dfa0aa64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/4GunFrame-Parple.prefab using Guid(6097ff0bba5da0346b45c794dfa0aa64) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c4eda1eb86c31cdec304be2652b7b369') in 0.001501 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 5.118033 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/5GunFrame-Gold.prefab
+  artifactKey: Guid(03c65409c63c3344d9dd7f5fc0f1adc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/5GunFrame-Gold.prefab using Guid(03c65409c63c3344d9dd7f5fc0f1adc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '10785340cf459a59c65c638deea830cf') in 0.001506 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.679993 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/5GunFrame-Gold.prefab
+  artifactKey: Guid(03c65409c63c3344d9dd7f5fc0f1adc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/5GunFrame-Gold.prefab using Guid(03c65409c63c3344d9dd7f5fc0f1adc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b29c40eb5d90a8e412b23643624cb4f6') in 0.029065 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 6.353430 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/6GunFrame-Red.prefab
+  artifactKey: Guid(fca37bc996ad3b7409c943f579ae82fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/6GunFrame-Red.prefab using Guid(fca37bc996ad3b7409c943f579ae82fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f6f1c802250545d303cb8a2ccfce4f3e') in 0.001495 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.566111 seconds.
+  path: Assets/Prefab/GunSlot-armor/7earrings/6GunFrame-Red.prefab
+  artifactKey: Guid(fca37bc996ad3b7409c943f579ae82fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/7earrings/6GunFrame-Red.prefab using Guid(fca37bc996ad3b7409c943f579ae82fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a34d93b1e9c02aea8dd09feb2cd760cc') in 0.001527 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.219295 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/1GunFrame-White.prefab
+  artifactKey: Guid(5312200ac6ec52d4f84b4684ec637a1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/1GunFrame-White.prefab using Guid(5312200ac6ec52d4f84b4684ec637a1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'e47b0a070ead67d5fc567c9ed99edc46') in 0.082884 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 94
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/5GunFrame-Gold.prefab
+  artifactKey: Guid(8fef81fdcd0471945847ef23dd83e85a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/5GunFrame-Gold.prefab using Guid(8fef81fdcd0471945847ef23dd83e85a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '548321887a620f2dc8343d6f16c0f8ad') in 0.009511 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 94
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/3GunFrame-Blue.prefab
+  artifactKey: Guid(46236b583595caf4faa84b20c43e1351) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/3GunFrame-Blue.prefab using Guid(46236b583595caf4faa84b20c43e1351) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '94e43820a34b42bb557b25a2bf277fc5') in 0.022328 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 94
+========================================================================
+Received Import Request.
+  Time since last request: 8.843818 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/1GunFrame-White.prefab
+  artifactKey: Guid(5312200ac6ec52d4f84b4684ec637a1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/1GunFrame-White.prefab using Guid(5312200ac6ec52d4f84b4684ec637a1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'e5835881ab3e3cd066a753932fd39078') in 0.002153 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/6GunFrame-Red.prefab
+  artifactKey: Guid(e27411ee15ca9d04296da4e93820e08e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/6GunFrame-Red.prefab using Guid(e27411ee15ca9d04296da4e93820e08e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7d46f465a84daea47b5a703d65940aea') in 0.001429 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 9.329492 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/1GunFrame-White.prefab
+  artifactKey: Guid(5312200ac6ec52d4f84b4684ec637a1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/1GunFrame-White.prefab using Guid(5312200ac6ec52d4f84b4684ec637a1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '55523ed74c00e10d30d3325671acdd36') in 0.001475 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 13
+========================================================================
+Received Import Request.
+  Time since last request: 2.769391 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/1GunFrame-White.prefab
+  artifactKey: Guid(5312200ac6ec52d4f84b4684ec637a1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/1GunFrame-White.prefab using Guid(5312200ac6ec52d4f84b4684ec637a1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '3f1e4e9c083c23e236eeb2d211815e43') in 0.001591 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 7.353659 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/2GunFrame-Green.prefab
+  artifactKey: Guid(efea9b66c0fe49f4ebfefce9a1c2fbe7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/2GunFrame-Green.prefab using Guid(efea9b66c0fe49f4ebfefce9a1c2fbe7) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '6d58261facd0a6b2401ba3deb28596e0') in 0.001612 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.484069 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/2GunFrame-Green.prefab
+  artifactKey: Guid(efea9b66c0fe49f4ebfefce9a1c2fbe7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/2GunFrame-Green.prefab using Guid(efea9b66c0fe49f4ebfefce9a1c2fbe7) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '79c3d4df3f24fa892a477bb566e1f270') in 0.001411 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 7.851621 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/3GunFrame-Blue.prefab
+  artifactKey: Guid(46236b583595caf4faa84b20c43e1351) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/3GunFrame-Blue.prefab using Guid(46236b583595caf4faa84b20c43e1351) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7a4d303772c6433d27aead414acafb3a') in 0.001597 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.605117 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/3GunFrame-Blue.prefab
+  artifactKey: Guid(46236b583595caf4faa84b20c43e1351) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/3GunFrame-Blue.prefab using Guid(46236b583595caf4faa84b20c43e1351) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7850515479ca5ade4506ee7b09c1212f') in 0.001410 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 4.678487 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/4GunFrame-Parple.prefab
+  artifactKey: Guid(cc4e3f473847de340aa625e84ba1fc36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/4GunFrame-Parple.prefab using Guid(cc4e3f473847de340aa625e84ba1fc36) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '437179ebd74d086e689ad9f7c2a99685') in 0.001482 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.354488 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/4GunFrame-Parple.prefab
+  artifactKey: Guid(cc4e3f473847de340aa625e84ba1fc36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/4GunFrame-Parple.prefab using Guid(cc4e3f473847de340aa625e84ba1fc36) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '9a9eef3282f17cb5560d12350b38d3f2') in 0.001456 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 8.198836 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/5GunFrame-Gold.prefab
+  artifactKey: Guid(8fef81fdcd0471945847ef23dd83e85a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/5GunFrame-Gold.prefab using Guid(8fef81fdcd0471945847ef23dd83e85a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b9f670cc25d97cc3b6a9145039295799') in 0.001487 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 2.089837 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/5GunFrame-Gold.prefab
+  artifactKey: Guid(8fef81fdcd0471945847ef23dd83e85a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/5GunFrame-Gold.prefab using Guid(8fef81fdcd0471945847ef23dd83e85a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '89319d73b39b8b220885eff709d3d1d0') in 0.001485 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 5.921846 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/6GunFrame-Red.prefab
+  artifactKey: Guid(e27411ee15ca9d04296da4e93820e08e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/6GunFrame-Red.prefab using Guid(e27411ee15ca9d04296da4e93820e08e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '2cb1310a9a421d1d7f9f7b25f99b2478') in 0.001586 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 1.945683 seconds.
+  path: Assets/Prefab/GunSlot-armor/8ring/6GunFrame-Red.prefab
+  artifactKey: Guid(e27411ee15ca9d04296da4e93820e08e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/GunSlot-armor/8ring/6GunFrame-Red.prefab using Guid(e27411ee15ca9d04296da4e93820e08e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '2b3bd9246c71e4d9e152bda28477a9b8') in 0.001426 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 12
+========================================================================
+Received Import Request.
+  Time since last request: 167.155969 seconds.
+  path: Assets/Enemy1/Animations/TurtleShell/Attack01_TurtleShell_Anim.fbx
+  artifactKey: Guid(832e69c20e884e0790dae5ee86441a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy1/Animations/TurtleShell/Attack01_TurtleShell_Anim.fbx using Guid(832e69c20e884e0790dae5ee86441a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'cf5487e94e99c17c48ed6c1a97f6c639') in 0.094923 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 71
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Enemy1/Animations/TurtleShell/IdleNormal_TurtleShell_Anim.fbx
+  artifactKey: Guid(1f583387dcc14604b6836cea4b8d68d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy1/Animations/TurtleShell/IdleNormal_TurtleShell_Anim.fbx using Guid(1f583387dcc14604b6836cea4b8d68d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7973210dfbaa10d54bda3a009bff7de3') in 0.049303 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 71
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Map/Low Poly Atmospheric Locations Pack/Models/Lands/land autumn atmosphere forest.fbx
+  artifactKey: Guid(eddaed4dbae34ad409c9e0dc08a32569) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Map/Low Poly Atmospheric Locations Pack/Models/Lands/land autumn atmosphere forest.fbx using Guid(eddaed4dbae34ad409c9e0dc08a32569) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '17fe30341da2d6d084b35b4a43b71d30') in 0.110569 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 9
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Map/Low Poly Atmospheric Locations Pack/Models/Environment/chest.fbx
+  artifactKey: Guid(103b52543f5e3e340bc7a99e699ae6c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Map/Low Poly Atmospheric Locations Pack/Models/Environment/chest.fbx using Guid(103b52543f5e3e340bc7a99e699ae6c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '1d664e3b0b2e51f861c9ae7e36800b61') in 0.018401 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 9
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Island/Meshes/Chest.fbx
+  artifactKey: Guid(8913d1a109e1ddd43b99e601bedaf398) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Island/Meshes/Chest.fbx using Guid(8913d1a109e1ddd43b99e601bedaf398) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '8eea804e9b22067f403ac49bcb5b68f7') in 0.030752 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 14
+========================================================================
+Received Import Request.
+  Time since last request: 0.000081 seconds.
+  path: Assets/Enemy1/Animations/TurtleShell/WalkBack_TurtleShell_Anim.fbx
+  artifactKey: Guid(287406e12d1c4a1fad3c4e7ee6674ef0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy1/Animations/TurtleShell/WalkBack_TurtleShell_Anim.fbx using Guid(287406e12d1c4a1fad3c4e7ee6674ef0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'ce58f6d3082162d5d0845c7ff64d5282') in 0.091201 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 71
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Enemy1/Animations/TurtleShell/IdleBattle_TurtleShell_Anim.fbx
+  artifactKey: Guid(eee9d7beb7b440a58147d924f277c7ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy1/Animations/TurtleShell/IdleBattle_TurtleShell_Anim.fbx using Guid(eee9d7beb7b440a58147d924f277c7ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c85f2cc4fa9dc062888822a7a988657f') in 0.047663 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 71
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Enemy1/Animations/TurtleShell/Defend_TurtleShell_Anim.fbx
+  artifactKey: Guid(65b444fa8fd14c1c9fd5a23ee91ccb72) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy1/Animations/TurtleShell/Defend_TurtleShell_Anim.fbx using Guid(65b444fa8fd14c1c9fd5a23ee91ccb72) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'dc9a5e7defb62473383bafcc054f469b') in 0.040170 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 71
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/Enemy1/Animations/TurtleShell/SenseSomethingStart_TurtleShell_Anim.fbx
+  artifactKey: Guid(d005e95bf0134a26ad4ed5c5b36201ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy1/Animations/TurtleShell/SenseSomethingStart_TurtleShell_Anim.fbx using Guid(d005e95bf0134a26ad4ed5c5b36201ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a95cec3f5d2ff1f0579d43d068e5315a') in 0.036966 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 71
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Map/Low Poly Atmospheric Locations Pack/Prefabs/Environment/Winter environment/star bethlehem.prefab
+  artifactKey: Guid(e53be134c6f2375458110450a09e87ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Map/Low Poly Atmospheric Locations Pack/Prefabs/Environment/Winter environment/star bethlehem.prefab using Guid(e53be134c6f2375458110450a09e87ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a8c0b2f04b8e9d640ee6309f5596e7b3') in 0.044880 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 10
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Enemy1/Animations/TurtleShell/WalkRight_TurtleShell_Anim.fbx
+  artifactKey: Guid(34ddd76623304506b7d52b3d17924e87) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy1/Animations/TurtleShell/WalkRight_TurtleShell_Anim.fbx using Guid(34ddd76623304506b7d52b3d17924e87) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'e46d174c0333bfcf5d94fafda2bc9469') in 0.034660 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 71
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Map/Low Poly Atmospheric Locations Pack/Models/Environment/Winter environment/star bethlehem.fbx
+  artifactKey: Guid(9a197e047e7f3234d983486c367251db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Map/Low Poly Atmospheric Locations Pack/Models/Environment/Winter environment/star bethlehem.fbx using Guid(9a197e047e7f3234d983486c367251db) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'd2bb4918a972e5f3b5fdba4618a87183') in 0.012298 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 9
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Map/Low Poly Atmospheric Locations Pack/Prefabs/Environment/chest.prefab
+  artifactKey: Guid(6871a7c0106106b4091b4851c2bed59c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Map/Low Poly Atmospheric Locations Pack/Prefabs/Environment/chest.prefab using Guid(6871a7c0106106b4091b4851c2bed59c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '804c4b026f8c8db8725e16e7bfb65f93') in 0.009870 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 10
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Enemy1/Animations/TurtleShell/DefendHit_TurtleShell_Anim.fbx
+  artifactKey: Guid(f905c892a0744e17b0a91522be197c67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy1/Animations/TurtleShell/DefendHit_TurtleShell_Anim.fbx using Guid(f905c892a0744e17b0a91522be197c67) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b93a22ec4d4aefebcddcac6f35fd4f1a') in 0.022126 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 71
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Island/Prefabs/Chest.prefab
+  artifactKey: Guid(cae8e749c8d3eb44da3bdd1e6c9f42fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Island/Prefabs/Chest.prefab using Guid(cae8e749c8d3eb44da3bdd1e6c9f42fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '15d606a99f2871ea2ff27f2855f66c2a') in 0.038094 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 18
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Map/Low Poly Atmospheric Locations Pack/Prefabs/Lands/land autumn atmosphere forest.prefab
+  artifactKey: Guid(ddf217cc27112bb4983b30acb01fc43a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Map/Low Poly Atmospheric Locations Pack/Prefabs/Lands/land autumn atmosphere forest.prefab using Guid(ddf217cc27112bb4983b30acb01fc43a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f8d9eb505967da83f2402b5917430939') in 0.010105 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 10
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Synty/SidekickCharacters/Resources/Meshes/Species/Humans/SK_HUMN_BASE_01_01HEAD_HU01.fbx
+  artifactKey: Guid(7eadea74e22ac9f498597ee4898b9c25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Synty/SidekickCharacters/Resources/Meshes/Species/Humans/SK_HUMN_BASE_01_01HEAD_HU01.fbx using Guid(7eadea74e22ac9f498597ee4898b9c25) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '758644b952c51cfe0f157be58403218b') in 0.029341 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 184
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Enemy1/Meshes/TurtleShellMesh.fbx
+  artifactKey: Guid(599b2dc9e6c44a8ebc02ddea1f18d215) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy1/Meshes/TurtleShellMesh.fbx using Guid(599b2dc9e6c44a8ebc02ddea1f18d215) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f7f1c4d8cded2247920166bc5d18ed75') in 0.014649 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 70
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Synty/SidekickCharacters/Resources/Meshes/Outfits/Starter/SK_SCFI_CIVL_09_22AHED_HU01.fbx
+  artifactKey: Guid(1c564ed9a18c37c4aac81f8cada33bc4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Synty/SidekickCharacters/Resources/Meshes/Outfits/Starter/SK_SCFI_CIVL_09_22AHED_HU01.fbx using Guid(1c564ed9a18c37c4aac81f8cada33bc4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'd53b3cb4f48738f671470bea82ea3855') in 0.015072 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 44
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Synty/SidekickCharacters/Resources/Meshes/Species/Humans/SK_HUMN_BASE_02_01HEAD_HU01.fbx
+  artifactKey: Guid(507e474da94235841865e5648f2607a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Synty/SidekickCharacters/Resources/Meshes/Species/Humans/SK_HUMN_BASE_02_01HEAD_HU01.fbx using Guid(507e474da94235841865e5648f2607a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '8dae293b61137a7e9158f050ce03b4d0') in 0.037114 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 44
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Synty/SidekickCharacters/Resources/Meshes/Outfits/Starter/SK_SCFI_CIVL_10_22AHED_HU01.fbx
+  artifactKey: Guid(14e8ca26cf72d7540a93a7418771b1e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Synty/SidekickCharacters/Resources/Meshes/Outfits/Starter/SK_SCFI_CIVL_10_22AHED_HU01.fbx using Guid(14e8ca26cf72d7540a93a7418771b1e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'feb5c091a905f58755210a3da28065ec') in 0.017091 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 184
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Map/Low Poly Atmospheric Locations Pack/Prefabs/Waters/water location autumn atmosphere forest.prefab
+  artifactKey: Guid(d05d5c68af6efab46832adecd5bd0a01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Map/Low Poly Atmospheric Locations Pack/Prefabs/Waters/water location autumn atmosphere forest.prefab using Guid(d05d5c68af6efab46832adecd5bd0a01) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b2b2ef5b1f9ce4270298fe7a63502ac5') in 0.009903 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 10
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Synty/SidekickCharacters/Resources/Meshes/Outfits/Starter/SK_HORR_VILN_01_22AHED_HU01.fbx
+  artifactKey: Guid(d5f1e1e5e3ead5a418c11049c49136ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Synty/SidekickCharacters/Resources/Meshes/Outfits/Starter/SK_HORR_VILN_01_22AHED_HU01.fbx using Guid(d5f1e1e5e3ead5a418c11049c49136ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '76fcc3e247cdb63f78974c5e7d2a4ab1') in 0.039757 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 184
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Enemy1/Meshes/TurtleShellPolyartMesh.fbx
+  artifactKey: Guid(942e6d5330e147fe84c5ab6ab2193ca1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy1/Meshes/TurtleShellPolyartMesh.fbx using Guid(942e6d5330e147fe84c5ab6ab2193ca1) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'aa8b80c555141f05409edbfc8087a3a8') in 0.016703 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 70
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Synty/SidekickCharacters/Resources/Meshes/Outfits/Starter/SK_FANT_KNGT_17_22AHED_HU01.fbx
+  artifactKey: Guid(b0166281ca473884ab255b84d4b4febe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Synty/SidekickCharacters/Resources/Meshes/Outfits/Starter/SK_FANT_KNGT_17_22AHED_HU01.fbx using Guid(b0166281ca473884ab255b84d4b4febe) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '67f66639d7b37ab394cb4d78bcf71990') in 0.020136 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 192
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Enemy1/Animations/TurtleShell/WalkLeft_TurtleShell_Anim.fbx
+  artifactKey: Guid(fc293ba79aa94a5fa823e89ea330ec59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy1/Animations/TurtleShell/WalkLeft_TurtleShell_Anim.fbx using Guid(fc293ba79aa94a5fa823e89ea330ec59) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '2644fc7bd85cbae2f5d0e23901ec12e8') in 0.020089 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 71
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Enemy1/Animations/TurtleShell/SenseSomethingRT_TurtleShell_Anim.fbx
+  artifactKey: Guid(25c79772d5ff4896b07d0ddbcb0c9cd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy1/Animations/TurtleShell/SenseSomethingRT_TurtleShell_Anim.fbx using Guid(25c79772d5ff4896b07d0ddbcb0c9cd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '5680e86b6832300ec816da0ffc3fb716') in 0.022115 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 71
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Enemy1/Animations/TurtleShell/Walk_TurtleShell_Anim.fbx
+  artifactKey: Guid(70329e6db728412fb2a6e0371aaaa001) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy1/Animations/TurtleShell/Walk_TurtleShell_Anim.fbx using Guid(70329e6db728412fb2a6e0371aaaa001) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c9bce7147cec2d31466534a25ac0d2fa') in 0.032483 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 71
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Enemy1/Animations/TurtleShell/GetHit_TurtleShell_Anim.fbx
+  artifactKey: Guid(ee7bb9ee4f2544619d907133f41c9fc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy1/Animations/TurtleShell/GetHit_TurtleShell_Anim.fbx using Guid(ee7bb9ee4f2544619d907133f41c9fc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '0fdb7b545d4523e9e9de9e215c6668ef') in 0.023644 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 71
+========================================================================
+Received Import Request.
+  Time since last request: 0.009986 seconds.
+  path: Assets/Map/Low Poly Atmospheric Locations Pack/Models/Waters/water location autumn atmosphere forest.fbx
+  artifactKey: Guid(abe26545c14209942903e8f64bb87f19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Map/Low Poly Atmospheric Locations Pack/Models/Waters/water location autumn atmosphere forest.fbx using Guid(abe26545c14209942903e8f64bb87f19) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'd91e32659406a89b2386b47bd726ed5f') in 0.012635 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 9
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Enemy1/Animations/TurtleShell/Taunt_TurtleShell_Anim.fbx
+  artifactKey: Guid(04810a4318d746d39ffa6c64084ca93a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy1/Animations/TurtleShell/Taunt_TurtleShell_Anim.fbx using Guid(04810a4318d746d39ffa6c64084ca93a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'addbec86820c29507679fd56b4cb20cb') in 0.073103 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 71
+========================================================================
+Received Import Request.
+  Time since last request: 24.903379 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'aa58885ff617115eeb39eb8bc03c7628') in 0.019927 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 4.121002 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c9399c017def3d403d75c76a5a0302f8') in 0.017595 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 750
+========================================================================
+Received Import Request.
+  Time since last request: 4.316436 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'aa172dc49cb58f59789ddb9e2a5963ae') in 0.017282 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 751
+========================================================================
+Received Import Request.
+  Time since last request: 4.884674 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'e1bf86cde7cf213dcd0df026aacbfbc5') in 0.018372 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 752
+========================================================================
+Received Import Request.
+  Time since last request: 4.415269 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '626c451a1a6bf5b197b7bc0052178801') in 0.017895 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 753
+========================================================================
+Received Import Request.
+  Time since last request: 5.341680 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '869b3367a8e96b45978b399554c93d3d') in 0.016905 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 754
+========================================================================
+Received Import Request.
+  Time since last request: 19.884377 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '6cfb549d899974ec1d1fbc4f458dc8d5') in 0.015848 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 755
+========================================================================
+Received Import Request.
+  Time since last request: 9.502339 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '9572066b043e188121fb4be6f1301d20') in 0.016559 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 756
+========================================================================
+Received Import Request.
+  Time since last request: 5.986547 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '358276d45edf399ba33a256027659ed7') in 0.016662 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 757
+========================================================================
+Received Import Request.
+  Time since last request: 53.646534 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b169356f4684fbff21c19a1a3faf25ba') in 0.017621 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 693
+========================================================================
+Received Import Request.
+  Time since last request: 7.391269 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '74511f08d63c88176327e3a08d2cf6dd') in 0.018605 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 625
+========================================================================
+Received Import Request.
+  Time since last request: 8.129432 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f9a0b162174a3634afb75e22f06deb9f') in 0.015588 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 553
+========================================================================
+Received Import Request.
+  Time since last request: 6.977476 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'efa809f501648020803c9e523dbeba02') in 0.013068 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 481
+========================================================================
+Received Import Request.
+  Time since last request: 5.416105 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7558ef196fce75ee0748aef56ec6a6e9') in 0.012176 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 409
+========================================================================
+Received Import Request.
+  Time since last request: 8.673766 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7d72635daadc62f5881cb64d99c1ba51') in 0.010348 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 331
+========================================================================
+Received Import Request.
+  Time since last request: 6.775855 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '2ebbdedacdb51fe7bec195e82053250c') in 0.008872 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 259
+========================================================================
+Received Import Request.
+  Time since last request: 5.772104 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '5a934de29c04544f3fa141019dd94670') in 0.006961 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 176
+========================================================================
+Received Import Request.
+  Time since last request: 20.126117 seconds.
+  path: Assets/Prefab/Armor Capsule/1.prefab
+  artifactKey: Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/1.prefab using Guid(9ac45b934b4aa5d47868d5f400902d31) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '41ed6d244a618578f9de4f3c41ccd214') in 0.007137 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 176
+========================================================================
+Received Import Request.
+  Time since last request: 17.014578 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '39521910b4cf6d79125b192bac0e6a6b') in 0.019144 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.146607 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b0b2ffc8cf6397c58535aeec3b6803d2') in 0.015702 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.587864 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'eea542a671e3cbf61341ecbf5762b3ba') in 0.015107 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.185988 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '550f0b9c69082d9fcf81817bbfc25436') in 0.016711 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.155008 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'ecf6c3749160afd463914d38cacd5284') in 0.015889 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.198319 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'dc34b5473e9a1558ed56fcc2ef05b90a') in 0.015966 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 3.384427 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '1dc17571ffa473de4449591ed4777bfe') in 0.017036 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.594665 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '693ed94e26543f2d70e64683e03ccf19') in 0.015292 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.159638 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f2bc137153a960b645526e960f3ddd0d') in 0.014848 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.188173 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f27aeade85842faa28bd327f16e4e5af') in 0.015494 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.965666 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '501079b8019675e4f4f3ba5da907fa1c') in 0.016004 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.154742 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'cf5ef25255a7a7065805a001cc419958') in 0.051483 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.149555 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'd83bbb66150eaa6d5ed0dcbb0f319417') in 0.015409 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.239553 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '406da55c7fcfe04d18b29366bed61b49') in 0.016599 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 3.041804 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '98fba4b24c737d172a8bd6d3a937739f') in 0.017795 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.103531 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '0c1e209e147dd559e6fac1f4fd6d0778') in 0.016193 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.168120 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '4a903e65f53f3921c6967d03a7d5db81') in 0.067626 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.021624 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '1f3f29713087f0070ece106a202996de') in 0.017039 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 3.608407 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '0238d211150cb328649a9f2392c0ab18') in 0.016219 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.240066 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '1a02c8627b556f60e4a4a55b9471890c') in 0.015263 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.085886 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '73e92bac7fb8e3a80b61dddd586961a6') in 0.017420 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 4.159466 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '896324801e1065f7179bf9708249127c') in 0.017146 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 3.195321 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '294338d2e9ea5e8b0aa6a9e506ef0259') in 0.016500 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.250366 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'ea4d084c6f47f21dc9ad91c4ba245099') in 0.016776 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.281230 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '0d983ef9d18cb03c73d1e82db5b964b3') in 0.078193 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.017998 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '4615d94901015e0180a8cafcadb638f2') in 0.016005 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 3.733140 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '617218cb4eb586f77ea28d9b74e4366d') in 0.016339 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.421563 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'd5e29e171982dc0d76d95edffdb1a77b') in 0.017274 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.736926 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '752252cf309cc963e03e427c459c48bc') in 0.017434 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.711016 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a5a5c4514cecb87ef21f0094c4c3be65') in 0.015701 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 3.087184 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a7e3166874f1d4116352d416c1844607') in 0.018172 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.519489 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'ecfebd865b53dd46b56ef667e3546a80') in 0.016414 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.230365 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '6a8bdaed2ebd9d154cdd856ac9c9132e') in 0.015301 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.281767 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '52b74cde3d51e88880de755daa3e70ab') in 0.017135 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.142817 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f917c7150c224df67acca999cecd1885') in 0.015510 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 3.651821 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c6db2ec43ba25f122e4cce919e4c567c') in 0.015978 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.067772 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'ceacc8175bdd8713892322d914ddaaf1') in 0.015719 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.034074 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'ac0f1f9cb4f6a2ffdd5d4a49a9005c99') in 0.015902 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 81.853021 seconds.
+  path: Assets/Prefab/Armor/8ring/1.ring.prefab
+  artifactKey: Guid(b04fa5a00c2a40e43958f3f6ee059d1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor/8ring/1.ring.prefab using Guid(b04fa5a00c2a40e43958f3f6ee059d1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'cbe38fbea79b8a08a27351a1259bc702') in 0.002598 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 11
+========================================================================
+Received Import Request.
+  Time since last request: 5.271157 seconds.
+  path: Assets/Prefab/Armor/8ring/2,ring.prefab
+  artifactKey: Guid(6bf315ae28ef412409456f1dea2aafa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor/8ring/2,ring.prefab using Guid(6bf315ae28ef412409456f1dea2aafa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '5884a404fd23cc5f3de75732c9f4564b') in 0.001849 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 11
+========================================================================
+Received Import Request.
+  Time since last request: 5.488806 seconds.
+  path: Assets/Prefab/Armor/8ring/3,ring.prefab
+  artifactKey: Guid(20a05560a4c34914993283138da5dddd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor/8ring/3,ring.prefab using Guid(20a05560a4c34914993283138da5dddd) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'd4a3724dedb901bf053b93595e104eec') in 0.001811 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 11
+========================================================================
+Received Import Request.
+  Time since last request: 6.535847 seconds.
+  path: Assets/Prefab/Armor/8ring/4,rinf.prefab
+  artifactKey: Guid(6ba34ea38a531c143b372e86327aa798) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor/8ring/4,rinf.prefab using Guid(6ba34ea38a531c143b372e86327aa798) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '93b9bc4c19bd6931e8fd963edeb075e5') in 0.001767 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 11
+========================================================================
+Received Import Request.
+  Time since last request: 9.290716 seconds.
+  path: Assets/Prefab/Armor/8ring/4,ring.prefab
+  artifactKey: Guid(6ba34ea38a531c143b372e86327aa798) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor/8ring/4,ring.prefab using Guid(6ba34ea38a531c143b372e86327aa798) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '54b48d03529bec302b8a35c0b149bd02') in 0.001727 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 11

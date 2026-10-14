@@ -37,6 +37,22 @@ public class GachaSystem : MonoBehaviour
     [Header("【デバッグ設定】")]
     public bool isDebugModeFreePull = false;
 
+    // ==========================================
+    // ★追加：武器ガチャ／防具ガチャ切り替えボタン設定
+    // ==========================================
+    [Header("【武器・防具ガチャ切り替えボタン設定】")]
+    [Tooltip("武器ガチャに切り替えるボタン（Image）")]
+    public Image weaponGachaButtonImage;
+    [Tooltip("防具ガチャに切り替えるボタン（Image）")]
+    public Image armorGachaButtonImage;
+    [Tooltip("選択している方のボタンの色（通常の色）")]
+    public Color selectedTypeColor = Color.white;
+    [Tooltip("選択していない方のボタンの色（灰色）")]
+    public Color unselectedTypeColor = Color.gray;
+
+    // 現在防具ガチャかどうかを判定するフラグ（false = 武器ガチャ, true = 防具ガチャ）
+    private bool isArmorGacha = false;
+
     [Header("【ガチャボタンUI設定】")]
     public GameObject singlePullButton;
     [Tooltip("1連ガチャ用の矢印UI（Image）")]
@@ -77,8 +93,15 @@ public class GachaSystem : MonoBehaviour
     public Vector3 finalScale = new Vector3(3f, 3f, 3f);
     public float spawnInterval = 0.15f;
 
-    [Header("【排出アイテム一覧（確率設定）】")]
+    // ==========================================
+    // ★変更・追加：武器ガチャ用と防具ガチャ用の排出リスト
+    // （※既存のインスペクター設定が消えないよう、武器側は gachaItems の名前にしています）
+    // ==========================================
+    [Header("【武器ガチャの排出アイテム一覧（確率設定）】")]
     public List<GachaItem> gachaItems;
+
+    [Header("【防具ガチャの排出アイテム一覧（確率設定）】")]
+    public List<GachaItem> armorGachaItems;
 
     private bool isPulling = false;
     private Color disabledColor = new Color(0.5f, 0.5f, 0.5f, 1f);
@@ -90,6 +113,11 @@ public class GachaSystem : MonoBehaviour
         // （セーブデータが無ければ、initialEmeralds を初期値にする）
         // ==========================================
         currentEmeralds = PlayerPrefs.GetInt("PlayerEmeralds", initialEmeralds);
+
+        // ==========================================
+        // ★追加：Sceneに来た時は必ず「武器ガチャ」の方から始まるようにする
+        // ==========================================
+        OnClickSelectWeaponGacha();
 
         UpdateButtonVisibility();
 
@@ -106,6 +134,46 @@ public class GachaSystem : MonoBehaviour
             openAllButtonCanvasGroup.alpha = 0f;
             openAllButtonCanvasGroup.interactable = false;
             openAllButtonCanvasGroup.blocksRaycasts = false;
+        }
+    }
+
+    // ==========================================
+    // ★追加：武器ガチャに切り替えるボタン用メソッド
+    // ==========================================
+    public void OnClickSelectWeaponGacha()
+    {
+        if (isPulling) return; // ガチャ演出中は切り替え不可
+
+        isArmorGacha = false;
+        UpdateGachaTypeButtonColors();
+        Debug.Log("武器ガチャに切り替えました！");
+    }
+
+    // ==========================================
+    // ★追加：防具ガチャに切り替えるボタン用メソッド
+    // ==========================================
+    public void OnClickSelectArmorGacha()
+    {
+        if (isPulling) return; // ガチャ演出中は切り替え不可
+
+        isArmorGacha = true;
+        UpdateGachaTypeButtonColors();
+        Debug.Log("防具ガチャに切り替えました！");
+    }
+
+    // ==========================================
+    // ★追加：選択中の方を通常の色、選択していない方を灰色にする処理
+    // ==========================================
+    private void UpdateGachaTypeButtonColors()
+    {
+        if (weaponGachaButtonImage != null)
+        {
+            weaponGachaButtonImage.color = !isArmorGacha ? selectedTypeColor : unselectedTypeColor;
+        }
+
+        if (armorGachaButtonImage != null)
+        {
+            armorGachaButtonImage.color = isArmorGacha ? selectedTypeColor : unselectedTypeColor;
         }
     }
 
@@ -429,10 +497,22 @@ public class GachaSystem : MonoBehaviour
         }
     }
 
+    // ==========================================
+    // ★変更：現在選択中のガチャ（武器 or 防具）のリストから抽選する処理
+    // ==========================================
     private GameObject DrawGacha()
     {
+        // 防具ガチャモードなら armorGachaItems、武器ガチャモードなら gachaItems を使用する
+        List<GachaItem> targetGachaList = isArmorGacha ? armorGachaItems : gachaItems;
+
+        if (targetGachaList == null || targetGachaList.Count == 0)
+        {
+            Debug.LogWarning(isArmorGacha ? "防具ガチャの排出リストが空です！" : "武器ガチャの排出リストが空です！");
+            return null;
+        }
+
         float totalWeight = 0;
-        foreach (var item in gachaItems)
+        foreach (var item in targetGachaList)
         {
             if (!item.isProbabilityZero)
             {
@@ -445,7 +525,7 @@ public class GachaSystem : MonoBehaviour
         float randomValue = Random.Range(0, totalWeight);
         float currentWeight = 0;
 
-        foreach (var item in gachaItems)
+        foreach (var item in targetGachaList)
         {
             if (item.isProbabilityZero) continue;
 
