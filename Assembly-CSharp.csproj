@@ -60,12 +60,16 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\gun\M107.cs" />
     <Compile Include="Assets\Script\Enemy\SlimeAI.cs" />
     <Compile Include="Assets\Script\Player\DisablePlayerControl.cs" />
+    <Compile Include="Assets\Script\gun\M249.cs" />
     <Compile Include="Assets\Synty\SidekickCharacters\_Demos\Scripts\ExpressionSwitcher.cs" />
     <Compile Include="Assets\Script\Enemy\TurtleShellAI.cs" />
     <Compile Include="Assets\Script\gacha\CapsuleOpener.cs" />
+    <Compile Include="Assets\Script\gun\LMG.cs" />
     <Compile Include="Assets\Script\Enemy\CactusAI.cs" />
+    <Compile Include="Assets\Script\gun\WeaponModelLinker.cs" />
     <Compile Include="Assets\Island\Scripts\WaterScroller.cs" />
     <Compile Include="Assets\Island\Scripts\FixedTiling.cs" />
     <Compile Include="Assets\Script\gun\Pistol.cs" />
@@ -76,10 +80,14 @@
     <Compile Include="Assets\Script\gun\WeaponManager.cs" />
     <Compile Include="Assets\Script\gun\WeaponDataKeeper1.cs" />
     <Compile Include="Assets\Script\gacha\GachaSystem.cs" />
+    <Compile Include="Assets\Script\gacha\ArmorItemLinker.cs" />
     <Compile Include="Assets\Script\Enemy\Billboard.cs" />
     <Compile Include="Assets\Script\gun\WeaponInventoryManager.cs" />
     <Compile Include="Assets\Script\BackGround\UVScroll.cs" />
+    <Compile Include="Assets\Script\gun\Shotgun.cs" />
     <Compile Include="Assets\Synty\SidekickCharacters\_Demos\Scripts\RuntimePartsDemo.cs" />
+    <Compile Include="Assets\Script\gun\RocketBullet.cs" />
+    <Compile Include="Assets\Script\gun\RPG7.cs" />
     <Compile Include="Assets\Synty\SidekickCharacters\_Demos\Scripts\RuntimeColorDemo.cs" />
     <Compile Include="Assets\Script\gun\StageWeaponDisplay.cs" />
     <Compile Include="Assets\Script\Enemy\MushroomAI.cs" />
@@ -89,9 +97,11 @@
     <Compile Include="Assets\Synty\SidekickCharacters\_Demos\Scripts\RuntimePresetDemo.cs" />
     <Compile Include="Assets\Script\gacha\OpenAllCapsulesButton.cs" />
     <Compile Include="Assets\Script\Player\WaveManager.cs" />
+    <Compile Include="Assets\Script\gun\WeaponSizeAdjuster.cs" />
     <Compile Include="Assets\Script\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Script\Enemy\SkeletonArcherAI.cs" />
     <Compile Include="Assets\Script\Player\SceneTransitionManager.cs" />
+    <Compile Include="Assets\Script\gun\EquippedWeaponDisplay.cs" />
     <Compile Include="Assets\Script\Player\PlayerHealth.cs" />
     <Compile Include="Assets\Script\gun\Bullet.cs" />
     <Compile Include="Assets\Script\gun\M4.cs" />

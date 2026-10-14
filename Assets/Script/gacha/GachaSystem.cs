@@ -38,17 +38,17 @@ public class GachaSystem : MonoBehaviour
     public bool isDebugModeFreePull = false;
 
     // ==========================================
-    // ★追加：武器ガチャ／防具ガチャ切り替えボタン設定
+    // ★変更：選択している方のボタンを「灰色」、選択していない方を「通常色（白）」に設定
     // ==========================================
     [Header("【武器・防具ガチャ切り替えボタン設定】")]
     [Tooltip("武器ガチャに切り替えるボタン（Image）")]
     public Image weaponGachaButtonImage;
     [Tooltip("防具ガチャに切り替えるボタン（Image）")]
     public Image armorGachaButtonImage;
-    [Tooltip("選択している方のボタンの色（通常の色）")]
-    public Color selectedTypeColor = Color.white;
-    [Tooltip("選択していない方のボタンの色（灰色）")]
-    public Color unselectedTypeColor = Color.gray;
+    [Tooltip("選択している方のボタンの色（灰色）")]
+    public Color selectedTypeColor = Color.gray;
+    [Tooltip("選択していない方のボタンの色（通常の色）")]
+    public Color unselectedTypeColor = Color.white;
 
     // 現在防具ガチャかどうかを判定するフラグ（false = 武器ガチャ, true = 防具ガチャ）
     private bool isArmorGacha = false;
@@ -115,9 +115,17 @@ public class GachaSystem : MonoBehaviour
         currentEmeralds = PlayerPrefs.GetInt("PlayerEmeralds", initialEmeralds);
 
         // ==========================================
-        // ★追加：Sceneに来た時は必ず「武器ガチャ」の方から始まるようにする
+        // ★追加：カーソルを重ねた時に色が変わったり、ガチャを引いた時に選択が外れて
+        // 色が戻ってしまうのを防ぐため、Buttonの自動色変更（Transition）を無効化する
         // ==========================================
-        OnClickSelectWeaponGacha();
+        DisableButtonColorTransition(weaponGachaButtonImage);
+        DisableButtonColorTransition(armorGachaButtonImage);
+
+        // ==========================================
+        // ★追加：ゲームスタート時に最初から「武器ガチャ」が選択された状態にする
+        // ==========================================
+        isArmorGacha = false;
+        UpdateGachaTypeButtonColors();
 
         UpdateButtonVisibility();
 
@@ -134,6 +142,41 @@ public class GachaSystem : MonoBehaviour
             openAllButtonCanvasGroup.alpha = 0f;
             openAllButtonCanvasGroup.interactable = false;
             openAllButtonCanvasGroup.blocksRaycasts = false;
+        }
+    }
+
+    // ==========================================
+    // ★追加：ゲーム実行中にInspectorで isDebugModeFreePull のチェックを切り替えた際も
+    // 即座にボタン表示（10連ボタン表示など）が更新されるようにする処理
+    // ==========================================
+    private void OnValidate()
+    {
+        if (Application.isPlaying)
+        {
+            UpdateButtonVisibility();
+        }
+    }
+
+    // ==========================================
+    // ★追加：Buttonコンポーネントの勝手な色変化（ホバー時やフォーカス外れ時）を完全に無効化する処理
+    // ==========================================
+    private void DisableButtonColorTransition(Image targetImage)
+    {
+        if (targetImage == null) return;
+
+        // 同じオブジェクト、または親オブジェクトについているButtonを取得
+        Button btn = targetImage.GetComponent<Button>();
+        if (btn == null) btn = targetImage.GetComponentInParent<Button>();
+
+        if (btn != null)
+        {
+            // TransitionをNoneにすることで、カーソルを重ねても別ボタンを押しても色が一切変わらなくなります
+            btn.transition = Selectable.Transition.None;
+
+            // 他のボタンを押しても選択が解除されないようナビゲーションもNoneに固定
+            Navigation nav = btn.navigation;
+            nav.mode = Navigation.Mode.None;
+            btn.navigation = nav;
         }
     }
 
@@ -162,17 +205,21 @@ public class GachaSystem : MonoBehaviour
     }
 
     // ==========================================
-    // ★追加：選択中の方を通常の色、選択していない方を灰色にする処理
+    // ★変更：選択されているボタンだけ灰色（selectedTypeColor）にし、
+    // 選択されていない方を通常色（unselectedTypeColor）にする処理
     // ==========================================
     private void UpdateGachaTypeButtonColors()
     {
+        // ※インスペクターで古い色が保存されていても確実に「選択中＝灰色、非選択＝白」になるよう適用します
         if (weaponGachaButtonImage != null)
         {
+            // 武器ガチャ選択中（!isArmorGacha）なら灰色、違うなら通常色
             weaponGachaButtonImage.color = !isArmorGacha ? selectedTypeColor : unselectedTypeColor;
         }
 
         if (armorGachaButtonImage != null)
         {
+            // 防具ガチャ選択中（isArmorGacha）なら灰色、違うなら通常色
             armorGachaButtonImage.color = isArmorGacha ? selectedTypeColor : unselectedTypeColor;
         }
     }
@@ -202,6 +249,9 @@ public class GachaSystem : MonoBehaviour
         Debug.Log($"{pullCount}連ガチャ実行！ 残りエメラルド: {currentEmeralds}");
 
         UpdateButtonVisibility();
+
+        // ★追加：ガチャを引いた時も、選択中のガチャ種類ボタンの色（選択状態）を確実に維持する
+        UpdateGachaTypeButtonColors();
 
         if (backgroundFadeImage != null)
         {
@@ -234,7 +284,11 @@ public class GachaSystem : MonoBehaviour
             }
         }
 
-        int affordablePulls = Mathf.Clamp(currentEmeralds / costPerPull, 0, 10);
+        // ==========================================
+        // ★修正：isDebugModeFreePull にチェックが入っている時は、
+        // 所持エメラルドに関係なく強制的に「10連ボタン（10）」を表示対象にする！
+        // ==========================================
+        int affordablePulls = isDebugModeFreePull ? 10 : Mathf.Clamp(currentEmeralds / costPerPull, 0, 10);
         int targetButtonIndex = affordablePulls >= 2 ? affordablePulls : 2;
 
         for (int i = 2; i <= 10; i++)

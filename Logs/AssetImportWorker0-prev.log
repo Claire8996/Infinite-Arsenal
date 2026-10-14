@@ -15,7 +15,7 @@ D:/å€‹äººè£½ä½œï¼’/Infinite Arsenal/Infinite Arsenal
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-62816
+52679
 Successfully changed project path to: D:/å€‹äººè£½ä½œï¼’/Infinite Arsenal/Infinite Arsenal
 D:/å€‹äººè£½ä½œï¼’/Infinite Arsenal/Infinite Arsenal
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -49,15 +49,15 @@ D:/å€‹äººè£½ä½œï¼’/Infinite Arsenal/Infinite Arsenal
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [73800]  Target information:
+Player connection [88188]  Target information:
 
-Player connection [73800]  * "[IP] 10.219.32.102 [Port] 0 [Flags] 2 [Guid] 2239215695 [EditorId] 2239215695 [Version] 1048832 [Id] WindowsEditor(7,KIC-GAME-B-02) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [88188]  * "[IP] 10.219.32.102 [Port] 0 [Flags] 2 [Guid] 2778050640 [EditorId] 2778050640 [Version] 1048832 [Id] WindowsEditor(7,KIC-GAME-B-02) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [73800] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [73800] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [88188] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [88188] Host joined alternative multi-casting on [225.0.0.222:34997]...
 Input System module state changed to: Initialized.
 [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-Refreshing native plugins compatible for Editor in 2561.04 ms, found 6 plugins.
+Refreshing native plugins compatible for Editor in 5.03 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.3.62f3 (96770f904ca7)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/Resources/UnitySubsystems
@@ -73,44 +73,44 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56084
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56228
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.100988 seconds.
-- Loaded All Assemblies, in  5.758 seconds
+Registered in 0.004573 seconds.
+- Loaded All Assemblies, in  0.202 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.161 seconds
-Domain Reload Profiling: 5918ms
-	BeginReloadAssembly (4404ms)
+- Finished resetting the current domain, in  0.159 seconds
+Domain Reload Profiling: 360ms
+	BeginReloadAssembly (63ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (0ms)
-	RebuildCommonClasses (355ms)
+	RebuildCommonClasses (20ms)
 	RebuildNativeTypeToScriptingClass (6ms)
-	initialDomainReloadingComplete (138ms)
-	LoadAllAssembliesAndSetupDomain (854ms)
-		LoadAssemblies (4402ms)
+	initialDomainReloadingComplete (35ms)
+	LoadAllAssembliesAndSetupDomain (77ms)
+		LoadAssemblies (62ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (853ms)
-			TypeCache.Refresh (852ms)
-				TypeCache.ScanAssembly (557ms)
+		AnalyzeDomain (76ms)
+			TypeCache.Refresh (75ms)
+				TypeCache.ScanAssembly (67ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (0ms)
-	FinalizeReload (161ms)
+	FinalizeReload (159ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (133ms)
+		SetupLoadedEditorAssemblies (132ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (6ms)
 			SetLoadedEditorAssemblies (5ms)
 			RefreshPlugins (0ms)
 			BeforeProcessingInitializeOnLoad (1ms)
 			ProcessInitializeOnLoadAttributes (92ms)
-			ProcessInitializeOnLoadMethodAttributes (29ms)
+			ProcessInitializeOnLoadMethodAttributes (28ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -119,149 +119,57 @@ Domain Reload Profiling: 5918ms
 Worker process is ready to serve import requests
 Caller must complete domain reload
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  8.072 seconds
+- Loaded All Assemblies, in  0.396 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  4.374 seconds
-Domain Reload Profiling: 12446ms
-	BeginReloadAssembly (88ms)
+- Finished resetting the current domain, in  0.868 seconds
+Domain Reload Profiling: 1264ms
+	BeginReloadAssembly (84ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (3ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (12ms)
+		CreateAndSetChildDomain (11ms)
 	RebuildCommonClasses (20ms)
 	RebuildNativeTypeToScriptingClass (6ms)
-	initialDomainReloadingComplete (24ms)
-	LoadAllAssembliesAndSetupDomain (7934ms)
-		LoadAssemblies (7771ms)
+	initialDomainReloadingComplete (25ms)
+	LoadAllAssembliesAndSetupDomain (260ms)
+		LoadAssemblies (181ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (216ms)
-			TypeCache.Refresh (196ms)
-				TypeCache.ScanAssembly (186ms)
-			ScanForSourceGeneratedMonoScriptInfo (14ms)
+		AnalyzeDomain (130ms)
+			TypeCache.Refresh (110ms)
+				TypeCache.ScanAssembly (101ms)
+			ScanForSourceGeneratedMonoScriptInfo (13ms)
 			ResolveRequiredComponents (4ms)
-	FinalizeReload (4375ms)
+	FinalizeReload (869ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (4287ms)
+		SetupLoadedEditorAssemblies (780ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (4ms)
+			InitializePlatformSupportModulesInManaged (3ms)
 			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
 			BeforeProcessingInitializeOnLoad (45ms)
-			ProcessInitializeOnLoadAttributes (4189ms)
-			ProcessInitializeOnLoadMethodAttributes (43ms)
-			AfterProcessingInitializeOnLoad (3ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (4ms)
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
-Refreshing native plugins compatible for Editor in 2.96 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5187 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 751 unused Assets / (0.7 MB). Loaded Objects now: 5505.
-Memory consumption went from 252.2 MB to 251.5 MB.
-Total: 2.682100 ms (FindLiveObjects: 0.228800 ms CreateObjectMapping: 0.083400 ms MarkObjects: 1.723000 ms  DeleteObjects: 0.646300 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 1394240.368803 seconds.
-  path: Assets/Script/gacha
-  artifactKey: Guid(b77ea27c0b4c98747b8392d2d849e29c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Script/gacha using Guid(b77ea27c0b4c98747b8392d2d849e29c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '5b86df9b30474a384f0338296ad74d12') in 0.023640 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 0
-========================================================================
-Received Import Request.
-  Time since last request: 15.406966 seconds.
-  path: Assets/Script/gacha/New Folder
-  artifactKey: Guid(bc8c90eb1e4258a4fbee66beaccd0962) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Script/gacha/New Folder using Guid(bc8c90eb1e4258a4fbee66beaccd0962) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '268dd59de600af5b8130e0d5a5639c97') in 0.002878 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 0
-========================================================================
-Received Import Request.
-  Time since last request: 11.857115 seconds.
-  path: Assets/Script/gacha/ArmorItemLinker.cs
-  artifactKey: Guid(5613a6434c8bec840ae1e188aa85f956) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Script/gacha/ArmorItemLinker.cs using Guid(5613a6434c8bec840ae1e188aa85f956) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: 'f8794587302168898e6f191f4be1c6c3') in 0.000854 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 0
-========================================================================
-Received Prepare
-Caller must complete domain reload
-Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.811 seconds
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in 13.911 seconds
-Domain Reload Profiling: 14721ms
-	BeginReloadAssembly (298ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (8ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (105ms)
-	RebuildCommonClasses (34ms)
-	RebuildNativeTypeToScriptingClass (12ms)
-	initialDomainReloadingComplete (35ms)
-	LoadAllAssembliesAndSetupDomain (430ms)
-		LoadAssemblies (504ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (54ms)
-			TypeCache.Refresh (18ms)
-				TypeCache.ScanAssembly (2ms)
-			ScanForSourceGeneratedMonoScriptInfo (20ms)
-			ResolveRequiredComponents (11ms)
-	FinalizeReload (13912ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (2828ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (4ms)
-			SetLoadedEditorAssemblies (3ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (48ms)
-			ProcessInitializeOnLoadAttributes (2727ms)
-			ProcessInitializeOnLoadMethodAttributes (41ms)
+			ProcessInitializeOnLoadAttributes (682ms)
+			ProcessInitializeOnLoadMethodAttributes (42ms)
 			AfterProcessingInitializeOnLoad (4ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (4ms)
-Script is not up to date after domain reload: guid(5613a6434c8bec840ae1e188aa85f956) path("Assets/Script/gacha/ArmorItemLinker.cs") state(2)
-Refreshing native plugins compatible for Editor in 3.08 ms, found 6 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Refreshing native plugins compatible for Editor in 2.58 ms, found 6 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5152 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 746 unused Assets / (0.7 MB). Loaded Objects now: 5509.
-Memory consumption went from 244.5 MB to 243.8 MB.
-Total: 3.340400 ms (FindLiveObjects: 0.239400 ms CreateObjectMapping: 0.118000 ms MarkObjects: 2.290800 ms  DeleteObjects: 0.691200 ms)
+Unloading 5188 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 751 unused Assets / (0.8 MB). Loaded Objects now: 5506.
+Memory consumption went from 252.3 MB to 251.5 MB.
+Total: 2.799800 ms (FindLiveObjects: 0.248700 ms CreateObjectMapping: 0.106400 ms MarkObjects: 1.811000 ms  DeleteObjects: 0.632800 ms)
 
-Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
   custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
-  custom:scripting/monoscript/fileName/ArmorItemLinker.cs: 9406a17aa1da47a01b313836fa5dfbff -> 
   custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
   custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
@@ -270,564 +178,1065 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/precompiled-assembly-types:Assembly-CSharp: bdcee9e4205e94c12d40d97112c4f8bc -> dbaca02e24b7df01e2463c050fd36d1b
-========================================================================
-Received Prepare
-Caller must complete domain reload
-Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.300 seconds
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.137 seconds
-Domain Reload Profiling: 1437ms
-	BeginReloadAssembly (101ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (3ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (20ms)
-	RebuildCommonClasses (21ms)
-	RebuildNativeTypeToScriptingClass (6ms)
-	initialDomainReloadingComplete (17ms)
-	LoadAllAssembliesAndSetupDomain (154ms)
-		LoadAssemblies (186ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (22ms)
-			TypeCache.Refresh (7ms)
-				TypeCache.ScanAssembly (1ms)
-			ScanForSourceGeneratedMonoScriptInfo (9ms)
-			ResolveRequiredComponents (4ms)
-	FinalizeReload (1137ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (838ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (5ms)
-			SetLoadedEditorAssemblies (3ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (51ms)
-			ProcessInitializeOnLoadAttributes (736ms)
-			ProcessInitializeOnLoadMethodAttributes (40ms)
-			AfterProcessingInitializeOnLoad (3ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (4ms)
-Refreshing native plugins compatible for Editor in 6.06 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5154 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 746 unused Assets / (0.7 MB). Loaded Objects now: 5514.
-Memory consumption went from 244.8 MB to 244.0 MB.
-Total: 4.189800 ms (FindLiveObjects: 0.475900 ms CreateObjectMapping: 0.167800 ms MarkObjects: 2.150800 ms  DeleteObjects: 1.394100 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
-  custom:scripting/monoscript/fileName/ArmorItemLinker.cs: 9406a17aa1da47a01b313836fa5dfbff -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/precompiled-assembly-types:Assembly-CSharp: bdcee9e4205e94c12d40d97112c4f8bc -> dbaca02e24b7df01e2463c050fd36d1b
-========================================================================
-Received Prepare
-Caller must complete domain reload
-Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.300 seconds
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.096 seconds
-Domain Reload Profiling: 1395ms
-	BeginReloadAssembly (96ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (2ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (19ms)
-	RebuildCommonClasses (19ms)
-	RebuildNativeTypeToScriptingClass (6ms)
-	initialDomainReloadingComplete (17ms)
-	LoadAllAssembliesAndSetupDomain (160ms)
-		LoadAssemblies (189ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (21ms)
-			TypeCache.Refresh (7ms)
-				TypeCache.ScanAssembly (1ms)
-			ScanForSourceGeneratedMonoScriptInfo (8ms)
-			ResolveRequiredComponents (4ms)
-	FinalizeReload (1096ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (769ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (4ms)
-			SetLoadedEditorAssemblies (3ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (52ms)
-			ProcessInitializeOnLoadAttributes (668ms)
-			ProcessInitializeOnLoadMethodAttributes (38ms)
-			AfterProcessingInitializeOnLoad (3ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (4ms)
-Refreshing native plugins compatible for Editor in 2.97 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5154 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 746 unused Assets / (0.7 MB). Loaded Objects now: 5518.
-Memory consumption went from 244.8 MB to 244.1 MB.
-Total: 2.518500 ms (FindLiveObjects: 0.228200 ms CreateObjectMapping: 0.089200 ms MarkObjects: 1.641200 ms  DeleteObjects: 0.559300 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
-  custom:scripting/monoscript/fileName/ArmorItemLinker.cs: 9406a17aa1da47a01b313836fa5dfbff -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:scripting/monoscript/fileName/WeaponInventoryManager.cs: e0935e6823fe00073ca11f135f46840b -> 740212262c776ba4ad755c160f56e2ff
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/precompiled-assembly-types:Assembly-CSharp: 499c8d4ca000eb9ce249abc8a4325ffe -> dbaca02e24b7df01e2463c050fd36d1b
-========================================================================
-Received Prepare
-Caller must complete domain reload
-Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.300 seconds
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.082 seconds
-Domain Reload Profiling: 1382ms
-	BeginReloadAssembly (109ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (2ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (22ms)
-	RebuildCommonClasses (19ms)
-	RebuildNativeTypeToScriptingClass (6ms)
-	initialDomainReloadingComplete (17ms)
-	LoadAllAssembliesAndSetupDomain (148ms)
-		LoadAssemblies (189ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (20ms)
-			TypeCache.Refresh (6ms)
-				TypeCache.ScanAssembly (1ms)
-			ScanForSourceGeneratedMonoScriptInfo (8ms)
-			ResolveRequiredComponents (4ms)
-	FinalizeReload (1083ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (763ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (5ms)
-			SetLoadedEditorAssemblies (3ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (53ms)
-			ProcessInitializeOnLoadAttributes (661ms)
-			ProcessInitializeOnLoadMethodAttributes (38ms)
-			AfterProcessingInitializeOnLoad (3ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (4ms)
-Refreshing native plugins compatible for Editor in 2.89 ms, found 6 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5154 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 746 unused Assets / (0.7 MB). Loaded Objects now: 5522.
-Memory consumption went from 244.8 MB to 244.1 MB.
-Total: 2.634600 ms (FindLiveObjects: 0.235800 ms CreateObjectMapping: 0.088100 ms MarkObjects: 1.659400 ms  DeleteObjects: 0.650500 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 9a22284fe3817be447336de3de66b15e -> 
-  custom:scripting/monoscript/fileName/ArmorItemLinker.cs: 9406a17aa1da47a01b313836fa5dfbff -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:scripting/monoscript/fileName/WeaponInventoryManager.cs: e0935e6823fe00073ca11f135f46840b -> 740212262c776ba4ad755c160f56e2ff
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/precompiled-assembly-types:Assembly-CSharp: 012cfedf00caf587d942a32234a20c86 -> dbaca02e24b7df01e2463c050fd36d1b
 ========================================================================
 Received Import Request.
-  Time since last request: 1206.853139 seconds.
-  path: Assets/Prefab/GunParticleSystem/AK47
-  artifactKey: Guid(ba31017bee067c847890671a99028328) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefab/GunParticleSystem/AK47 using Guid(ba31017bee067c847890671a99028328) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '9962859cc62b729aa395f360ca81076a') in 0.018077 seconds
+  Time since last request: 1407332.252733 seconds.
+  path: Assets/Prefab/Armor/8ring/6,ring.prefab
+  artifactKey: Guid(a5e7ff871159a3b4bb16d18fca5863cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor/8ring/6,ring.prefab using Guid(a5e7ff871159a3b4bb16d18fca5863cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c45a7c9f55672a3a01bc121e5c5af177') in 0.022195 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 0
+Number of asset objects unloaded after import = 11
 ========================================================================
 Received Import Request.
-  Time since last request: 57.681856 seconds.
-  path: Assets/Sprite/Armor
-  artifactKey: Guid(e849da9eceb8bf64186b93641505dc27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor using Guid(e849da9eceb8bf64186b93641505dc27) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '62804510687ef9f52a4026302719ca67') in 0.000404 seconds
+  Time since last request: 3.262878 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a1d0480590642e0559e62d21af270959') in 0.023124 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 0
+Number of asset objects unloaded after import = 757
 ========================================================================
 Received Import Request.
-  Time since last request: 21.800588 seconds.
-  path: Assets/Sprite/Armor/Image (73).png
-  artifactKey: Guid(53bb34e306d0df14689f0f70bf305501) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (73).png using Guid(53bb34e306d0df14689f0f70bf305501) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '7d2beaeb2f01b8ab668b9968b322733f') in 0.058034 seconds
+  Time since last request: 50.049115 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '36a9c1168df16bddf0985158bd3e9a17') in 0.020813 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 553
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/Sprite/Armor/Image - 2026-10-14T102455.166.png
-  artifactKey: Guid(f6f7e67eb0c53164cb798c47d7bdcc92) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image - 2026-10-14T102455.166.png using Guid(f6f7e67eb0c53164cb798c47d7bdcc92) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '10effb942df8e0fd830364ee3abdbd48') in 0.021024 seconds
+  Time since last request: 18.502604 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '8b09fca319db0b85ab8d78cbac69710a') in 0.014203 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 481
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000022 seconds.
-  path: Assets/Sprite/Armor/Image (100).png
-  artifactKey: Guid(40e3afcdf6a18204a8caf7abd23653cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (100).png using Guid(40e3afcdf6a18204a8caf7abd23653cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '0de6e24d409e8ee09cb2595d64632608') in 0.018710 seconds
+  Time since last request: 6.713370 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '6d40aea0540847cc4b7d3328751eb28f') in 0.011594 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 409
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/Sprite/Armor/Image (83).png
-  artifactKey: Guid(1544b985f84ca2d47aa705ac802243e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (83).png using Guid(1544b985f84ca2d47aa705ac802243e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '97a3eca6cd992668190f761897598431') in 0.009026 seconds
+  Time since last request: 6.156025 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'ab8f49e39246071e08893a7fe0d2bed3') in 0.010442 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 331
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000021 seconds.
-  path: Assets/Sprite/Armor/Image (98).png
-  artifactKey: Guid(f6361f882a88b8345b64d54c993c01ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (98).png using Guid(f6361f882a88b8345b64d54c993c01ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '595f712d086bc128766e657853b9d8a1') in 0.008550 seconds
+  Time since last request: 12.026475 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '167f87abc32cfbaf34fa9e61eb4ab3df') in 0.009151 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 259
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000015 seconds.
-  path: Assets/Sprite/Armor/Image - 2026-10-14T102523.501.png
-  artifactKey: Guid(732437a386d456c4d94c00b09ca65c6e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image - 2026-10-14T102523.501.png using Guid(732437a386d456c4d94c00b09ca65c6e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: 'ea315ae40529242691d6a77b4fb0c677') in 0.008562 seconds
+  Time since last request: 4.787615 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'ab89bcc97c54915d0c16e946f6816b7a') in 0.007324 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 176
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/Sprite/Armor/Image - 2026-10-14T102457.451.png
-  artifactKey: Guid(d5574731f8c229249b6b8d724e6e830f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image - 2026-10-14T102457.451.png using Guid(d5574731f8c229249b6b8d724e6e830f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '46ccafc83ff42f9a6e7ce0b758c2f5f7') in 0.009935 seconds
+  Time since last request: 26.227690 seconds.
+  path: Assets/Prefab/Armor Capsule/2.prefab
+  artifactKey: Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/2.prefab using Guid(05aebca2f1c24e44aa66bc555b8df796) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '6b343a4ef6a18fe1ba04311b401d7905') in 0.007743 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 176
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000020 seconds.
-  path: Assets/Sprite/Armor/Image - 2026-10-14T102527.621.png
-  artifactKey: Guid(d8cf6425452b884429e201f008583e9d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image - 2026-10-14T102527.621.png using Guid(d8cf6425452b884429e201f008583e9d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '069301512ac011211a542c7245cdfb76') in 0.009598 seconds
+  Time since last request: 7.417343 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b18f1339556350a196e8445b143c3834') in 0.016389 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000015 seconds.
-  path: Assets/Sprite/Armor/Image (81).png
-  artifactKey: Guid(53ed7f3904122ee439cb9519d364d7db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (81).png using Guid(53ed7f3904122ee439cb9519d364d7db) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: 'dd5b8e286542f835e5b18a9578d9c79c') in 0.009564 seconds
+  Time since last request: 0.266080 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '01d3d74e9d443a8b7cf692de5d481755') in 0.018754 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000022 seconds.
-  path: Assets/Sprite/Armor/Image (93).png
-  artifactKey: Guid(3efbe6ad98705c4499838925346bb8f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (93).png using Guid(3efbe6ad98705c4499838925346bb8f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '386acbcc4e485a7bad94b55a88d33a59') in 0.011645 seconds
+  Time since last request: 0.393132 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'fd20be35c2d7fa05278eeaf490dac11e') in 0.017878 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000054 seconds.
-  path: Assets/Sprite/Armor/Image (90).png
-  artifactKey: Guid(c1ef7a04fb34be04184a81335576bca5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (90).png using Guid(c1ef7a04fb34be04184a81335576bca5) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '2aa81ea1b5701888d1c9151d668d5580') in 0.009637 seconds
+  Time since last request: 0.350919 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '1356a0ee994ebbcc338db7af56e94f3b') in 0.014810 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000038 seconds.
-  path: Assets/Sprite/Armor/Image (94).png
-  artifactKey: Guid(d084bd8bf47212741904b23eb23da50d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (94).png using Guid(d084bd8bf47212741904b23eb23da50d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: 'ea5b4385fbc669f879778f4c8480b55e') in 0.009506 seconds
+  Time since last request: 0.150697 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '346da8b6ed65aed3917d772c3c054f2e') in 0.015204 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000019 seconds.
-  path: Assets/Sprite/Armor/Image - 2026-10-14T102532.980.png
-  artifactKey: Guid(38848a159d81a1647b8f9ac0d03bcc42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image - 2026-10-14T102532.980.png using Guid(38848a159d81a1647b8f9ac0d03bcc42) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: 'b80147581ebf2818047bd627dc23bf5b') in 0.013201 seconds
+  Time since last request: 0.199702 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'e54a65a55340cd3790b543f575a1e346') in 0.016337 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000024 seconds.
-  path: Assets/Sprite/Armor/Image (76).png
-  artifactKey: Guid(21761937edf6bda41b2996dd12ca4256) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (76).png using Guid(21761937edf6bda41b2996dd12ca4256) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '9645b2c98696c06eb088edf77a3a9b18') in 0.010056 seconds
+  Time since last request: 2.407245 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '31cf8d11d64701ba3394b3290db86752') in 0.015347 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000014 seconds.
-  path: Assets/Sprite/Armor/Image - 2026-10-14T102546.030.png
-  artifactKey: Guid(4029ae4dd2f434e4e8d3a08d0336e105) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image - 2026-10-14T102546.030.png using Guid(4029ae4dd2f434e4e8d3a08d0336e105) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '34df276d7abf1a074e30baadf20a2573') in 0.014119 seconds
+  Time since last request: 0.970510 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '3c9bb786b6f3f45f08bf0c5595121a8f') in 0.015772 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/Sprite/Armor/Image (89).png
-  artifactKey: Guid(d80c8f1521b4d6d4a8198e8fd3bda272) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (89).png using Guid(d80c8f1521b4d6d4a8198e8fd3bda272) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: 'bfc69e88927cfb805ce44c4b2c52ee1c') in 0.010521 seconds
+  Time since last request: 0.154785 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '8d8d9f06afcc8b5a15d35d43c218eeb4') in 0.017964 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000014 seconds.
-  path: Assets/Sprite/Armor/Image (82).png
-  artifactKey: Guid(61b3d9780664ca843b486096ed73cfcf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (82).png using Guid(61b3d9780664ca843b486096ed73cfcf) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '1386b1e558b085025c053aead707c73f') in 0.010669 seconds
+  Time since last request: 0.175484 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '05b7c41c49ecfc746c976a58a0ca511f') in 0.014953 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000018 seconds.
-  path: Assets/Sprite/Armor/Image - 2026-10-14T102535.353.png
-  artifactKey: Guid(afa552e573bfd284f86e9be5179045f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image - 2026-10-14T102535.353.png using Guid(afa552e573bfd284f86e9be5179045f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '1f0aa1c8b8b0b6d1fcd950dbaba59753') in 0.010066 seconds
+  Time since last request: 0.183827 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '8111ce10c3848ff57885122002e9d05c') in 0.015382 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000015 seconds.
-  path: Assets/Sprite/Armor/Image - 2026-10-14T102452.854.png
-  artifactKey: Guid(f1261ad1ba4f34b41ad3a6b2ad3fef21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image - 2026-10-14T102452.854.png using Guid(f1261ad1ba4f34b41ad3a6b2ad3fef21) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '58ca34dad6bbf2846bc087a8dd7cff6c') in 0.009423 seconds
+  Time since last request: 0.168671 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '058c2a51cfe5327b1b4e8d3ed2b09ace') in 0.015419 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000015 seconds.
-  path: Assets/Sprite/Armor/Image - 2026-10-14T102519.653.png
-  artifactKey: Guid(d0af938e920812c4da3ae1a7e2016ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image - 2026-10-14T102519.653.png using Guid(d0af938e920812c4da3ae1a7e2016ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: 'c0a838a196b65244d5246f4c1b7cf0d7') in 0.011637 seconds
+  Time since last request: 0.597859 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '9b61067d7059558840b1a1c0df98fcc5') in 0.017499 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000012 seconds.
-  path: Assets/Sprite/Armor/Image (78).png
-  artifactKey: Guid(fe738cd560af7ce4eb1a7e0193f77bff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (78).png using Guid(fe738cd560af7ce4eb1a7e0193f77bff) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '7c3eb2aeb91bdd9c53d9d3e53e544eb2') in 0.008639 seconds
+  Time since last request: 0.149844 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '8efb92655639fcde684500ccc98773eb') in 0.015309 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/Sprite/Armor/Image (87).png
-  artifactKey: Guid(8a2332848d87b214ebc4b6fe7f0e0601) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (87).png using Guid(8a2332848d87b214ebc4b6fe7f0e0601) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: 'ff49d27850bf77cf03c8d58de16daf73') in 0.010817 seconds
+  Time since last request: 0.182040 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'aa54d9415d521eb8be3f7fe275aef16a') in 0.015580 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000019 seconds.
-  path: Assets/Sprite/Armor/Image (86).png
-  artifactKey: Guid(593e1dbd7f58f314fb446ee1d46f6f08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (86).png using Guid(593e1dbd7f58f314fb446ee1d46f6f08) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: 'a3d28f81a6173fea061a5a40632d2487') in 0.009566 seconds
+  Time since last request: 0.225287 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '621d11e4af3c40fb2f79952ce4cf12ca') in 0.016573 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000026 seconds.
-  path: Assets/Sprite/Armor/Image (99).png
-  artifactKey: Guid(cc7433945bb3b6a49b29a42f3a408f6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (99).png using Guid(cc7433945bb3b6a49b29a42f3a408f6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: 'be1830c812b4f93e437669087655bf52') in 0.009446 seconds
+  Time since last request: 2.783286 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b61d450860709d4905eef728a3b59a92') in 0.015632 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/Sprite/Armor/Image (85).png
-  artifactKey: Guid(ec0ab8d2315a6524184cf41c806986a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (85).png using Guid(ec0ab8d2315a6524184cf41c806986a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '55f1afa6b9587d8823f1c168853b02e4') in 0.010228 seconds
+  Time since last request: 1.406426 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '045d49f95c7d83257af7b079ac48d70a') in 0.015200 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 16.376468 seconds.
-  path: Assets/Sprite/Armor/Image (89).png
-  artifactKey: Guid(d80c8f1521b4d6d4a8198e8fd3bda272) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (89).png using Guid(d80c8f1521b4d6d4a8198e8fd3bda272) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: 'e90edd63239d5b5f938926df0fccce39') in 0.054477 seconds
+  Time since last request: 0.906401 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '0bd5dde40d060763091cde3651a557f0') in 0.015724 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 3
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000021 seconds.
-  path: Assets/Sprite/Armor/Image - 2026-10-14T102516.996.png
-  artifactKey: Guid(246c81f816142d74da39f2e8c4d38792) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image - 2026-10-14T102516.996.png using Guid(246c81f816142d74da39f2e8c4d38792) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '326be326d45e3b9e062b58bb1fd743db') in 0.014277 seconds
+  Time since last request: 1.247003 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '0cee74026c9b8c158b4a203e3514513e') in 0.136949 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 3
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000024 seconds.
-  path: Assets/Sprite/Armor/Image - 2026-10-14T102450.317.png
-  artifactKey: Guid(b1742d71a96b56941a1f709b73a9bedf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image - 2026-10-14T102450.317.png using Guid(b1742d71a96b56941a1f709b73a9bedf) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: 'faf6ac06e996d90f6f9dd1915ac33e1b') in 0.019136 seconds
+  Time since last request: 2.311430 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '28cc214802dd19ffe3dd4074478c5182') in 0.015722 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 3
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000013 seconds.
-  path: Assets/Sprite/Armor/Image (94).png
-  artifactKey: Guid(d084bd8bf47212741904b23eb23da50d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (94).png using Guid(d084bd8bf47212741904b23eb23da50d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '0ea15f6974fa58a7799e0e6f1c4cb374') in 0.015459 seconds
+  Time since last request: 0.677568 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7f93cf10fdc0d6b384a7fc17a1fd2e62') in 0.016591 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 3
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000016 seconds.
-  path: Assets/Sprite/Armor/Image - 2026-10-14T102535.353.png
-  artifactKey: Guid(afa552e573bfd284f86e9be5179045f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image - 2026-10-14T102535.353.png using Guid(afa552e573bfd284f86e9be5179045f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '3fc4814a7ffa350e545c2ef3a4c1beaf') in 0.011040 seconds
+  Time since last request: 0.213317 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'fd651fc5c6f6ab557ad6ddec840ed646') in 0.015669 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 3
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.759255 seconds.
-  path: Assets/Sprite/Armor/Image (75).png
-  artifactKey: Guid(e51130be3cb10814ab3ac7ca8ba6ab0a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (75).png using Guid(e51130be3cb10814ab3ac7ca8ba6ab0a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '12523c29c8fbd1ee450e67be7ca55dd5') in 0.019843 seconds
+  Time since last request: 4.949446 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'cb81ace9f825e49c1e50109532e806ba') in 0.015832 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 3
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000014 seconds.
-  path: Assets/Sprite/Armor/Image (83).png
-  artifactKey: Guid(1544b985f84ca2d47aa705ac802243e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (83).png using Guid(1544b985f84ca2d47aa705ac802243e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '19189a440c08640775e53d90cfa59b53') in 0.013862 seconds
+  Time since last request: 0.436642 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '8fc36aa666d834a2b8d7b0168ef85062') in 0.015700 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 3
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000081 seconds.
-  path: Assets/Sprite/Armor/Image (86).png
-  artifactKey: Guid(593e1dbd7f58f314fb446ee1d46f6f08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprite/Armor/Image (86).png using Guid(593e1dbd7f58f314fb446ee1d46f6f08) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '1aeef63229f00ddb9cdb8c98b62e8cba') in 0.014484 seconds
+  Time since last request: 0.922464 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f607a3538bea9fc436dcfb12b2568193') in 0.017777 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 3
+Number of asset objects unloaded after import = 749
 ========================================================================
 Received Import Request.
-  Time since last request: 48.267122 seconds.
-  path: Assets/Prefab/Armor/AK47/3,AK47.prefab
-  artifactKey: Guid(aab291a530dcc76428bac808a8d2b6dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefab/Armor/AK47/3,AK47.prefab using Guid(aab291a530dcc76428bac808a8d2b6dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
- -> (artifact id: '596152ea0e3c369e72c9a49fed3ae490') in 0.034835 seconds
+  Time since last request: 0.226028 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'ba1227c68822fda5aa82183f844d9108') in 0.015583 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 12
-Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
-TcpMessagingSession - receive error: operation aborted. errorcode: 995, details: ƒXƒŒƒbƒh‚ÌI—¹‚Ü‚½‚ÍƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ì—v‹‚É‚æ‚Á‚ÄAI/O ˆ—‚Í’†Ž~‚³‚ê‚Ü‚µ‚½B
-AssetImportWorker is now disconnected from the server
-Process exiting
-Exiting without the bug reporter. Application will terminate with return code 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.383122 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '888b73c08b7a520d73a2c338d5e2892e') in 0.015921 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 2.412076 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '022d1c704670170fd286742e28d83e6b') in 0.014937 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 6.089577 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '4d1ac92cd3651e6a878fcccc6c941398') in 0.017031 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.414422 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'e594de7a007bb1d7809a14174e2ee540') in 0.016381 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.176923 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '4f5f2629c4e3233fb8a4f1f4a2d48d80') in 0.015810 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.404614 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'afb854577de696b562cc1093c6d26288') in 0.016483 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.573068 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '58d65cc02391d5a0a4a8bf91f3bdccbb') in 0.015652 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.171995 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '0f2f1632bdc8da829f8534c9adc4e378') in 0.017113 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.177822 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '72fe462886f8d9e1e9a55884ede3621c') in 0.015004 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.187882 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '99177772fbb3fcd1ddc00798257bfd33') in 0.016136 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.596082 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c2754d30b0b201ea83de04bbe7347c64') in 0.015695 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 4.418454 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '10116b3ddd70d80f5c13c3514016001f') in 0.020976 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 4.753096 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '8d74529b78a9b7d7b833659d5b5a79ef') in 0.017693 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.154060 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'd90bb0be03a7973d34ad2a7c254e80df') in 0.015439 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.382567 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '26011b933f07a298996b13a4fb79dbba') in 0.016878 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.232400 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '3a60500d79f494069a63c5b9636badfd') in 0.016612 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 4.819547 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'bff360d226136255226185751eadefa0') in 0.017306 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.071877 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '952d2cd479fdbdf604029ba5b2bc449f') in 0.015881 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.233520 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7133c4a5d05cf94b12e8e33dfdc8e80b') in 0.016406 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.182555 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '3606a393b40b0743eec42806ac9fe50c') in 0.015964 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 5.058619 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '80fcdaa7a4ccf96b3bdad3de06da3c7a') in 0.016201 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 5.282792 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'de745cea9c478feaa2f4069a73242703') in 0.017255 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 64.708540 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '46b6e9d5474b098f70e5a64834def02d') in 0.016580 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 757
+========================================================================
+Received Import Request.
+  Time since last request: 390.986262 seconds.
+  path: Assets/Prefab/Armor Capsule/3.prefab
+  artifactKey: Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/3.prefab using Guid(4d27688dba66b7241bebc4f62f816a6d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '6e895f0b1244965802ea9ef84e9ff540') in 0.013111 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 176
+========================================================================
+Received Import Request.
+  Time since last request: 22.755584 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '81d71d2b5adaee361d5566b0237bdbeb') in 0.017653 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.164860 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7e85062670f0ce278f9f1bfde5936e94') in 0.015710 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 3.396674 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '00996e1ae2ea80a07af25a2760293dc0') in 0.016806 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 4.536009 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '17a1758b333428f902490174ab91d59c') in 0.017627 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.200926 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '07bd0505fef819235a98b4335745aa61') in 0.019068 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.160376 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'ee8158ce0022c94dc4841c79ef0bba79') in 0.015875 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.188193 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '8fb29797ffa46d37efce7fcd5af2b45a') in 0.015877 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.175079 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c12109ec19730a991d1c7a2f67bb0f1d') in 0.015109 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 3.791270 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '75ef93224965eac72dfed39a5a6617dc') in 0.016939 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 2.164915 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7eb9f37eb777490536f3e8e844e89fd4') in 0.016932 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.381192 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b71cdae624ae528f851c6e88eaa8f386') in 0.016268 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.180009 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '99e4bd1d92a45f4a3fefdcf756dfc658') in 0.015889 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.246775 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '60cbde213c93c4e101c33e2ebad5e0e5') in 0.015677 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.133845 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'cf59bc03f61dec7438674c27db95dd95') in 0.015665 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 5.438259 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '3954506bc28871255c9c081357ad7188') in 0.017627 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.173434 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '17b45297021a3c91b5a2b05a83277c86') in 0.016342 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.161298 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '0c33b5776614c700f560cc76a1f78bfe') in 0.015731 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.208432 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '271f7100b5943aa30e9cdcccd55534ef') in 0.020253 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.551987 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'd449a44670f6821e36abb4b4c4a87f94') in 0.016762 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.999212 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '9780d132d068dd5daee5d442dc160d68') in 0.016800 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.645219 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a0eebc07eadd0dfeb638034c2366ce71') in 0.015817 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 2.191074 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '4d084010969a2abfd7fcd7b6c9cce59a') in 0.016107 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.159621 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '804a37bd44a3fd7a3af85cd678d013e5') in 0.015561 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.601618 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '463a65d60b053b0b438c687b34a676af') in 0.015838 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.172457 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'd13e22b52b976a822fb02c05655a3db1') in 0.018942 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.360592 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'e0c8cda2031a5babf3aa8cfd67579ac5') in 0.016907 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.395637 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '0e314b43f5380fd0c1f73043e1bf286f') in 0.016462 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.201788 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '52d4d8785694ba20c52fdabec4f69243') in 0.019452 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 9.871795 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'cc05fb597de84a97f18816d32af1858e') in 0.016432 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.374498 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '02b4b2f7d1d276ceb3bee0445d30c64d') in 0.015794 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.060921 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'fec94f7e134669e0df4b65caa7ea7b8a') in 0.015294 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.243867 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '07b059e0ff27dec8580d83ffdab86366') in 0.015570 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 2.388282 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f1404433e8b2a98b9f2f99703ae038e4') in 0.016651 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.784370 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '4d1e524ca82edee36f0eaf939ea28df7') in 0.017314 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.384458 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '8ee949cf14e1ea13a6946468270a196a') in 0.015108 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.212914 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '43fdf6d5d67e2f0ef843ab801ecc1ef8') in 0.016008 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.152992 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '799f29fa261685ae5bbb5f88f1112da8') in 0.014818 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.199691 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '800f7f437038988f0ba332c5a7305dfb') in 0.015737 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.390506 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'c81734b130f5ccc0b902b538199b8217') in 0.015494 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.163329 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '5a60fd42d3f48a8eb6de5f07e527f8d0') in 0.015738 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 2.805197 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'e68ed5af2839a14a8baa7fb515aac61b') in 0.016902 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 2.322449 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'd058bb8969ecbef1d9946238f7829d1e') in 0.016604 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.180578 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '1da17b4f97974ddc4351a67534bf7f49') in 0.016720 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.379478 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'b46beb238c8e39c3682d9f8fad91e6f1') in 0.015626 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '9c07dda25a996d96e0bb513f2853af4e') in 0.015500 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 4.277600 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7a901082f11b3392b7d443b695b8f3d1') in 0.019827 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.221771 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'a0629c4a4894b1b925c5bb4935ee83ca') in 0.017531 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 3.223026 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '5c685dd09a308916896a6f0ac3142f6a') in 0.016158 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.304626 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '4a4737a2ff8d68e78d8f6cc0467cac9a') in 0.015839 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.180253 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '60b2996fafbf6441e947801b4a1f7f30') in 0.016189 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 3.126868 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'f88cda33a64901cf960dc879d55587ec') in 0.017544 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.339643 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '7eee0fbd604ea12d5f261310e4697771') in 0.018336 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 2.795305 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '6d4171747f4e0b3f946bd977d35699ec') in 0.016811 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.129530 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '448b3c11c8e4b140f5c7e127ae213746') in 0.016426 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.002013 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'e478deaf22229ea368875bcb81621e59') in 0.016317 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 1.169039 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'cb571c421d6e54f2b6c93ee4d15b8dc8') in 0.017568 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.606482 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: 'ea2a81518504784a4dc53b3c73d7952b') in 0.066705 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749
+========================================================================
+Received Import Request.
+  Time since last request: 0.171134 seconds.
+  path: Assets/Prefab/Armor Capsule/4.prefab
+  artifactKey: Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Armor Capsule/4.prefab using Guid(0414f78c8fe25e641b8952e71728062b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 24 workers.
+ -> (artifact id: '6708cb8858e16b02c4403597f4fe35b2') in 0.015623 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 749

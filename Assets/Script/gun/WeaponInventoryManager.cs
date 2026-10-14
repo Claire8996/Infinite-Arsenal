@@ -8,7 +8,7 @@ public class ContentCategoryButton
     public string buttonName = "ボタン名（メモ用）";
     [Tooltip("（任意）押した時に色を変えたい場合はボタンのImageをセットしてください")]
     public Image buttonImage;
-    [Tooltip("このボタンを押した時にContent内へ表示するPrefabのリスト（※ここに入っていないPrefabは表示されません）")]
+    [Tooltip("このボタンを押した時にContent内へ表示する防具Prefabのリスト（※ここに入っていないPrefabは表示されません）")]
     public GameObject[] displayTargetPrefabs;
 }
 
@@ -33,20 +33,31 @@ public class WeaponInventoryManager : MonoBehaviour
     [Tooltip("ここに設定されていない武器は、最後にまとめて表示されます")]
     public GameObject[] weaponSortOrder;
 
-    [Header("【Content表示切り替えボタン設定】")]
-    [Tooltip("各ボタンを押した時に表示したいPrefab（inventoryUIPrefabと同じもの）をそれぞれ登録してください")]
+    [Header("【防具のContent表示切り替えボタン設定】")]
+    [Tooltip("各ボタンを押した時に表示したい防具Prefab（inventoryUIPrefabと同じもの）をそれぞれ登録してください")]
     public ContentCategoryButton[] categoryButtons;
     public Color activeCategoryColor = Color.white;
     public Color inactiveCategoryColor = Color.gray;
 
     private GameObject currentSelectionFrame;
-    private GameObject[] selectedWeaponPrefabs;
+
+    // ★復活：既存の選択された武器（Transform）を記憶する配列
+    private Transform[] selectedWeapons;
+    // 防具タブから武器タブへ戻ってきた時に、どの武器だったか復元するための補助配列
+    private int[] selectedWeaponItemIndices;
+
     private int currentSlotIndex = 0;
-    private int currentCategoryIndex = 0;
+    private int currentCategoryIndex = -1;
+    private bool isShowingArmor = false;
 
     void Start()
     {
-        selectedWeaponPrefabs = new GameObject[slotButtons.Length];
+        selectedWeapons = new Transform[slotButtons.Length];
+        selectedWeaponItemIndices = new int[slotButtons.Length];
+        for (int i = 0; i < selectedWeaponItemIndices.Length; i++)
+        {
+            selectedWeaponItemIndices[i] = -1;
+        }
 
         if (selectionFramePrefab != null)
         {
@@ -60,14 +71,12 @@ public class WeaponInventoryManager : MonoBehaviour
         // 武器の並び替え
         SortWeapons();
 
-        // 最初は0番目のカテゴリボタン（初期表示）を開く
-        OnClickCategoryButton(0);
+        // ★既存通り：最初に武器を生成して並べ、スロット0番を選択状態にする
+        PopulateTestWeapons();
         OnSlotButtonClicked(0);
     }
 
-    // ==========================================
-    // 💡 修正：ArmorItemLinkerを使わず、CapsuleOpenerで振り分けられたリストから直接追加する
-    // ==========================================
+    // ガチャ結果から武器と防具をそれぞれのリストに追加する
     private void CheckAndAddNewItemsFromKeeper()
     {
         // 1. 武器の追加チェック
@@ -134,29 +143,64 @@ public class WeaponInventoryManager : MonoBehaviour
     }
 
     // ==========================================
-    // 複数のボタンを押した時にContentの表示を切り替えるメソッド
+    // ★完全復活：武器のSlot切り替えボタン（3つ）を押した時の既存の処理
     // ==========================================
-    public void OnClickCategoryButton(int buttonIndex)
+    public void OnSlotButtonClicked(int slotIndex)
     {
-        currentCategoryIndex = buttonIndex;
-
-        if (categoryButtons != null)
+        // もし「防具のContent」を表示している状態から武器Slotボタンが押されたら、
+        // Contentの中身を武器一覧に戻す
+        if (isShowingArmor)
         {
-            for (int i = 0; i < categoryButtons.Length; i++)
+            isShowingArmor = false;
+            currentCategoryIndex = -1;
+
+            // 防具ボタンの色を非選択色に戻す
+            if (categoryButtons != null)
             {
-                if (categoryButtons[i].buttonImage != null)
+                for (int i = 0; i < categoryButtons.Length; i++)
                 {
-                    categoryButtons[i].buttonImage.color = (i == currentCategoryIndex) ? activeCategoryColor : inactiveCategoryColor;
+                    if (categoryButtons[i].buttonImage != null)
+                    {
+                        categoryButtons[i].buttonImage.color = inactiveCategoryColor;
+                    }
                 }
+            }
+
+            // 武器をContentに再表示する（selectedWeaponsも復元される）
+            PopulateTestWeapons();
+        }
+
+        // --- ここから下は元のスクリプトと全く同じ処理です ---
+        currentSlotIndex = slotIndex;
+
+        for (int i = 0; i < slotButtons.Length; i++)
+        {
+            if (slotButtons[i] != null)
+            {
+                slotButtons[i].color = (i == currentSlotIndex) ? activeColor : inactiveColor;
             }
         }
 
-        PopulateContent();
+        Transform savedWeapon = selectedWeapons[currentSlotIndex];
+        if (savedWeapon != null)
+        {
+            currentSelectionFrame.SetActive(true);
+            currentSelectionFrame.transform.SetParent(savedWeapon, false);
+            currentSelectionFrame.transform.localPosition = Vector3.zero;
+            currentSelectionFrame.transform.SetAsLastSibling();
+        }
+        else
+        {
+            currentSelectionFrame.SetActive(false);
+        }
     }
 
-    void PopulateContent()
+    // ==========================================
+    // ★復活：武器をContentに並べる既存のメソッド
+    // ==========================================
+    void PopulateTestWeapons()
     {
-        // 赤い選択枠が削除されないように一時退避
+        // 選択枠が一緒に消えないように退避しておく
         if (currentSelectionFrame != null)
         {
             currentSelectionFrame.transform.SetParent(this.transform, false);
@@ -168,86 +212,52 @@ public class WeaponInventoryManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        // 現在所持しているすべての武器・防具（inventoryUIPrefab）をまとめる
-        List<GameObject> allOwnedItems = new List<GameObject>();
-        if (testWeaponPrefabs != null) allOwnedItems.AddRange(testWeaponPrefabs);
-        if (armorPrefabs != null) allOwnedItems.AddRange(armorPrefabs);
+        if (testWeaponPrefabs == null) return;
 
-        List<GameObject> itemsToDisplay = new List<GameObject>();
-
-        if (categoryButtons != null && categoryButtons.Length > currentCategoryIndex)
+        for (int i = 0; i < testWeaponPrefabs.Length; i++)
         {
-            GameObject[] allowedList = categoryButtons[currentCategoryIndex].displayTargetPrefabs;
-
-            if (allowedList != null && allowedList.Length > 0)
+            GameObject prefab = testWeaponPrefabs[i];
+            if (prefab != null)
             {
-                // 押されたボタンの displayTargetPrefabs に登録されているPrefabだけを抽出する
-                // （※ここに登録されていないPrefabは一切表示されません）
-                List<GameObject> tempOwned = new List<GameObject>(allOwnedItems);
+                GameObject newWeapon = Instantiate(prefab, contentPanel);
 
-                foreach (GameObject allowedPrefab in allowedList)
+                WeaponItemUI itemUI = newWeapon.GetComponent<WeaponItemUI>();
+                if (itemUI == null) itemUI = newWeapon.AddComponent<WeaponItemUI>();
+
+                itemUI.Setup(this, prefab);
+
+                // 防具画面から武器画面に戻ってきた時、以前に選択していた武器のTransformを復元する
+                for (int s = 0; s < selectedWeapons.Length; s++)
                 {
-                    if (allowedPrefab == null) continue;
-
-                    for (int i = 0; i < tempOwned.Count; i++)
+                    if (selectedWeaponItemIndices[s] == i)
                     {
-                        if (tempOwned[i] == allowedPrefab)
-                        {
-                            itemsToDisplay.Add(tempOwned[i]);
-                            tempOwned.RemoveAt(i);
-                            i--;
-                        }
+                        selectedWeapons[s] = newWeapon.transform;
                     }
                 }
             }
         }
-        else
-        {
-            // categoryButtons が未設定の場合は武器リストを表示
-            if (testWeaponPrefabs != null) itemsToDisplay.AddRange(testWeaponPrefabs);
-        }
-
-        // 対象となったPrefabだけをContent内に生成
-        foreach (GameObject prefab in itemsToDisplay)
-        {
-            if (prefab != null)
-            {
-                GameObject newItem = Instantiate(prefab, contentPanel);
-
-                WeaponItemUI itemUI = newItem.GetComponent<WeaponItemUI>();
-                if (itemUI == null) itemUI = newItem.AddComponent<WeaponItemUI>();
-
-                itemUI.Setup(this, prefab);
-
-                if (selectedWeaponPrefabs[currentSlotIndex] == prefab && currentSelectionFrame != null)
-                {
-                    currentSelectionFrame.SetActive(true);
-                    currentSelectionFrame.transform.SetParent(newItem.transform, false);
-                    currentSelectionFrame.transform.localPosition = Vector3.zero;
-                    currentSelectionFrame.transform.SetAsLastSibling();
-                }
-            }
-        }
     }
 
-    public void OnSlotButtonClicked(int slotIndex)
-    {
-        currentSlotIndex = slotIndex;
-
-        for (int i = 0; i < slotButtons.Length; i++)
-        {
-            if (slotButtons[i] != null)
-            {
-                slotButtons[i].color = (i == currentSlotIndex) ? activeColor : inactiveColor;
-            }
-        }
-
-        UpdateSelectionFramePosition();
-    }
-
+    // ==========================================
+    // ★完全復活：武器をクリックして選択した時の既存の処理
+    // ==========================================
     public void SelectWeapon(Transform clickedWeaponTransform, GameObject weaponPrefab)
     {
-        selectedWeaponPrefabs[currentSlotIndex] = weaponPrefab;
+        if (isShowingArmor) return;
+
+        selectedWeapons[currentSlotIndex] = clickedWeaponTransform;
+
+        // 何番目の武器を選んだかも記録しておく（防具画面から戻った時の復元用）
+        selectedWeaponItemIndices[currentSlotIndex] = -1;
+        for (int i = 0; i < contentPanel.childCount; i++)
+        {
+            if (contentPanel.GetChild(i) == clickedWeaponTransform)
+            {
+                selectedWeaponItemIndices[currentSlotIndex] = i;
+                break;
+            }
+        }
+
         WeaponDataKeeper.equippedWeaponPrefabs[currentSlotIndex] = weaponPrefab;
 
         if (currentSelectionFrame != null)
@@ -259,30 +269,83 @@ public class WeaponInventoryManager : MonoBehaviour
         }
     }
 
-    private void UpdateSelectionFramePosition()
+    // ==========================================
+    // 防具のContent表示切り替えボタンを押した時の処理
+    // ==========================================
+    public void OnClickCategoryButton(int buttonIndex)
     {
-        if (currentSelectionFrame == null) return;
+        isShowingArmor = true;
+        currentCategoryIndex = buttonIndex;
 
-        GameObject targetPrefab = selectedWeaponPrefabs[currentSlotIndex];
-        if (targetPrefab == null)
+        // 防具ボタンの色を更新
+        if (categoryButtons != null)
         {
+            for (int i = 0; i < categoryButtons.Length; i++)
+            {
+                if (categoryButtons[i].buttonImage != null)
+                {
+                    categoryButtons[i].buttonImage.color = (i == currentCategoryIndex) ? activeCategoryColor : inactiveCategoryColor;
+                }
+            }
+        }
+
+        PopulateArmorContent();
+    }
+
+    // 防具だけをContentに並べる処理（選択枠やWeaponItemUIは一切つけない）
+    void PopulateArmorContent()
+    {
+        // 防具を表示する時は、選択枠が削除されないように退避して非表示にする
+        if (currentSelectionFrame != null)
+        {
+            currentSelectionFrame.transform.SetParent(this.transform, false);
             currentSelectionFrame.SetActive(false);
-            return;
         }
 
         foreach (Transform child in contentPanel)
         {
-            WeaponItemUI itemUI = child.GetComponent<WeaponItemUI>();
-            if (itemUI != null && child.name.StartsWith(targetPrefab.name))
+            Destroy(child.gameObject);
+        }
+
+        if (armorPrefabs == null || categoryButtons == null) return;
+        if (currentCategoryIndex < 0 || currentCategoryIndex >= categoryButtons.Length) return;
+
+        GameObject[] allowedList = categoryButtons[currentCategoryIndex].displayTargetPrefabs;
+        List<GameObject> itemsToDisplay = new List<GameObject>();
+
+        if (allowedList != null && allowedList.Length > 0)
+        {
+            List<GameObject> tempOwnedArmors = new List<GameObject>(armorPrefabs);
+
+            foreach (GameObject allowedPrefab in allowedList)
             {
-                currentSelectionFrame.SetActive(true);
-                currentSelectionFrame.transform.SetParent(child, false);
-                currentSelectionFrame.transform.localPosition = Vector3.zero;
-                currentSelectionFrame.transform.SetAsLastSibling();
-                return;
+                if (allowedPrefab == null) continue;
+
+                for (int i = 0; i < tempOwnedArmors.Count; i++)
+                {
+                    if (tempOwnedArmors[i] == allowedPrefab)
+                    {
+                        itemsToDisplay.Add(tempOwnedArmors[i]);
+                        tempOwnedArmors.RemoveAt(i);
+                        i--;
+                    }
+                }
             }
         }
 
-        currentSelectionFrame.SetActive(false);
+        foreach (GameObject prefab in itemsToDisplay)
+        {
+            if (prefab != null)
+            {
+                GameObject newArmor = Instantiate(prefab, contentPanel);
+
+                // 防具には WeaponItemUI（クリックして選択枠をつける機能）がつかないようにする
+                WeaponItemUI itemUI = newArmor.GetComponent<WeaponItemUI>();
+                if (itemUI != null)
+                {
+                    Destroy(itemUI);
+                }
+            }
+        }
     }
 }
