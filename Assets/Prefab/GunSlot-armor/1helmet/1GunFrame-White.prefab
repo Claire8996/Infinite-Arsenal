@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 2679262419364055417}
   - component: {fileID: 2952923679395937553}
   - component: {fileID: 4571883018316461495}
+  - component: {fileID: 1863890956675191494}
   m_Layer: 5
   m_Name: 1GunFrame-White
   m_TagString: Untagged
@@ -151,3 +152,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1863890956675191494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8816241864019618548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f89cb3518a3af724791c598bb9a122d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackBonus: 0
+  defenseBonus: 0
+  healthBonus: 0
+  speedBonus: 0

@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro; // ★追加：テキスト表示用
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -9,6 +10,10 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 1.2f; // ジャンプの高さ（重力を強くした分、少し低くして自然に調整）
     public float gravity = -25f;    // 重力（-9.81から-25に変更してキビキビ落とす）
 
+    [Header("UI設定（ステージ画面で表示する場合）")]
+    [Tooltip("現在の移動速度を数字で表示するテキスト（使わない場合は空でOK）")]
+    public TextMeshProUGUI speedValueText;
+
     private CharacterController controller;
     private Vector3 velocity;       // 落下などの速度計算用
     private bool isGrounded;        // 接地判定
@@ -17,6 +22,9 @@ public class PlayerMovement : MonoBehaviour
     {
         // アタッチされているCharacterControllerを取得
         controller = GetComponent<CharacterController>();
+
+        // 基本の歩く速度をArmorStatsへ同期する
+        ArmorStats.BaseWalkSpeed = walkSpeed;
     }
 
     void Update()
@@ -37,8 +45,17 @@ public class PlayerMovement : MonoBehaviour
         // プレイヤーの向きを基準に移動方向を決定
         Vector3 move = transform.right * x + transform.forward * z;
 
-        // 3. 走る・歩くの速度切り替え (左Shiftキー)
-        float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
+        // =========================================================
+        // 基本速度に防具の「速度ボーナス（実数値）」を加算する
+        // =========================================================
+        float baseSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
+        float currentSpeed = baseSpeed + ArmorStats.TotalSpeedBonus;
+
+        // ★追加：移動速度テキストが設定されていれば現在の速度を数字で表示する
+        if (speedValueText != null)
+        {
+            speedValueText.text = currentSpeed.ToString();
+        }
 
         // X, Z軸の移動を実行
         controller.Move(move * currentSpeed * Time.deltaTime);

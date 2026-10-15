@@ -19,7 +19,7 @@ public class RocketBullet : MonoBehaviour
     void Start()
     {
         // =========================================================
-        // ★追加：「Wall」タグのついたオブジェクトを貫通する処理
+        // 「Wall」タグのついたオブジェクトを貫通する処理
         // =========================================================
         Collider myCollider = GetComponent<Collider>();
         if (myCollider != null)
@@ -51,6 +51,11 @@ public class RocketBullet : MonoBehaviour
 
         // 2. 爆発範囲内のオブジェクトをすべて取得する
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+
+        // =========================================================
+        // ★修正：爆発ダメージに防具の「攻撃力ボーナス（実数値）」を加算する
+        // =========================================================
+        int totalExplosionDamage = explosionDamage + ArmorStats.TotalAttackBonus;
 
         foreach (Collider nearbyObject in colliders)
         {
@@ -85,28 +90,28 @@ public class RocketBullet : MonoBehaviour
                 SlimeAI slime = nearbyObject.GetComponent<SlimeAI>();
                 if (slime != null)
                 {
-                    slime.TakeDamage(explosionDamage);
+                    slime.TakeDamage(totalExplosionDamage);
                 }
 
                 // 2. タートルシェルかどうかチェック
                 TurtleShellAI turtle = nearbyObject.GetComponent<TurtleShellAI>();
                 if (turtle != null)
                 {
-                    turtle.TakeDamage(explosionDamage);
+                    turtle.TakeDamage(totalExplosionDamage);
                 }
 
                 // 3. マッシュルームかどうかチェック
                 MushroomAI mushroom = nearbyObject.GetComponent<MushroomAI>();
                 if (mushroom != null)
                 {
-                    mushroom.TakeDamage(explosionDamage);
+                    mushroom.TakeDamage(totalExplosionDamage);
                 }
 
                 // 4. サボテンかどうかチェック
                 CactusAI cactus = nearbyObject.GetComponent<CactusAI>();
                 if (cactus != null)
                 {
-                    cactus.TakeDamage(explosionDamage);
+                    cactus.TakeDamage(totalExplosionDamage);
                 }
             }
         }

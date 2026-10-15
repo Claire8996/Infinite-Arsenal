@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 6697063683970980560}
   - component: {fileID: 6086921912494862295}
   - component: {fileID: 1736708445353888296}
+  - component: {fileID: -8600851358432094099}
   m_Layer: 5
   m_Name: 6GunFrame-Red
   m_TagString: Untagged
@@ -151,3 +152,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-8600851358432094099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5815465732577133280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f89cb3518a3af724791c598bb9a122d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackBonus: 0
+  defenseBonus: 0
+  healthBonus: 0
+  speedBonus: 0

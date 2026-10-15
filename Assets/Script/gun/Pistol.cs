@@ -15,6 +15,10 @@ public class Pistol : MonoBehaviour
     [Tooltip("次の弾が撃てるようになるまでの時間（秒）")]
     public float fireRate = 0.2f;
 
+    // ★追加：ピストルの弾のブレ（ステータステキスト表示＆射撃に対応）
+    [Tooltip("弾のブレ（数値を大きくするほど着弾点がバラける）")]
+    public float spreadAmount = 0.1f;
+
     [Header("エフェクト設定")]
     [Tooltip("発砲時に出す煙のパーティクル")]
     public ParticleSystem smokeParticle;
@@ -58,8 +62,6 @@ public class Pistol : MonoBehaviour
 
         if (bulletPrefab != null && muzzlePoint != null)
         {
-            // --- ★ここから射撃方向の計算処理 ---
-
             // 1. 画面のど真ん中（レティクルの位置）から奥に向かってRay（光線）を飛ばす
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hit;
@@ -72,14 +74,14 @@ public class Pistol : MonoBehaviour
             }
             else
             {
-                // 何もぶつからなかった場合（空などを撃った場合）は、カメラのずっと奥をターゲットにする
                 targetPoint = ray.GetPoint(100f);
             }
 
+            // 着弾予定地を少しだけランダムにずらして「銃のブレ」を表現する
+            targetPoint += Random.insideUnitSphere * spreadAmount;
+
             // 3. 銃口から着弾予定地に向かう「方向」を計算する
             Vector3 shootDirection = (targetPoint - muzzlePoint.position).normalized;
-
-            // --- ★ここまで ---
 
             // 4. 計算した方向に向けて弾丸の角度を合わせて生成する
             GameObject bullet = Instantiate(bulletPrefab, muzzlePoint.position, Quaternion.LookRotation(shootDirection));

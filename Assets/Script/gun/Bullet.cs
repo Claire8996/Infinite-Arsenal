@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         // =========================================================
-        // ★追加：「Wall」タグのついたオブジェクトを貫通する処理
+        // 「Wall」タグのついたオブジェクトを貫通する処理
         // =========================================================
         Collider myCollider = GetComponent<Collider>();
         if (myCollider != null)
@@ -57,32 +57,37 @@ public class Bullet : MonoBehaviour
             }
             // =========================================================
 
+            // =========================================================
+            // ★修正：弾のダメージに防具の「攻撃力ボーナス（実数値）」を加算する
+            // =========================================================
+            int totalDamage = damage + ArmorStats.TotalAttackBonus;
+
             // 1. スライムかどうかチェック
             SlimeAI slime = collision.gameObject.GetComponent<SlimeAI>();
             if (slime != null)
             {
-                slime.TakeDamage(damage);
+                slime.TakeDamage(totalDamage);
             }
 
             // 2. タートルシェルかどうかチェック
             TurtleShellAI turtle = collision.gameObject.GetComponent<TurtleShellAI>();
             if (turtle != null)
             {
-                turtle.TakeDamage(damage);
+                turtle.TakeDamage(totalDamage);
             }
 
             // 3. マッシュルームかどうかチェック
             MushroomAI mushroom = collision.gameObject.GetComponent<MushroomAI>();
             if (mushroom != null)
             {
-                mushroom.TakeDamage(damage);
+                mushroom.TakeDamage(totalDamage);
             }
 
             // 4. サボテンかどうかチェック
             CactusAI cactus = collision.gameObject.GetComponent<CactusAI>();
             if (cactus != null)
             {
-                cactus.TakeDamage(damage);
+                cactus.TakeDamage(totalDamage);
             }
 
             // 敵に当たった場合は弾を消滅させる

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 364609016523706481}
   - component: {fileID: 1364025121302677877}
   - component: {fileID: 922030786899452077}
+  - component: {fileID: 1511275678670773092}
   m_Layer: 5
   m_Name: 2GunFrame-Green
   m_TagString: Untagged
@@ -76,6 +77,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1511275678670773092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494982217901629096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f89cb3518a3af724791c598bb9a122d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackBonus: 0
+  defenseBonus: 0
+  healthBonus: 0
+  speedBonus: 0
 --- !u!1 &7557531232281112021
 GameObject:
   m_ObjectHideFlags: 0
