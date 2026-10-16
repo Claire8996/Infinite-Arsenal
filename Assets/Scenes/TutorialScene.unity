@@ -6209,6 +6209,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &355353212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 355353214}
+  - component: {fileID: 355353213}
+  m_Layer: 0
+  m_Name: TutorialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &355353213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355353212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1533514480fe3e42ba443632112e512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialWeaponPrefab: {fileID: 2823827163008208632, guid: 4d7e187b56e8bbb4ab89413eb4158ead, type: 3}
+  playerWeaponManager: {fileID: 1847684635}
+--- !u!4 &355353214
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355353212}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1503.3025, y: 915.2229, z: -2.5598583}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &360518811
 GameObject:
   m_ObjectHideFlags: 0
@@ -11370,6 +11416,7 @@ MonoBehaviour:
   runSpeed: 10
   jumpHeight: 2
   gravity: -25
+  speedValueText: {fileID: 0}
 --- !u!143 &2119309848
 CharacterController:
   m_ObjectHideFlags: 0
@@ -11434,6 +11481,9 @@ MonoBehaviour:
   maxHealth: 5000
   hpBar: {fileID: 545066623}
   hpText: {fileID: 458899740}
+  healthValueText: {fileID: 0}
+  defenseValueText: {fileID: 0}
+  speedValueText: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -11455,3 +11505,4 @@ SceneRoots:
   - {fileID: 12633153}
   - {fileID: 225081994}
   - {fileID: 651137833}
+  - {fileID: 355353214}

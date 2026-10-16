@@ -65,6 +65,13 @@ public class WeaponInventoryManager : MonoBehaviour
     public Color activeColor = Color.white;
     public Color inactiveColor = Color.gray;
 
+    // ==========================================
+    // ★追加：Slot1〜3のボタンに対応する「個別のUI（Image等）」の参照欄
+    // ==========================================
+    [Header("【Slot1〜3の個別連動UI設定】")]
+    [Tooltip("Slot1〜3の選択状態に合わせて色が変わるUI（Image）をそれぞれ設定してください")]
+    public Image[] slotTargetImages = new Image[3];
+
     [Header("UI設定")]
     public Transform contentPanel;
     public GameObject selectionFramePrefab;
@@ -250,8 +257,7 @@ public class WeaponInventoryManager : MonoBehaviour
     }
 
     // ==========================================
-    // ★修正：武器のPrefabが選択されていないSlotのテキストは非表示にし、
-    // 選択されている時だけ数値を表示する処理
+    // 武器のPrefabが選択されていないSlotのテキストは非表示にし、選択されている時だけ数値を表示する処理
     // ==========================================
     public void UpdateWeaponStatTexts()
     {
@@ -293,8 +299,6 @@ public class WeaponInventoryManager : MonoBehaviour
                 // そのSlotで現在選択されている武器のPrefabを取得する
                 GameObject activeWeaponPrefab = GetEquippedWeaponPrefabForSlot(currentStatSlotIndex);
 
-                // ★重要：武器のPrefabが選択されている（nullではない）時だけ、数値を反映してテキストを表示する！
-                // （未選択の場合は上のループで SetActive(false) になっているため非表示のままになります）
                 if (activeWeaponPrefab != null)
                 {
                     GetWeaponStatsFromPrefab(activeWeaponPrefab, out int activeAtk, out float activeSpd, out float activeSpr);
@@ -319,8 +323,6 @@ public class WeaponInventoryManager : MonoBehaviour
         }
     }
 
-    // ★修正：このインベントリ画面でそのSlotに選択されている武器のPrefabを取得する
-    // （未選択の場合は確実に null を返し、テキストを非表示にします）
     private GameObject GetEquippedWeaponPrefabForSlot(int slotIndex)
     {
         if (selectedSlotWeaponPrefabs != null && slotIndex >= 0 && slotIndex < selectedSlotWeaponPrefabs.Length)
@@ -576,6 +578,21 @@ public class WeaponInventoryManager : MonoBehaviour
             }
         }
 
+        // =========================================================
+        // ★追加：Slot1〜3の個別連動UI（slotTargetImages）の色を切り替える処理
+        // （選択されているSlotのUI = 通常色(activeColor)、それ以外 = 灰色(inactiveColor)）
+        // =========================================================
+        if (slotTargetImages != null)
+        {
+            for (int i = 0; i < slotTargetImages.Length; i++)
+            {
+                if (slotTargetImages[i] != null)
+                {
+                    slotTargetImages[i].color = (i == currentSlotIndex) ? activeColor : inactiveColor;
+                }
+            }
+        }
+
         Transform savedWeapon = selectedWeapons[currentSlotIndex];
         if (savedWeapon != null)
         {
@@ -825,7 +842,7 @@ public class WeaponInventoryManager : MonoBehaviour
                 {
                     if (selectedArmorItemIndices[currentCategoryIndex] == i)
                     {
-                        selectedArmors[currentCategoryIndex] = newArmor.transform;
+                        selectedArmors[currentCategoryIndex] = newArmor.transform.parent ? newArmor.transform : newArmor.transform;
                     }
                 }
             }
