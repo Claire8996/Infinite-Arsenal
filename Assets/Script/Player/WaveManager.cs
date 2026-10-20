@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro; // ★追加：TextMeshProを操作するために必要
+using TMPro;
 
 [System.Serializable]
 public class WaveData
@@ -16,16 +16,12 @@ public class WaveData
 
 public class WaveManager : MonoBehaviour
 {
-    // ==========================================
-    // ★追加：ウェーブと敵の進行状況UI
-    // ==========================================
     [Header("進行状況UI設定")]
     [Tooltip("剣のアイコンの方のテキスト（例: 1 / 3）")]
     public TextMeshProUGUI waveProgressText;
 
     [Tooltip("ボスの顔アイコンの方のテキスト（例: 2 / 5）")]
     public TextMeshProUGUI enemyCountText;
-    // ==========================================
 
     [Header("シーン開始時のUI演出")]
     [Tooltip("表示したいUIのCanvasGroup（透明度操作用）")]
@@ -65,7 +61,9 @@ public class WaveManager : MonoBehaviour
     private int currentWaveIndex = 0;
     private int currentRewardIndex = 0;
     private List<GameObject> activeEnemies = new List<GameObject>();
-    private int initialEnemyCountForCurrentWave = 0; // ★追加：そのウェーブで最初に出現した敵の総数
+    // どの敵Prefabから生成された敵かを保持するリスト（ミッションの撃破判定用）
+    private List<GameObject> activeEnemyOriginalPrefabs = new List<GameObject>();
+    private int initialEnemyCountForCurrentWave = 0;
 
     private enum WavePhase
     {
@@ -105,7 +103,6 @@ public class WaveManager : MonoBehaviour
         if (introUIGroup != null) introUIGroup.alpha = 0f;
         if (introUITransform != null) introUITransform.localScale = Vector3.one * 0.5f;
 
-        // ★追加：ゲーム開始時のUI表示（0 / 最大数）
         UpdateProgressUI(0, 0, 0);
 
         SetEventMode(false);
@@ -116,9 +113,22 @@ public class WaveManager : MonoBehaviour
     {
         if (currentPhase == WavePhase.Battling)
         {
-            activeEnemies.RemoveAll(enemy => enemy == null);
+            // 倒されて消滅（null）した敵を検知し、ミッション進行度（合計撃破＆特定敵撃破）をカウントする
+            for (int i = activeEnemies.Count - 1; i >= 0; i--)
+            {
+                if (activeEnemies[i] == null)
+                {
+                    GameObject sourcePrefab = (i < activeEnemyOriginalPrefabs.Count) ? activeEnemyOriginalPrefabs[i] : null;
+                    MissionManager.AddEnemyKill(sourcePrefab);
 
-            // ★追加：毎フレーム敵の残数をUIに反映する
+                    activeEnemies.RemoveAt(i);
+                    if (i < activeEnemyOriginalPrefabs.Count)
+                    {
+                        activeEnemyOriginalPrefabs.RemoveAt(i);
+                    }
+                }
+            }
+
             UpdateProgressUI(currentWaveIndex + 1, activeEnemies.Count, initialEnemyCountForCurrentWave);
 
             if (activeEnemies.Count == 0)
@@ -183,20 +193,14 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    // ==========================================
-    // ★追加：UIのテキストを更新する専用メソッド
-    // ==========================================
     void UpdateProgressUI(int displayWaveNumber, int currentEnemies, int totalEnemies)
     {
-        // 剣アイコン側のテキスト（現在のウェーブ / 最大ウェーブ）
         if (waveProgressText != null)
         {
             int maxWaves = enemyWaves.Length;
-            // Intro中など、まだウェーブが始まっていない時は 0/3 のように表示する
             waveProgressText.text = displayWaveNumber.ToString() + " / " + maxWaves.ToString();
         }
 
-        // ボス顔アイコン側のテキスト（残りの敵 / そのウェーブの総敵数）
         if (enemyCountText != null)
         {
             enemyCountText.text = currentEnemies.ToString() + " / " + totalEnemies.ToString();
@@ -249,7 +253,8 @@ public class WaveManager : MonoBehaviour
     {
         currentPhase = WavePhase.Spawning;
         activeEnemies.Clear();
-        initialEnemyCountForCurrentWave = 0; // 初期化
+        activeEnemyOriginalPrefabs.Clear();
+        initialEnemyCountForCurrentWave = 0;
 
         bool isBossWave = (currentWaveIndex == enemyWaves.Length - 1);
         if (isBossWave)
@@ -268,11 +273,12 @@ public class WaveManager : MonoBehaviour
                 Transform spawnPoint = wave.spawnPositions[i];
                 GameObject enemy = Instantiate(wave.enemyPrefabs[i], spawnPoint.position, spawnPoint.rotation);
                 activeEnemies.Add(enemy);
+                activeEnemyOriginalPrefabs.Add(wave.enemyPrefabs[i]);
+
                 if (spawnSmokePrefab != null) Instantiate(spawnSmokePrefab, spawnPoint.position, spawnPoint.rotation);
             }
         }
 
-        // ★追加：このウェーブで出現した敵の総数を記録してUIを更新
         initialEnemyCountForCurrentWave = activeEnemies.Count;
         UpdateProgressUI(currentWaveIndex + 1, activeEnemies.Count, initialEnemyCountForCurrentWave);
 
@@ -296,7 +302,9 @@ public class WaveManager : MonoBehaviour
         currentPhase = WavePhase.ForcedLook;
         SetEventMode(true);
 
-        // ★追加：全クリア時は敵の数を 0 / 0 などに整える
+        // ★追加：このステージの敵をすべて倒したので、現在のScene名をクリア済みとして記録・解放する
+        StageSelectCarousel.MarkStageClearedBySceneName(SceneManager.GetActiveScene().name);
+
         UpdateProgressUI(enemyWaves.Length, 0, initialEnemyCountForCurrentWave);
 
         Camera mainCam = Camera.main;
@@ -411,6 +419,9 @@ public class WaveManager : MonoBehaviour
 
     void LoadNextScene()
     {
+        // ★追加：シーン移動直前にも確実に現在のScene名をクリア済みとして記録する
+        StageSelectCarousel.MarkStageClearedBySceneName(SceneManager.GetActiveScene().name);
+
         if (!string.IsNullOrEmpty(nextSceneName))
         {
             SceneManager.LoadScene(nextSceneName);

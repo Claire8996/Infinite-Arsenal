@@ -38,9 +38,8 @@ public class Bullet : MonoBehaviour
         }
 
         // =========================================================
-        // ★追加：2. 「Player」のColliderを貫通する処理
+        // 2. 「Player」のColliderを貫通する処理
         // =========================================================
-        // (A) 「Player」タグがついたオブジェクトのColliderをすべて無視
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
@@ -53,7 +52,6 @@ public class Bullet : MonoBehaviour
             }
         }
 
-        // (B) タグ設定を忘れていても確実に貫通するよう、PlayerMovement / PlayerHealth 側のColliderも無視
         PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
         if (playerMovement != null)
         {
@@ -77,7 +75,7 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // ★追加：万が一Playerに接触した場合は何もせずスルーする
+        // 万が一Playerに接触した場合は何もせずスルーする
         if (collision.gameObject.CompareTag("Player") ||
             collision.gameObject.GetComponentInParent<PlayerMovement>() != null ||
             collision.gameObject.GetComponentInParent<PlayerHealth>() != null)
@@ -94,26 +92,21 @@ public class Bullet : MonoBehaviour
             Rigidbody enemyRb = collision.gameObject.GetComponent<Rigidbody>();
             if (enemyRb != null)
             {
-                // 弾が当たった瞬間のY軸（上下）の速度を取得
                 float currentVelocityY = enemyRb.velocity.y;
-
-                // もし「上方向」に吹き飛ぶ力（プラスの値）が発生していたら強制的に0にする
-                // （マイナスの場合は重力で落下中なので、そのまま生かす）
                 if (currentVelocityY > 0f)
                 {
                     currentVelocityY = 0f;
                 }
 
-                // 横の吹き飛びを0にしつつ、上に飛ばないように調整したY軸の速度をセット
                 enemyRb.velocity = new Vector3(0f, currentVelocityY, 0f);
                 enemyRb.angularVelocity = Vector3.zero;
             }
             // =========================================================
 
-            // =========================================================
-            // 弾のダメージに防具の「攻撃力ボーナス（実数値）」を加算する
-            // =========================================================
             int totalDamage = damage + ArmorStats.TotalAttackBonus;
+
+            // ★追加：与えたダメージをミッションの合計ダメージ数に加算する
+            MissionManager.AddDamage(totalDamage);
 
             // 1. スライムかどうかチェック
             SlimeAI slime = collision.gameObject.GetComponent<SlimeAI>();

@@ -1,6 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 [System.Serializable]
 public class StageCarouselItem
@@ -11,12 +14,13 @@ public class StageCarouselItem
     [Tooltip("このオブジェクトがCenterPositionにある時にボタンを押すと移動するScene名")]
     public string targetSceneName;
 
-    // ==========================================
-    // ★追加：CenterPositionの時だけ表示するテキストオブジェクト
-    // ==========================================
     [Header("【中央表示テキスト設定】")]
     [Tooltip("このオブジェクトがCenterPositionにある時だけ表示（SetActive(true)）するテキストオブジェクト")]
     public GameObject stageInfoTextObject;
+
+    [Header("【ステージクリア状態】")]
+    [Tooltip("チェックを入れると、このステージはクリア済み扱いになります（ゲーム内でクリアした際も自動で記憶されます）")]
+    public bool isCleared = false;
 }
 
 public class StageSelectCarousel : MonoBehaviour
@@ -58,6 +62,33 @@ public class StageSelectCarousel : MonoBehaviour
     [Tooltip("CenterPosition以外の時の色（若干灰色）")]
     public Color otherColor = new Color(0.65f, 0.65f, 0.65f, 1f);
 
+    [Header("【未解放（灰色）ステージ＆ロックUI Prefab設定】")]
+    [Tooltip("灰色になるStageCarouselItemのUIに表示する「UIのPrefab」をここにセットしてください")]
+    public GameObject lockedStageUIPrefab;
+
+    [Tooltip("クリアしていないステージの『次のステージ』以降に適用する灰色の色味")]
+    public Color lockedStageColor = new Color(0.35f, 0.35f, 0.35f, 1f);
+
+    // ==========================================
+    // ★追加：プレイボタン自体のUI（Image）をインスペクターから直接参照する設定欄
+    // ==========================================
+    [Header("【プレイボタンのUI設定】")]
+    [Tooltip("灰色や通常色に切り替えたいプレイボタンのUI（Imageコンポーネント）をここにセットしてください")]
+    public Image playButtonUIImage;
+
+    [Tooltip("プレイ可能なステージがCenterPositionにある時のプレイボタンUIの色（通常色）")]
+    public Color normalPlayButtonColor = Color.white;
+
+    [Tooltip("灰色のステージがCenterPositionに来た時のプレイボタンUIの色（灰色）")]
+    public Color lockedPlayButtonColor = Color.gray;
+
+    [Tooltip("追加表示したUIのPrefab（lockedStageUIPrefab）自体も一緒に灰色にする場合はチェックを入れてください")]
+    public bool tintLockedUIPrefabToo = false;
+
+    [Header("【灰色にしないステージ名テキストの設定】")]
+    [Tooltip("ここに登録したテキストコンポーネントは、ステージがロックされても灰色になりません")]
+    public List<Graphic> excludeGraphicsFromTint = new List<Graphic>();
+
     [Header("【マウスホイール設定】")]
     [Tooltip("チェックを入れると、マウスホイールを回した時の移動方向が逆になります")]
     public bool invertScrollDirection = false;
@@ -65,28 +96,28 @@ public class StageSelectCarousel : MonoBehaviour
     [Tooltip("ホイールを回した時、スライド移動が完了するまで次のホイール入力を待つか（連続で飛びすぎるのを防ぎます）")]
     public bool waitSlideFinishOnScroll = true;
 
-    // 最後にCenterPositionだったオブジェクトの番号を保存するセーブキー
     private const string SaveKeyCenterIndex = "LastCenterStageIndex";
+    private const string SaveKeyStageClearedPrefix = "StageCleared_";
 
-    // 現在CenterPositionにあるオブジェクトの配列インデックス番号
     private int currentCenterIndex = 0;
     private Coroutine slideCoroutine;
 
-    // 各UIオブジェクトのAlpha値を制御するためのCanvasGroup配列
     private CanvasGroup[] itemCanvasGroups;
-
-    // 各UIオブジェクト内の画像（Graphic）と現在の色を管理する配列
     private Graphic[][] itemGraphics;
     private Color[] currentItemColors;
+
+    private GameObject[] spawnedLockedUIs;
 
     void Start()
     {
         if (stageItems == null || stageItems.Length == 0) return;
 
-        // 各オブジェクトのAlpha値と色（灰色変化）を制御するためのコンポーネントを自動準備
+        LoadStageClearStates();
+
         itemCanvasGroups = new CanvasGroup[stageItems.Length];
         itemGraphics = new Graphic[stageItems.Length][];
         currentItemColors = new Color[stageItems.Length];
+        spawnedLockedUIs = new GameObject[stageItems.Length];
 
         for (int i = 0; i < stageItems.Length; i++)
         {
@@ -99,34 +130,45 @@ public class StageSelectCarousel : MonoBehaviour
                 }
                 itemCanvasGroups[i] = cg;
 
-                // 子オブジェクトも含めて色を変えられるUI要素（Image等）を取得しておく
-                itemGraphics[i] = stageItems[i].uiObject.GetComponentsInChildren<Graphic>(true);
+                if (!tintLockedUIPrefabToo)
+                {
+                    itemGraphics[i] = stageItems[i].uiObject.GetComponentsInChildren<Graphic>(true);
+                }
+
+                if (lockedStageUIPrefab != null)
+                {
+                    GameObject lockedUI = Instantiate(lockedStageUIPrefab, stageItems[i].uiObject, false);
+                    lockedUI.transform.SetAsLastSibling();
+                    spawnedLockedUIs[i] = lockedUI;
+                }
+
+                if (tintLockedUIPrefabToo)
+                {
+                    itemGraphics[i] = stageItems[i].uiObject.GetComponentsInChildren<Graphic>(true);
+                }
+
                 currentItemColors[i] = centerColor;
             }
         }
 
-        // SceneTransitionManager が未設定ならシーン内から自動で探す
         if (sceneTransitionManager == null)
         {
             sceneTransitionManager = FindObjectOfType<SceneTransitionManager>();
         }
 
-        // シーン移動ボタンが設定されていれば、クリック時の処理を自動登録する
         if (startStageButton != null)
         {
+            startStageButton.transition = Selectable.Transition.None;
             startStageButton.onClick.RemoveListener(OnClickLoadCurrentCenterScene);
             startStageButton.onClick.AddListener(OnClickLoadCurrentCenterScene);
         }
 
-        // 記憶の復元：最後にCenterPositionだったオブジェクトの番号を読み込む
         currentCenterIndex = PlayerPrefs.GetInt(SaveKeyCenterIndex, 0);
         currentCenterIndex = Mathf.Clamp(currentCenterIndex, 0, stageItems.Length - 1);
 
-        // ゲーム開始時はアニメーションなしで即座に配置・大きさ・色・Alpha・テキスト表示を適用する
         UpdateObjectsPositionImmediate();
     }
 
-    // 毎フレーム、マウスホイールの回転を検知してオブジェクトを移動させる処理
     void Update()
     {
         if (stageItems == null || stageItems.Length == 0) return;
@@ -139,36 +181,115 @@ public class StageSelectCarousel : MonoBehaviour
         {
             if (!invertScrollDirection)
             {
-                if (scroll < 0f)
-                {
-                    MoveToNextObject();
-                }
-                else if (scroll > 0f)
-                {
-                    MoveToPreviousObject();
-                }
+                if (scroll < 0f) MoveToNextObject();
+                else if (scroll > 0f) MoveToPreviousObject();
             }
             else
             {
-                if (scroll > 0f)
-                {
-                    MoveToNextObject();
-                }
-                else if (scroll < 0f)
-                {
-                    MoveToPreviousObject();
-                }
+                if (scroll > 0f) MoveToNextObject();
+                else if (scroll < 0f) MoveToPreviousObject();
             }
         }
     }
 
+    public bool IsStageLocked(int itemIndex)
+    {
+        if (stageItems == null || stageItems.Length == 0) return false;
+
+        int firstUnclearedIndex = stageItems.Length;
+        for (int i = 0; i < stageItems.Length; i++)
+        {
+            if (stageItems[i] != null && !stageItems[i].isCleared)
+            {
+                firstUnclearedIndex = i;
+                break;
+            }
+        }
+
+        return itemIndex > firstUnclearedIndex;
+    }
+
+    private void LoadStageClearStates()
+    {
+        if (stageItems == null) return;
+
+        for (int i = 0; i < stageItems.Length; i++)
+        {
+            if (stageItems[i] == null) continue;
+
+            bool savedCleared = PlayerPrefs.GetInt(SaveKeyStageClearedPrefix + i, 0) == 1;
+            if (!string.IsNullOrEmpty(stageItems[i].targetSceneName))
+            {
+                savedCleared = savedCleared || (PlayerPrefs.GetInt(SaveKeyStageClearedPrefix + stageItems[i].targetSceneName, 0) == 1);
+            }
+
+            if (stageItems[i].isCleared)
+            {
+                PlayerPrefs.SetInt(SaveKeyStageClearedPrefix + i, 1);
+                if (!string.IsNullOrEmpty(stageItems[i].targetSceneName))
+                {
+                    PlayerPrefs.SetInt(SaveKeyStageClearedPrefix + stageItems[i].targetSceneName, 1);
+                }
+            }
+            else if (savedCleared)
+            {
+                stageItems[i].isCleared = true;
+            }
+        }
+        PlayerPrefs.Save();
+    }
+
+    public static void MarkStageClearedBySceneName(string clearedSceneName)
+    {
+        if (string.IsNullOrEmpty(clearedSceneName)) return;
+        PlayerPrefs.SetInt(SaveKeyStageClearedPrefix + clearedSceneName, 1);
+        PlayerPrefs.Save();
+    }
+
     // =========================================================
-    // ボタン用1：現在CenterPositionにあるオブジェクトのSceneへ移動する処理
+    // ★修正：インスペクターで指定したプレイボタンのUI（Image）の色を切り替える処理
     // =========================================================
+    private void UpdatePlayButtonState()
+    {
+        bool isCenterStageLocked = IsStageLocked(currentCenterIndex);
+
+        if (startStageButton != null)
+        {
+            startStageButton.interactable = !isCenterStageLocked;
+        }
+
+        // インスペクターで設定したプレイボタンのUI画像の色を通常色または灰色に変更する
+        if (playButtonUIImage != null)
+        {
+            Color targetBtnColor = isCenterStageLocked ? lockedPlayButtonColor : normalPlayButtonColor;
+            playButtonUIImage.color = new Color(targetBtnColor.r, targetBtnColor.g, targetBtnColor.b, playButtonUIImage.color.a);
+        }
+    }
+
+    private void UpdateLockedUIPrefabsVisibility()
+    {
+        if (spawnedLockedUIs == null) return;
+
+        for (int i = 0; i < spawnedLockedUIs.Length; i++)
+        {
+            if (spawnedLockedUIs[i] != null)
+            {
+                bool isLocked = IsStageLocked(i);
+                spawnedLockedUIs[i].SetActive(isLocked);
+            }
+        }
+    }
+
     public void OnClickLoadCurrentCenterScene()
     {
         if (stageItems == null || stageItems.Length == 0) return;
         if (currentCenterIndex < 0 || currentCenterIndex >= stageItems.Length) return;
+
+        if (IsStageLocked(currentCenterIndex))
+        {
+            Debug.Log("前のステージをまだクリアしていないため、このステージはまだプレイできません！");
+            return;
+        }
 
         string sceneName = stageItems[currentCenterIndex].targetSceneName;
 
@@ -180,6 +301,17 @@ public class StageSelectCarousel : MonoBehaviour
 
         if (sceneTransitionManager != null)
         {
+            bool canPlay = true;
+            if (sceneTransitionManager.energyManager != null)
+            {
+                canPlay = sceneTransitionManager.energyManager.HasEnoughEnergy(sceneTransitionManager.requiredEnergy);
+            }
+
+            if (canPlay)
+            {
+                MissionManager.AddStagePlay(1);
+            }
+
             sceneTransitionManager.LoadTargetScene(sceneName);
         }
         else
@@ -188,9 +320,6 @@ public class StageSelectCarousel : MonoBehaviour
         }
     }
 
-    // =========================================================
-    // ボタン用2：指定した番号（0, 1, 2...）のオブジェクトをCenterPositionにする処理
-    // =========================================================
     public void SetCenterObjectByIndex(int targetIndex)
     {
         if (stageItems == null || stageItems.Length == 0) return;
@@ -198,17 +327,12 @@ public class StageSelectCarousel : MonoBehaviour
 
         currentCenterIndex = targetIndex;
 
-        // 最後にCenterPositionだった番号としてすぐにセーブする
         PlayerPrefs.SetInt(SaveKeyCenterIndex, currentCenterIndex);
         PlayerPrefs.Save();
 
-        // 各オブジェクトを新しい位置・大きさ・色・Alphaへ変化させる
         MoveObjectsToTargetPositions();
     }
 
-    // =========================================================
-    // ボタン用3：1つ右（次）のオブジェクトをCenterPositionに持ってくる処理
-    // =========================================================
     public void MoveToNextObject()
     {
         if (stageItems == null || stageItems.Length == 0) return;
@@ -218,9 +342,6 @@ public class StageSelectCarousel : MonoBehaviour
         }
     }
 
-    // =========================================================
-    // ボタン用4：1つ左（前）のオブジェクトをCenterPositionに持ってくる処理
-    // =========================================================
     public void MoveToPreviousObject()
     {
         if (stageItems == null || stageItems.Length == 0) return;
@@ -230,7 +351,6 @@ public class StageSelectCarousel : MonoBehaviour
         }
     }
 
-    // 配列の順番に従って、各オブジェクトの目標座標を計算する
     private Vector3 CalculateTargetPosition(int itemIndex)
     {
         if (centerPosition == null) return Vector3.zero;
@@ -261,21 +381,23 @@ public class StageSelectCarousel : MonoBehaviour
         }
     }
 
-    // 各オブジェクトの目標Scaleを計算する（Centerは1.3、それ以外は0.8）
     private Vector3 CalculateTargetScale(int itemIndex)
     {
         int offset = itemIndex - currentCenterIndex;
         return (offset == 0) ? centerScale : otherScale;
     }
 
-    // 各オブジェクトの目標色を計算する（Centerは通常色、それ以外は若干灰色）
     private Color CalculateTargetColor(int itemIndex)
     {
+        if (IsStageLocked(itemIndex))
+        {
+            return lockedStageColor;
+        }
+
         int offset = itemIndex - currentCenterIndex;
         return (offset == 0) ? centerColor : otherColor;
     }
 
-    // 指定したオブジェクト内のUI要素に色を適用する補助メソッド
     private void ApplyColorToItem(int itemIndex, Color targetColor)
     {
         if (currentItemColors != null && itemIndex < currentItemColors.Length)
@@ -289,20 +411,28 @@ public class StageSelectCarousel : MonoBehaviour
             {
                 if (g != null)
                 {
+                    if (excludeGraphicsFromTint != null && excludeGraphicsFromTint.Contains(g))
+                    {
+                        continue;
+                    }
+
+                    if (g is Text || g is TextMeshProUGUI)
+                    {
+                        continue;
+                    }
+
                     g.color = new Color(targetColor.r, targetColor.g, targetColor.b, g.color.a);
                 }
             }
         }
     }
 
-    // 各オブジェクトの目標Alpha値を計算する（Left・Center・Rightにある時は 1、それより外側は 0）
     private float CalculateTargetAlpha(int itemIndex)
     {
         int offset = itemIndex - currentCenterIndex;
         return (Mathf.Abs(offset) <= 1) ? 1f : 0f;
     }
 
-    // 即座にすべてのオブジェクトの位置・大きさ・色・Alpha・テキスト表示を定位置へ反映する
     private void UpdateObjectsPositionImmediate()
     {
         for (int i = 0; i < stageItems.Length; i++)
@@ -324,20 +454,22 @@ public class StageSelectCarousel : MonoBehaviour
                     itemCanvasGroups[i].blocksRaycasts = isVisible;
                 }
 
-                // ==========================================
-                // ★追加：CenterPositionにある時だけテキストを表示する
-                // ==========================================
                 if (stageItems[i].stageInfoTextObject != null)
                 {
                     stageItems[i].stageInfoTextObject.SetActive(i == currentCenterIndex);
                 }
             }
         }
+
+        UpdateLockedUIPrefabsVisibility();
+        UpdatePlayButtonState();
     }
 
-    // スライドアニメーションでオブジェクトを移動させる
     private void MoveObjectsToTargetPositions()
     {
+        UpdateLockedUIPrefabsVisibility();
+        UpdatePlayButtonState();
+
         if (slideDuration <= 0f)
         {
             UpdateObjectsPositionImmediate();
@@ -351,11 +483,8 @@ public class StageSelectCarousel : MonoBehaviour
         slideCoroutine = StartCoroutine(SlideRoutine());
     }
 
-    // 移動と同時に「Scale（大きさ）」「色（通常⇔若干灰色）」「Alpha（透明度）」もなめらかに変化させる
     private IEnumerator SlideRoutine()
     {
-        // スライドが始まる瞬間に、すべてのテキストを非表示にするか、
-        // あるいはスライド完了時に切り替わるようにする（ここでは一瞬でパッと切り替わるように即座に反映します）
         for (int i = 0; i < stageItems.Length; i++)
         {
             if (stageItems[i] != null && stageItems[i].stageInfoTextObject != null)
@@ -408,17 +537,12 @@ public class StageSelectCarousel : MonoBehaviour
             {
                 if (stageItems[i] != null && stageItems[i].uiObject != null)
                 {
-                    // 1. 位置の移動
                     stageItems[i].uiObject.position = Vector3.Lerp(startPositions[i], targetPositions[i], easeOutT);
-
-                    // 2. 大きさ（Scale）の変化（1.3 ⇔ 0.8）
                     stageItems[i].uiObject.localScale = Vector3.Lerp(startScales[i], targetScales[i], easeOutT);
 
-                    // 3. 色の変化（通常色 ⇔ 若干灰色）
                     Color lerpedColor = Color.Lerp(startColors[i], targetColors[i], easeOutT);
                     ApplyColorToItem(i, lerpedColor);
 
-                    // 4. 透明度（Alpha）の変化
                     if (itemCanvasGroups != null && i < itemCanvasGroups.Length && itemCanvasGroups[i] != null)
                     {
                         itemCanvasGroups[i].alpha = Mathf.Lerp(startAlphas[i], targetAlphas[i], easeOutT);

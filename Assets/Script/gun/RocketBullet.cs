@@ -49,9 +49,8 @@ public class RocketBullet : MonoBehaviour
         }
 
         // =========================================================
-        // ★追加：2. 「Player」のColliderを貫通する処理
+        // 2. 「Player」のColliderを貫通する処理
         // =========================================================
-        // (A) 「Player」タグがついたオブジェクトのColliderをすべて無視
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
@@ -64,7 +63,6 @@ public class RocketBullet : MonoBehaviour
             }
         }
 
-        // (B) タグ設定を忘れていても確実に貫通するよう、PlayerMovement / PlayerHealth 側のColliderも無視
         PlayerMovement playerMovement = FindObjectOfType<PlayerMovement>();
         if (playerMovement != null)
         {
@@ -88,7 +86,7 @@ public class RocketBullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // ★追加：万が一発射直後にPlayer自身のColliderに接触判定が出ても、爆発せずそのまま貫通させる
+        // 万が一発射直後にPlayer自身のColliderに接触判定が出ても、爆発せずそのまま貫通させる
         if (collision.gameObject.CompareTag("Player") ||
             collision.gameObject.GetComponentInParent<PlayerMovement>() != null ||
             collision.gameObject.GetComponentInParent<PlayerHealth>() != null)
@@ -105,9 +103,6 @@ public class RocketBullet : MonoBehaviour
         // 2. 爆発範囲内のオブジェクトをすべて取得する
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
-        // =========================================================
-        // 爆発ダメージに防具の「攻撃力ボーナス（実数値）」を加算する
-        // =========================================================
         int totalExplosionDamage = explosionDamage + ArmorStats.TotalAttackBonus;
 
         foreach (Collider nearbyObject in colliders)
@@ -121,23 +116,20 @@ public class RocketBullet : MonoBehaviour
                 Rigidbody enemyRb = nearbyObject.GetComponent<Rigidbody>();
                 if (enemyRb != null)
                 {
-                    // まず爆風の力を加える
                     enemyRb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
-
-                    // 弾が当たった瞬間のY軸（上下）の速度を取得
                     float currentVelocityY = enemyRb.velocity.y;
-
-                    // もし「上方向」に吹き飛ぶ力（プラスの値）が発生していたら強制的に0にする
                     if (currentVelocityY > 0f)
                     {
                         currentVelocityY = 0f;
                     }
 
-                    // ロケランらしく「横」への爆風の吹き飛びは残しつつ、上に飛ばないようにY軸を調整
                     enemyRb.velocity = new Vector3(enemyRb.velocity.x, currentVelocityY, enemyRb.velocity.z);
                     enemyRb.angularVelocity = Vector3.zero;
                 }
                 // =========================================================
+
+                // ★追加：与えた爆発ダメージをミッションの合計ダメージ数に加算する
+                MissionManager.AddDamage(totalExplosionDamage);
 
                 // 1. スライムかどうかチェック
                 SlimeAI slime = nearbyObject.GetComponent<SlimeAI>();
