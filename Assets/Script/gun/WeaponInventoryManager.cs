@@ -91,7 +91,7 @@ public class EvolutionRule
 }
 
 // ==========================================
-// ★追加：武器や防具の「種類ごと」に全6ランクの進化順序を登録するクラス
+// 武器や防具の「種類ごと」に全6ランクの進化順序を登録するクラス
 // ==========================================
 [System.Serializable]
 public class WeaponRankLine
@@ -211,13 +211,13 @@ public class WeaponInventoryManager : MonoBehaviour
     public GameObject exitMultiSelectParentUI;
 
     // ==========================================
-    // ★追加：進化（合成）システムの設定
+    // 進化（合成）システムの設定
     // ==========================================
     [Header("【武器・防具の進化（合成）システム設定】")]
     [Tooltip("進化に必要な素材の個数条件（どのPrefabを何個で進化できるか）")]
     public EvolutionRule[] evolutionRules;
 
-    [Tooltip("【重要】種類ごとのランク順配列（16種類の武器・防具それぞれについて、Rank1〜Rank6をグループごとに設定してください）")]
+    [Tooltip("【重要】種類ごとのランク順配列（Rank1〜Rank6をグループごとに設定してください）")]
     public WeaponRankLine[] weaponRankLines;
 
     [Tooltip("条件を満たしている時だけ押せるようになる「進化実行ボタン」")]
@@ -229,7 +229,7 @@ public class WeaponInventoryManager : MonoBehaviour
     [Tooltip("進化ボタンが押せるようになった時に表示したい、ホーム画面などのとあるUI")]
     public GameObject conditionalVisibleUI;
 
-    [Tooltip("進化演出中に画面全体を明るく光らせるためのパネル（UI Imageなど。最初はAlpha=0）")]
+    [Tooltip("進化演出中に画面全体を明るく光らせるためのパネル（UI Imageなど。最初は非表示に設定されます）")]
     public Image flashPanelImage;
 
     [Tooltip("ボタン①：押したらとあるUIを非表示にするボタン")]
@@ -296,6 +296,12 @@ public class WeaponInventoryManager : MonoBehaviour
         SetupRarityButtons();
         SetupMultiSelectButtons();
         SetupEvolutionSystemButtons();
+
+        // ★追加：起動時はフラッシュパネルを確実に非表示にしておく
+        if (flashPanelImage != null)
+        {
+            flashPanelImage.gameObject.SetActive(false);
+        }
 
         int categoryCount = (categoryButtons != null) ? categoryButtons.Length : 0;
         selectedArmors = new Transform[categoryCount];
@@ -650,6 +656,7 @@ public class WeaponInventoryManager : MonoBehaviour
             }
         }
 
+        // 1. 選択しているPrefabが円を描くように表示され、回転しながら重なり合うように近づいていく演出
         while (elapsed < animDuration)
         {
             elapsed += Time.deltaTime;
@@ -677,6 +684,7 @@ public class WeaponInventoryManager : MonoBehaviour
             yield return null;
         }
 
+        // 2. ★追加：重なりそうになったタイミングで flashPanelImage を有効化し、画面全体を明るく光らせる
         if (flashPanelImage != null)
         {
             flashPanelImage.gameObject.SetActive(true);
@@ -694,10 +702,12 @@ public class WeaponInventoryManager : MonoBehaviour
             }
         }
 
+        // 3. データの処理：素材を消費し、1つ上のランクのPrefabをContent内に追加する
         ExecuteEvolutionDataProcess(rule);
 
         yield return new WaitForSeconds(0.3f);
 
+        // 4. 少ししたら光が消えて通常に戻る
         if (flashPanelImage != null)
         {
             float fadeElapsed = 0f;
@@ -712,6 +722,7 @@ public class WeaponInventoryManager : MonoBehaviour
                 flashPanelImage.color = c;
                 yield return null;
             }
+            // ★追加：演出が終わったらフラッシュパネルを再び非表示にする
             flashPanelImage.gameObject.SetActive(false);
         }
 
@@ -729,12 +740,10 @@ public class WeaponInventoryManager : MonoBehaviour
         UpdateEvolutionButtonState();
     }
 
-    // ★修正：種類ごとのランク順配列（weaponRankLines）を参照して1つ上のランクを特定し追加する
     private void ExecuteEvolutionDataProcess(EvolutionRule rule)
     {
         GameObject nextRankPrefab = null;
 
-        // weaponRankLines から合致するランクを探す
         if (weaponRankLines != null)
         {
             foreach (WeaponRankLine line in weaponRankLines)
@@ -792,7 +801,6 @@ public class WeaponInventoryManager : MonoBehaviour
                 }
             }
 
-            // 合成したPrefabの一個上のランクのPrefab1つを所持リストに追加する
             weaponList.Add(nextRankPrefab);
             testWeaponPrefabs = weaponList.ToArray();
 
