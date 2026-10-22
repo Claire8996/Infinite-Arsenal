@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Collections;
 using TMPro;
@@ -95,10 +96,26 @@ public class GachaSystem : MonoBehaviour
     [Header("【防具ガチャの排出アイテム一覧（確率設定）】")]
     public List<GachaItem> armorGachaItems;
 
+    // 別シーンの WeaponInventoryManager の座標変換データを保持するためのキャッシュ
+    [SerializeField, HideInInspector]
+    private WeaponRankLine[] cachedWeaponRankLines;
+
+    [SerializeField, HideInInspector]
+    private ContentCategoryButton[] cachedCategoryButtons;
+
+    [SerializeField, HideInInspector]
+    private GameObject[] cachedInitialWeapons;
+
+    [SerializeField, HideInInspector]
+    private GameObject[] cachedInitialArmors;
+
     private bool isPulling = false;
     private Color disabledColor = new Color(0.5f, 0.5f, 0.5f, 1f);
 
     private GameObject blockerPanel;
+
+    private const string SAVE_KEY_WEAPONS_COORDS = "SavedInventory_Weapons_ExactCoords";
+    private const string SAVE_KEY_ARMORS_COORDS = "SavedInventory_Armors_ExactCoords";
 
     private void Start()
     {
@@ -128,6 +145,271 @@ public class GachaSystem : MonoBehaviour
         }
 
         SetupBlockerPanel();
+
+        // 起動時にインベントリのマスター座標データ（weaponRankLines / categoryButtons）を準備する
+        StartCoroutine(InitializeInventoryReferenceData());
+    }
+
+    private void Update()
+    {
+        // カプセルが開封されて WeaponDataKeeper や CapsuleOpener に武器・防具が入った瞬間を監視し、即座に永続セーブする
+        if ((WeaponDataKeeper.gachaResultWeapons != null && WeaponDataKeeper.gachaResultWeapons.Count > 0) ||
+            (CapsuleOpener.gachaResultArmors != null && CapsuleOpener.gachaResultArmors.Count > 0))
+        {
+            SaveInventoryImmediately();
+        }
+    }
+
+    private void OnDisable()
+    {
+        // カプセルを開ける前にゲームを終了したりシーンを移動した場合でも、残っているカプセルの中身を回収してセーブする
+        FlushUnopenedCapsulesAndSave();
+    }
+
+    private void OnApplicationQuit()
+    {
+        FlushUnopenedCapsulesAndSave();
+    }
+
+    private void FlushUnopenedCapsulesAndSave()
+    {
+        GameObject[] remainingCapsules = GameObject.FindGameObjectsWithTag("GachaCapsule");
+        if (remainingCapsules != null && remainingCapsules.Length > 0)
+        {
+            foreach (GameObject cap in remainingCapsules)
+            {
+                if (cap == null) continue;
+
+                ExtractItemFromUnopenedCapsule(cap);
+            }
+        }
+
+        if ((WeaponDataKeeper.gachaResultWeapons != null && WeaponDataKeeper.gachaResultWeapons.Count > 0) ||
+            (CapsuleOpener.gachaResultArmors != null && CapsuleOpener.gachaResultArmors.Count > 0))
+        {
+            SaveInventoryImmediately();
+        }
+    }
+
+    private void ExtractItemFromUnopenedCapsule(GameObject capsuleObj)
+    {
+        if (capsuleObj == null) return;
+
+        int beforeWeapons = WeaponDataKeeper.gachaResultWeapons != null ? WeaponDataKeeper.gachaResultWeapons.Count : 0;
+        int beforeArmors = CapsuleOpener.gachaResultArmors != null ? CapsuleOpener.gachaResultArmors.Count : 0;
+
+        // ButtonのonClickに開封メソッドが登録されていれば呼び出す
+        Button btn = capsuleObj.GetComponent<Button>();
+        if (btn != null && btn.onClick != null)
+        {
+            btn.onClick.Invoke();
+        }
+
+        int afterWeapons = WeaponDataKeeper.gachaResultWeapons != null ? WeaponDataKeeper.gachaResultWeapons.Count : 0;
+        int afterArmors = CapsuleOpener.gachaResultArmors != null ? CapsuleOpener.gachaResultArmors.Count : 0;
+
+        if (afterWeapons > beforeWeapons || afterArmors > beforeArmors)
+        {
+            return;
+        }
+
+        // onClickで追加されなかった場合、CapsuleOpener等のコンポーネントのフィールドから中身のPrefab参照を取得する
+        MonoBehaviour[] scripts = capsuleObj.GetComponentsInChildren<MonoBehaviour>(true);
+        foreach (MonoBehaviour script in scripts)
+        {
+            if (script == null) continue;
+            System.Type type = script.GetType();
+            if (type == typeof(Button) || type == typeof(Image) || type == typeof(GachaSystem)) continue;
+
+            var fields = type.GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            foreach (var f in fields)
+            {
+                if (f.FieldType == typeof(GameObject))
+                {
+                    GameObject val = f.GetValue(script) as GameObject;
+                    if (val != null && IsRegisteredInventoryPrefab(val, out bool isArmor))
+                    {
+                        if (isArmor) CapsuleOpener.gachaResultArmors.Add(val);
+                        else WeaponDataKeeper.gachaResultWeapons.Add(val);
+                        return;
+                    }
+                }
+                else if (typeof(IList<GameObject>).IsAssignableFrom(f.FieldType))
+                {
+                    IList<GameObject> list = f.GetValue(script) as IList<GameObject>;
+                    if (list != null && list.Count > 0)
+                    {
+                        List<GameObject> validItems = new List<GameObject>();
+                        bool listIsArmor = false;
+                        foreach (var item in list)
+                        {
+                            if (item != null && IsRegisteredInventoryPrefab(item, out bool isArmor))
+                            {
+                                validItems.Add(item);
+                                listIsArmor = isArmor;
+                            }
+                        }
+                        if (validItems.Count > 0)
+                        {
+                            GameObject chosen = validItems[Random.Range(0, validItems.Count)];
+                            if (listIsArmor) CapsuleOpener.gachaResultArmors.Add(chosen);
+                            else WeaponDataKeeper.gachaResultWeapons.Add(chosen);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private bool IsRegisteredInventoryPrefab(GameObject prefab, out bool isArmor)
+    {
+        isArmor = false;
+        if (prefab == null) return false;
+
+        FindCoordinatesInRankLines(prefab, out int gIdx, out int rIdx);
+        if (gIdx != -1 && rIdx != -1)
+        {
+            isArmor = false;
+            return true;
+        }
+
+        FindCoordinatesInCategories(prefab, out int cIdx, out int iIdx);
+        if (cIdx != -1 && iIdx != -1)
+        {
+            isArmor = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    private IEnumerator InitializeInventoryReferenceData()
+    {
+        // 1. 同じシーン内に WeaponInventoryManager がある場合はそこから取得
+        WeaponInventoryManager invManager = FindObjectOfType<WeaponInventoryManager>(true);
+        if (invManager != null)
+        {
+            CacheDataFromManager(invManager);
+            yield break;
+        }
+
+        // 2. 既に有効なキャッシュがあれば完了
+        if (HasValidCachedData())
+        {
+            yield break;
+        }
+
+        // 3. 別シーン（Weapon SelectScene 等）をバックグラウンドで一時的に読み込んでマスターデータを取得する
+#if UNITY_EDITOR
+        string[] sceneGuids = UnityEditor.AssetDatabase.FindAssets("t:Scene");
+        foreach (string guid in sceneGuids)
+        {
+            string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
+            if (string.IsNullOrEmpty(path)) continue;
+
+            if (path == SceneManager.GetActiveScene().path) continue;
+
+            if (path.IndexOf("Select", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                path.IndexOf("Inventory", System.StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                yield return StartCoroutine(LoadSceneAndExtractDataEditor(path));
+                if (HasValidCachedData()) yield break;
+            }
+        }
+#endif
+
+        // Build Settings 内のシーンから検索（ビルド時用）
+        int sceneCount = SceneManager.sceneCountInBuildSettings;
+        for (int i = 0; i < sceneCount; i++)
+        {
+            string path = SceneUtility.GetScenePathByBuildIndex(i);
+            if (string.IsNullOrEmpty(path) || path == SceneManager.GetActiveScene().path) continue;
+
+            if (path.IndexOf("Select", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                path.IndexOf("Inventory", System.StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(i, LoadSceneMode.Additive);
+                if (asyncLoad != null)
+                {
+                    yield return asyncLoad;
+                    Scene loadedScene = SceneManager.GetSceneByBuildIndex(i);
+                    if (loadedScene.IsValid() && loadedScene.isLoaded)
+                    {
+                        ExtractAndDeactivateScene(loadedScene);
+                        yield return SceneManager.UnloadSceneAsync(loadedScene);
+                    }
+                    if (HasValidCachedData()) yield break;
+                }
+            }
+        }
+    }
+
+#if UNITY_EDITOR
+    private IEnumerator LoadSceneAndExtractDataEditor(string scenePath)
+    {
+        var parameters = new LoadSceneParameters(LoadSceneMode.Additive);
+        AsyncOperation asyncLoad = UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(scenePath, parameters);
+        if (asyncLoad != null)
+        {
+            yield return asyncLoad;
+            Scene loadedScene = SceneManager.GetSceneByPath(scenePath);
+            if (loadedScene.IsValid() && loadedScene.isLoaded)
+            {
+                ExtractAndDeactivateScene(loadedScene);
+                yield return SceneManager.UnloadSceneAsync(loadedScene);
+            }
+        }
+    }
+#endif
+
+    private void ExtractAndDeactivateScene(Scene scene)
+    {
+        GameObject[] rootObjs = scene.GetRootGameObjects();
+        foreach (GameObject root in rootObjs)
+        {
+            if (root == null) continue;
+
+            root.SetActive(false);
+
+            WeaponInventoryManager manager = root.GetComponentInChildren<WeaponInventoryManager>(true);
+            if (manager != null)
+            {
+                CacheDataFromManager(manager);
+            }
+        }
+    }
+
+    private void CacheDataFromManager(WeaponInventoryManager manager)
+    {
+        if (manager == null) return;
+
+        if (manager.weaponRankLines != null && manager.weaponRankLines.Length > 0)
+        {
+            cachedWeaponRankLines = manager.weaponRankLines;
+        }
+
+        if (manager.categoryButtons != null && manager.categoryButtons.Length > 0)
+        {
+            cachedCategoryButtons = manager.categoryButtons;
+        }
+
+        if (manager.testWeaponPrefabs != null && manager.testWeaponPrefabs.Length > 0)
+        {
+            cachedInitialWeapons = manager.testWeaponPrefabs;
+        }
+
+        if (manager.armorPrefabs != null && manager.armorPrefabs.Length > 0)
+        {
+            cachedInitialArmors = manager.armorPrefabs;
+        }
+    }
+
+    private bool HasValidCachedData()
+    {
+        bool hasWeapons = cachedWeaponRankLines != null && cachedWeaponRankLines.Length > 0;
+        bool hasArmors = cachedCategoryButtons != null && cachedCategoryButtons.Length > 0;
+        return hasWeapons || hasArmors;
     }
 
     private void SetupBlockerPanel()
@@ -164,6 +446,16 @@ public class GachaSystem : MonoBehaviour
         {
             UpdateButtonVisibility();
         }
+#if UNITY_EDITOR
+        else
+        {
+            WeaponInventoryManager invManager = FindObjectOfType<WeaponInventoryManager>(true);
+            if (invManager != null)
+            {
+                CacheDataFromManager(invManager);
+            }
+        }
+#endif
     }
 
     private void DisableButtonColorTransition(Image targetImage)
@@ -438,6 +730,9 @@ public class GachaSystem : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
 
+        // カプセルがすべて開けられた時点で確実にセーブを実行する
+        SaveInventoryImmediately();
+
         if (openAllButtonCanvasGroup != null && openAllButtonCanvasGroup.alpha > 0f)
         {
             openAllButtonCanvasGroup.interactable = false;
@@ -483,18 +778,17 @@ public class GachaSystem : MonoBehaviour
         GameObject selectedPrefab = DrawGacha();
         if (selectedPrefab == null) yield break;
 
-        GachaItem matchedGachaItem = GetMatchedGachaItem(selectedPrefab);
-        if (matchedGachaItem != null)
+        // もし capsulePrefab 自体が直接武器・防具Prefabとして登録されている場合はその場で追加する
+        if (IsRegisteredInventoryPrefab(selectedPrefab, out bool isDirectArmor))
         {
-            if (isArmorGacha)
+            if (isDirectArmor)
             {
-                CapsuleOpener.gachaResultArmors.Add(matchedGachaItem.capsulePrefab);
+                CapsuleOpener.gachaResultArmors.Add(selectedPrefab);
             }
             else
             {
-                WeaponDataKeeper.gachaResultWeapons.Add(matchedGachaItem.capsulePrefab);
+                WeaponDataKeeper.gachaResultWeapons.Add(selectedPrefab);
             }
-
             SaveInventoryImmediately();
         }
 
@@ -557,109 +851,185 @@ public class GachaSystem : MonoBehaviour
         }
     }
 
-    private GachaItem GetMatchedGachaItem(GameObject prefab)
-    {
-        List<GachaItem> targetList = isArmorGacha ? armorGachaItems : gachaItems;
-        foreach (var item in targetList)
-        {
-            if (item.capsulePrefab == prefab) return item;
-        }
-        return null;
-    }
-
     // ==========================================
-    // ★修正：WeaponInventoryManager と完全に同一の形式（groupIdx:rankIdx またはカテゴリ座標）で即時セーブする
+    // WeaponInventoryManager と完全に同一の形式（groupIdx:rankIdx / categoryIdx:itemIdx）で即時セーブする
     // ==========================================
     private void SaveInventoryImmediately()
     {
-        if (!isArmorGacha)
+        if (!HasValidCachedData()) return;
+
+        bool isSaved = false;
+
+        // 1. 武器の保存
+        if (WeaponDataKeeper.gachaResultWeapons != null && WeaponDataKeeper.gachaResultWeapons.Count > 0)
         {
-            // 武器の保存：WeaponInventoryManagerの「weaponRankLines」から正しい座標(groupIdx:rankIdx)を割り出して保存する
-            List<string> itemCodes = new List<string>();
-            foreach (var w in WeaponDataKeeper.gachaResultWeapons)
+            List<string> validCodes = GetExistingValidCodes(SAVE_KEY_WEAPONS_COORDS, false);
+            bool weaponSaved = false;
+
+            for (int i = WeaponDataKeeper.gachaResultWeapons.Count - 1; i >= 0; i--)
             {
+                GameObject w = WeaponDataKeeper.gachaResultWeapons[i];
                 if (w != null)
                 {
                     FindCoordinatesInRankLines(w, out int groupIdx, out int rankIdx);
                     if (groupIdx != -1 && rankIdx != -1)
                     {
-                        itemCodes.Add($"{groupIdx}:{rankIdx}");
+                        validCodes.Add($"{groupIdx}:{rankIdx}");
+                        WeaponDataKeeper.gachaResultWeapons.RemoveAt(i);
+                        weaponSaved = true;
+                        isSaved = true;
                     }
+                }
+                else
+                {
+                    WeaponDataKeeper.gachaResultWeapons.RemoveAt(i);
                 }
             }
 
-            string savedStr = PlayerPrefs.GetString("SavedInventory_Weapons_ExactCoords", "");
+            if (weaponSaved)
+            {
+                PlayerPrefs.SetString(SAVE_KEY_WEAPONS_COORDS, string.Join(",", validCodes));
+            }
+        }
+
+        // 2. 防具の保存
+        if (CapsuleOpener.gachaResultArmors != null && CapsuleOpener.gachaResultArmors.Count > 0)
+        {
+            List<string> validCodes = GetExistingValidCodes(SAVE_KEY_ARMORS_COORDS, true);
+            bool armorSaved = false;
+
+            for (int i = CapsuleOpener.gachaResultArmors.Count - 1; i >= 0; i--)
+            {
+                GameObject a = CapsuleOpener.gachaResultArmors[i];
+                if (a != null)
+                {
+                    FindCoordinatesInCategories(a, out int categoryIdx, out int itemIdx);
+                    if (categoryIdx != -1 && itemIdx != -1)
+                    {
+                        validCodes.Add($"{categoryIdx}:{itemIdx}");
+                        CapsuleOpener.gachaResultArmors.RemoveAt(i);
+                        armorSaved = true;
+                        isSaved = true;
+                    }
+                }
+                else
+                {
+                    CapsuleOpener.gachaResultArmors.RemoveAt(i);
+                }
+            }
+
+            if (armorSaved)
+            {
+                PlayerPrefs.SetString(SAVE_KEY_ARMORS_COORDS, string.Join(",", validCodes));
+            }
+        }
+
+        if (isSaved)
+        {
+            PlayerPrefs.Save();
+        }
+    }
+
+    private List<string> GetExistingValidCodes(string saveKey, bool isArmor)
+    {
+        List<string> validCodes = new List<string>();
+
+        if (PlayerPrefs.HasKey(saveKey))
+        {
+            string savedStr = PlayerPrefs.GetString(saveKey, "");
             if (!string.IsNullOrEmpty(savedStr))
             {
-                string[] oldCodes = savedStr.Split(',');
-                List<string> combined = new List<string>(oldCodes);
-                foreach (var c in itemCodes)
+                string[] parts = savedStr.Split(',');
+                foreach (string p in parts)
                 {
-                    combined.Add(c);
+                    string[] kv = p.Split(':');
+                    if (kv.Length == 2 && int.TryParse(kv[0], out _) && int.TryParse(kv[1], out _))
+                    {
+                        validCodes.Add(p);
+                    }
                 }
-                PlayerPrefs.SetString("SavedInventory_Weapons_ExactCoords", string.Join(",", combined));
-            }
-            else
-            {
-                PlayerPrefs.SetString("SavedInventory_Weapons_ExactCoords", string.Join(",", itemCodes));
             }
         }
         else
         {
-            // 防具の保存：防具用のセーブキーに即時保存
-            List<string> itemCodes = new List<string>();
-            foreach (var a in CapsuleOpener.gachaResultArmors)
+            if (!isArmor && cachedInitialWeapons != null)
             {
-                if (a != null)
+                foreach (var w in cachedInitialWeapons)
                 {
-                    itemCodes.Add(a.name.Replace("(Clone)", "").Trim());
+                    if (w != null)
+                    {
+                        FindCoordinatesInRankLines(w, out int gIdx, out int rIdx);
+                        if (gIdx != -1 && rIdx != -1) validCodes.Add($"{gIdx}:{rIdx}");
+                    }
                 }
             }
-
-            string savedStr = PlayerPrefs.GetString("SavedInventory_Armors_ExactCoords", "");
-            if (!string.IsNullOrEmpty(savedStr))
+            else if (isArmor && cachedInitialArmors != null)
             {
-                string[] oldCodes = savedStr.Split(',');
-                List<string> combined = new List<string>(oldCodes);
-                foreach (var c in itemCodes)
+                foreach (var a in cachedInitialArmors)
                 {
-                    combined.Add(c);
+                    if (a != null)
+                    {
+                        FindCoordinatesInCategories(a, out int cIdx, out int iIdx);
+                        if (cIdx != -1 && iIdx != -1) validCodes.Add($"{cIdx}:{iIdx}");
+                    }
                 }
-                PlayerPrefs.SetString("SavedInventory_Armors_ExactCoords", string.Join(",", combined));
-            }
-            else
-            {
-                PlayerPrefs.SetString("SavedInventory_Armors_ExactCoords", string.Join(",", itemCodes));
             }
         }
-        PlayerPrefs.Save();
+
+        return validCodes;
     }
 
+    // ★修正：名前による比較を行わず、Prefabの直接参照（==）のみで厳密に座標を特定する
     private void FindCoordinatesInRankLines(GameObject targetPrefab, out int groupIdx, out int rankIdx)
     {
         groupIdx = -1;
         rankIdx = -1;
 
-        if (targetPrefab == null) return;
-        string targetName = targetPrefab.name.Replace("(Clone)", "").Trim();
+        if (cachedWeaponRankLines == null || targetPrefab == null) return;
 
-        // 武器グループ内から一致するプレハブを探す
-        // （※GachaSystem側にはweaponRankLinesの参照がないため、gachaItemsやarmorGachaItems経由、または直接検索できるように対応）
-        foreach (var item in gachaItems)
+        for (int g = 0; g < cachedWeaponRankLines.Length; g++)
         {
-            if (item != null && item.capsulePrefab != null)
+            var line = cachedWeaponRankLines[g];
+            if (line != null && line.ranks != null)
             {
-                if (item.capsulePrefab.name.Replace("(Clone)", "").Trim() == targetName)
+                for (int r = 0; r < line.ranks.Length; r++)
                 {
-                    // 簡易的に名前の一致するアイテムが見つかった場合、WeaponInventoryManager側のランク構造に対応させる
-                    // ここではインベントリ側の保存キーと整合性を取るため、武器リスト内でのマッチングを行います
+                    if (line.ranks[r] == targetPrefab)
+                    {
+                        groupIdx = g;
+                        rankIdx = r;
+                        return;
+                    }
                 }
             }
         }
+    }
 
-        // 確実な保存を行うため、WeaponInventoryManagerと同様にWeaponRankLineを定義または参照する代わりに、
-        // プレハブの名前そのものを正確にコードとして保存する方式にフォールバックします
-        // （※WeaponInventoryManager側の最新のLoadInventoryDataは名前でのロードも網羅しているため確実に復元されます）
+    // ★修正：名前による比較を行わず、Prefabの直接参照（==）のみで厳密に座標を特定する
+    private void FindCoordinatesInCategories(GameObject targetPrefab, out int categoryIdx, out int itemIdx)
+    {
+        categoryIdx = -1;
+        itemIdx = -1;
+
+        if (cachedCategoryButtons == null || targetPrefab == null) return;
+
+        for (int c = 0; c < cachedCategoryButtons.Length; c++)
+        {
+            var cat = cachedCategoryButtons[c];
+            if (cat != null && cat.displayTargetPrefabs != null)
+            {
+                for (int d = 0; d < cat.displayTargetPrefabs.Length; d++)
+                {
+                    var elem = cat.displayTargetPrefabs[d];
+                    if (elem != null && elem.targetPrefab == targetPrefab)
+                    {
+                        categoryIdx = c;
+                        itemIdx = d;
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     private GameObject DrawGacha()

@@ -256,6 +256,19 @@ public class WeaponInventoryManager : MonoBehaviour
     public GameObject warpButtonParentUI;
 
     // ==========================================
+    // 合成の残り必要個数テキスト＆親オブジェクト設定
+    // ==========================================
+    [Header("【合成の必要個数テキスト＆親オブジェクト設定】")]
+    [Tooltip("合成ボタンと同様に、選択ボタン（複数選択モード）を押した時に表示されるテキストの親オブジェクト")]
+    public GameObject evolutionTextParentUI;
+
+    [Tooltip("あと何個選択したら合成できるかの「数字」を表示するテキスト")]
+    public TextMeshProUGUI evolutionRemainingCountText;
+
+    [Tooltip("複数の種類のPrefabを選択している際や、何も選択していない時に非表示にする「もう1つのテキスト」")]
+    public TextMeshProUGUI evolutionOtherText;
+
+    // ==========================================
     // デバッグ設定
     // ==========================================
     [Header("【デバッグ設定】")]
@@ -683,6 +696,8 @@ public class WeaponInventoryManager : MonoBehaviour
         if (executeEvolutionButton != null) executeEvolutionButton.gameObject.SetActive(isMultiSelectMode);
         if (warpButtonParentUI != null) warpButtonParentUI.SetActive(isMultiSelectMode);
 
+        if (evolutionTextParentUI != null) evolutionTextParentUI.SetActive(isMultiSelectMode);
+
         if (buttonsToHideInMultiSelect != null)
         {
             for (int i = 0; i < buttonsToHideInMultiSelect.Length; i++)
@@ -701,6 +716,7 @@ public class WeaponInventoryManager : MonoBehaviour
         else
         {
             if (conditionalVisibleUI != null) conditionalVisibleUI.SetActive(false);
+            UpdateEvolutionRemainingCountTexts();
         }
     }
 
@@ -782,13 +798,18 @@ public class WeaponInventoryManager : MonoBehaviour
             if (warpAnimationButton != null) warpAnimationButton.gameObject.SetActive(false);
             if (executeEvolutionButton != null) executeEvolutionButton.gameObject.SetActive(false);
             if (warpButtonParentUI != null) warpButtonParentUI.SetActive(false);
+            if (evolutionTextParentUI != null) evolutionTextParentUI.SetActive(false);
             if (conditionalVisibleUI != null) conditionalVisibleUI.SetActive(false);
+            UpdateEvolutionRemainingCountTexts();
             return;
         }
 
         if (warpAnimationButton != null) warpAnimationButton.gameObject.SetActive(true);
         if (executeEvolutionButton != null) executeEvolutionButton.gameObject.SetActive(true);
         if (warpButtonParentUI != null) warpButtonParentUI.SetActive(true);
+        if (evolutionTextParentUI != null) evolutionTextParentUI.SetActive(true);
+
+        UpdateEvolutionRemainingCountTexts();
 
         bool canEvolve = CheckCurrentSelectionForEvolution(out EvolutionRule matchedRule, out List<Transform> selectedTransforms);
 
@@ -818,6 +839,118 @@ public class WeaponInventoryManager : MonoBehaviour
         {
             Color currentC = executeEvolutionButtonImage.color;
             executeEvolutionButtonImage.color = new Color(targetColor.r, targetColor.g, targetColor.b, currentC.a);
+        }
+    }
+
+    // ★修正：通常時は黒色（Color.black）、超過時は赤色（Color.red）に変更
+    private void UpdateEvolutionRemainingCountTexts()
+    {
+        if (!isMultiSelectMode || multiSelectFrames == null || multiSelectFrames.Count == 0)
+        {
+            if (evolutionRemainingCountText != null)
+            {
+                evolutionRemainingCountText.text = "";
+                evolutionRemainingCountText.color = Color.black;
+                evolutionRemainingCountText.gameObject.SetActive(false);
+            }
+            if (evolutionOtherText != null)
+            {
+                evolutionOtherText.gameObject.SetActive(false);
+            }
+            return;
+        }
+
+        Dictionary<GameObject, int> prefabCounts = new Dictionary<GameObject, int>();
+
+        foreach (var pair in multiSelectFrames)
+        {
+            Transform t = pair.Key;
+            if (t == null) continue;
+
+            GameObject prefab = GetPrefabFromSpawnedTransform(t);
+            if (prefab == null) continue;
+
+            if (!prefabCounts.ContainsKey(prefab))
+            {
+                prefabCounts[prefab] = 0;
+            }
+            prefabCounts[prefab]++;
+        }
+
+        if (prefabCounts.Count != 1)
+        {
+            if (evolutionRemainingCountText != null)
+            {
+                evolutionRemainingCountText.text = "";
+                evolutionRemainingCountText.color = Color.black;
+                evolutionRemainingCountText.gameObject.SetActive(false);
+            }
+            if (evolutionOtherText != null)
+            {
+                evolutionOtherText.gameObject.SetActive(false);
+            }
+            return;
+        }
+
+        GameObject selectedPrefab = null;
+        int selectedCount = 0;
+        foreach (var kvp in prefabCounts)
+        {
+            selectedPrefab = kvp.Key;
+            selectedCount = kvp.Value;
+            break;
+        }
+
+        EvolutionRule targetRule = null;
+        if (evolutionRules != null && selectedPrefab != null)
+        {
+            foreach (EvolutionRule rule in evolutionRules)
+            {
+                if (rule != null && rule.sourcePrefab == selectedPrefab)
+                {
+                    targetRule = rule;
+                    break;
+                }
+            }
+        }
+
+        if (targetRule != null)
+        {
+            int diffCount = targetRule.requiredCount - selectedCount;
+
+            if (evolutionRemainingCountText != null)
+            {
+                evolutionRemainingCountText.text = diffCount.ToString();
+
+                // 0未満（超過している場合）は赤色、それ以外は黒色にする
+                if (diffCount < 0)
+                {
+                    evolutionRemainingCountText.color = Color.red;
+                }
+                else
+                {
+                    evolutionRemainingCountText.color = Color.black;
+                }
+
+                evolutionRemainingCountText.gameObject.SetActive(true);
+            }
+            if (evolutionOtherText != null)
+            {
+                evolutionOtherText.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            if (evolutionRemainingCountText != null)
+            {
+                evolutionRemainingCountText.text = "";
+                evolutionRemainingCountText.color = Color.black;
+                evolutionRemainingCountText.gameObject.SetActive(false);
+            }
+            if (evolutionOtherText != null)
+            {
+                evolutionOtherText.gameObject.SetActive(false);
+            }
         }
     }
 
