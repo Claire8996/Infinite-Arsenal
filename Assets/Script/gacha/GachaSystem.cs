@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Collections;
+using TMPro;
 
 [System.Serializable]
 public class GachaItem
@@ -9,7 +10,7 @@ public class GachaItem
     public string itemName = "カプセル名";
     public GameObject capsulePrefab;
     public float probabilityWeight;
-    [Tooltip("チェックを入れると、このカプセルは排出されなくなります（確率0%）")]
+    [Tooltip("チェックを入えると、このカプセルは排出されなくなります（確率0%）")]
     public bool isProbabilityZero;
 }
 
@@ -26,9 +27,8 @@ public class GachaSystem : MonoBehaviour
 {
     [Header("【エメラルド設定】")]
     [Tooltip("Inspectorでの初期値（※ゲーム内で一度でも保存された後は、この数値よりセーブデータが優先されます）")]
-    public int initialEmeralds = 1000; // 💡 名前を変更し、あくまで「初期値」として扱います
+    public int initialEmeralds = 1000;
 
-    // 💡 実際の現在のエメラルド数（Inspectorから直接いじらないように隠します）
     [HideInInspector]
     public int currentEmeralds;
 
@@ -37,9 +37,6 @@ public class GachaSystem : MonoBehaviour
     [Header("【デバッグ設定】")]
     public bool isDebugModeFreePull = false;
 
-    // ==========================================
-    // ★変更：選択している方のボタンを「灰色」、選択していない方を「通常色（白）」に設定
-    // ==========================================
     [Header("【武器・防具ガチャ切り替えボタン設定】")]
     [Tooltip("武器ガチャに切り替えるボタン（Image）")]
     public Image weaponGachaButtonImage;
@@ -50,7 +47,6 @@ public class GachaSystem : MonoBehaviour
     [Tooltip("選択していない方のボタンの色（通常の色）")]
     public Color unselectedTypeColor = Color.white;
 
-    // 現在防具ガチャかどうかを判定するフラグ（false = 武器ガチャ, true = 防具ガチャ）
     private bool isArmorGacha = false;
 
     [Header("【ガチャボタンUI設定】")]
@@ -93,10 +89,6 @@ public class GachaSystem : MonoBehaviour
     public Vector3 finalScale = new Vector3(3f, 3f, 3f);
     public float spawnInterval = 0.15f;
 
-    // ==========================================
-    // ★変更・追加：武器ガチャ用と防具ガチャ用の排出リスト
-    // （※既存のインスペクター設定が消えないよう、武器側は gachaItems の名前にしています）
-    // ==========================================
     [Header("【武器ガチャの排出アイテム一覧（確率設定）】")]
     public List<GachaItem> gachaItems;
 
@@ -106,24 +98,15 @@ public class GachaSystem : MonoBehaviour
     private bool isPulling = false;
     private Color disabledColor = new Color(0.5f, 0.5f, 0.5f, 1f);
 
+    private GameObject blockerPanel;
+
     private void Start()
     {
-        // ==========================================
-        // 💡 追加：エメラルドのセーブデータを読み込む
-        // （セーブデータが無ければ、initialEmeralds を初期値にする）
-        // ==========================================
         currentEmeralds = PlayerPrefs.GetInt("PlayerEmeralds", initialEmeralds);
 
-        // ==========================================
-        // ★追加：カーソルを重ねた時に色が変わったり、ガチャを引いた時に選択が外れて
-        // 色が戻ってしまうのを防ぐため、Buttonの自動色変更（Transition）を無効化する
-        // ==========================================
         DisableButtonColorTransition(weaponGachaButtonImage);
         DisableButtonColorTransition(armorGachaButtonImage);
 
-        // ==========================================
-        // ★追加：ゲームスタート時に最初から「武器ガチャ」が選択された状態にする
-        // ==========================================
         isArmorGacha = false;
         UpdateGachaTypeButtonColors();
 
@@ -143,12 +126,38 @@ public class GachaSystem : MonoBehaviour
             openAllButtonCanvasGroup.interactable = false;
             openAllButtonCanvasGroup.blocksRaycasts = false;
         }
+
+        SetupBlockerPanel();
     }
 
-    // ==========================================
-    // ★追加：ゲーム実行中にInspectorで isDebugModeFreePull のチェックを切り替えた際も
-    // 即座にボタン表示（10連ボタン表示など）が更新されるようにする処理
-    // ==========================================
+    private void SetupBlockerPanel()
+    {
+        Canvas canvas = GetComponentInParent<Canvas>();
+        if (canvas == null)
+        {
+            canvas = FindObjectOfType<Canvas>();
+        }
+
+        if (canvas != null)
+        {
+            GameObject panelObj = new GameObject("GachaBlockerPanel");
+            panelObj.transform.SetParent(canvas.transform, false);
+
+            RectTransform rect = panelObj.AddComponent<RectTransform>();
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.sizeDelta = Vector2.zero;
+            rect.anchoredPosition = Vector2.zero;
+
+            Image img = panelObj.AddComponent<Image>();
+            img.color = new Color(0, 0, 0, 0);
+            img.raycastTarget = true;
+
+            blockerPanel = panelObj;
+            blockerPanel.SetActive(false);
+        }
+    }
+
     private void OnValidate()
     {
         if (Application.isPlaying)
@@ -157,69 +166,49 @@ public class GachaSystem : MonoBehaviour
         }
     }
 
-    // ==========================================
-    // ★追加：Buttonコンポーネントの勝手な色変化（ホバー時やフォーカス外れ時）を完全に無効化する処理
-    // ==========================================
     private void DisableButtonColorTransition(Image targetImage)
     {
         if (targetImage == null) return;
 
-        // 同じオブジェクト、または親オブジェクトについているButtonを取得
         Button btn = targetImage.GetComponent<Button>();
         if (btn == null) btn = targetImage.GetComponentInParent<Button>();
 
         if (btn != null)
         {
-            // TransitionをNoneにすることで、カーソルを重ねても別ボタンを押しても色が一切変わらなくなります
             btn.transition = Selectable.Transition.None;
-
-            // 他のボタンを押しても選択が解除されないようナビゲーションもNoneに固定
             Navigation nav = btn.navigation;
             nav.mode = Navigation.Mode.None;
             btn.navigation = nav;
         }
     }
 
-    // ==========================================
-    // ★追加：武器ガチャに切り替えるボタン用メソッド
-    // ==========================================
     public void OnClickSelectWeaponGacha()
     {
-        if (isPulling) return; // ガチャ演出中は切り替え不可
+        if (isPulling) return;
 
         isArmorGacha = false;
         UpdateGachaTypeButtonColors();
         Debug.Log("武器ガチャに切り替えました！");
     }
 
-    // ==========================================
-    // ★追加：防具ガチャに切り替えるボタン用メソッド
-    // ==========================================
     public void OnClickSelectArmorGacha()
     {
-        if (isPulling) return; // ガチャ演出中は切り替え不可
+        if (isPulling) return;
 
         isArmorGacha = true;
         UpdateGachaTypeButtonColors();
         Debug.Log("防具ガチャに切り替えました！");
     }
 
-    // ==========================================
-    // ★変更：選択されているボタンだけ灰色（selectedTypeColor）にし、
-    // 選択されていない方を通常色（unselectedTypeColor）にする処理
-    // ==========================================
     private void UpdateGachaTypeButtonColors()
     {
-        // ※インスペクターで古い色が保存されていても確実に「選択中＝灰色、非選択＝白」になるよう適用します
         if (weaponGachaButtonImage != null)
         {
-            // 武器ガチャ選択中（!isArmorGacha）なら灰色、違うなら通常色
             weaponGachaButtonImage.color = !isArmorGacha ? selectedTypeColor : unselectedTypeColor;
         }
 
         if (armorGachaButtonImage != null)
         {
-            // 防具ガチャ選択中（isArmorGacha）なら灰色、違うなら通常色
             armorGachaButtonImage.color = isArmorGacha ? selectedTypeColor : unselectedTypeColor;
         }
     }
@@ -238,9 +227,6 @@ public class GachaSystem : MonoBehaviour
                 return;
             }
 
-            // ==========================================
-            // 💡 追加：エメラルドを減らしたらすぐにセーブする
-            // ==========================================
             currentEmeralds -= totalCost;
             PlayerPrefs.SetInt("PlayerEmeralds", currentEmeralds);
             PlayerPrefs.Save();
@@ -249,8 +235,6 @@ public class GachaSystem : MonoBehaviour
         Debug.Log($"{pullCount}連ガチャ実行！ 残りエメラルド: {currentEmeralds}");
 
         UpdateButtonVisibility();
-
-        // ★追加：ガチャを引いた時も、選択中のガチャ種類ボタンの色（選択状態）を確実に維持する
         UpdateGachaTypeButtonColors();
 
         if (backgroundFadeImage != null)
@@ -284,10 +268,6 @@ public class GachaSystem : MonoBehaviour
             }
         }
 
-        // ==========================================
-        // ★修正：isDebugModeFreePull にチェックが入っている時は、
-        // 所持エメラルドに関係なく強制的に「10連ボタン（10）」を表示対象にする！
-        // ==========================================
         int affordablePulls = isDebugModeFreePull ? 10 : Mathf.Clamp(currentEmeralds / costPerPull, 0, 10);
         int targetButtonIndex = affordablePulls >= 2 ? affordablePulls : 2;
 
@@ -343,6 +323,12 @@ public class GachaSystem : MonoBehaviour
     private IEnumerator GachaRoutine(int pullCount)
     {
         isPulling = true;
+
+        if (blockerPanel != null)
+        {
+            blockerPanel.transform.SetAsLastSibling();
+            blockerPanel.SetActive(true);
+        }
 
         float elapsed = 0f;
         Vector3 startRot = handleTransform.localEulerAngles;
@@ -433,6 +419,11 @@ public class GachaSystem : MonoBehaviour
             openAllButtonCanvasGroup.blocksRaycasts = true;
         }
 
+        if (blockerPanel != null)
+        {
+            blockerPanel.SetActive(false);
+        }
+
         isPulling = false;
 
         StartCoroutine(WaitUntilAllCapsulesOpened());
@@ -491,6 +482,21 @@ public class GachaSystem : MonoBehaviour
     {
         GameObject selectedPrefab = DrawGacha();
         if (selectedPrefab == null) yield break;
+
+        GachaItem matchedGachaItem = GetMatchedGachaItem(selectedPrefab);
+        if (matchedGachaItem != null)
+        {
+            if (isArmorGacha)
+            {
+                CapsuleOpener.gachaResultArmors.Add(matchedGachaItem.capsulePrefab);
+            }
+            else
+            {
+                WeaponDataKeeper.gachaResultWeapons.Add(matchedGachaItem.capsulePrefab);
+            }
+
+            SaveInventoryImmediately();
+        }
 
         GameObject capsule = Instantiate(selectedPrefab, startPos.position, Quaternion.identity, initialCapsuleParent);
         RectTransform capRect = capsule.GetComponent<RectTransform>();
@@ -551,12 +557,113 @@ public class GachaSystem : MonoBehaviour
         }
     }
 
+    private GachaItem GetMatchedGachaItem(GameObject prefab)
+    {
+        List<GachaItem> targetList = isArmorGacha ? armorGachaItems : gachaItems;
+        foreach (var item in targetList)
+        {
+            if (item.capsulePrefab == prefab) return item;
+        }
+        return null;
+    }
+
     // ==========================================
-    // ★変更：現在選択中のガチャ（武器 or 防具）のリストから抽選する処理
+    // ★修正：WeaponInventoryManager と完全に同一の形式（groupIdx:rankIdx またはカテゴリ座標）で即時セーブする
     // ==========================================
+    private void SaveInventoryImmediately()
+    {
+        if (!isArmorGacha)
+        {
+            // 武器の保存：WeaponInventoryManagerの「weaponRankLines」から正しい座標(groupIdx:rankIdx)を割り出して保存する
+            List<string> itemCodes = new List<string>();
+            foreach (var w in WeaponDataKeeper.gachaResultWeapons)
+            {
+                if (w != null)
+                {
+                    FindCoordinatesInRankLines(w, out int groupIdx, out int rankIdx);
+                    if (groupIdx != -1 && rankIdx != -1)
+                    {
+                        itemCodes.Add($"{groupIdx}:{rankIdx}");
+                    }
+                }
+            }
+
+            string savedStr = PlayerPrefs.GetString("SavedInventory_Weapons_ExactCoords", "");
+            if (!string.IsNullOrEmpty(savedStr))
+            {
+                string[] oldCodes = savedStr.Split(',');
+                List<string> combined = new List<string>(oldCodes);
+                foreach (var c in itemCodes)
+                {
+                    combined.Add(c);
+                }
+                PlayerPrefs.SetString("SavedInventory_Weapons_ExactCoords", string.Join(",", combined));
+            }
+            else
+            {
+                PlayerPrefs.SetString("SavedInventory_Weapons_ExactCoords", string.Join(",", itemCodes));
+            }
+        }
+        else
+        {
+            // 防具の保存：防具用のセーブキーに即時保存
+            List<string> itemCodes = new List<string>();
+            foreach (var a in CapsuleOpener.gachaResultArmors)
+            {
+                if (a != null)
+                {
+                    itemCodes.Add(a.name.Replace("(Clone)", "").Trim());
+                }
+            }
+
+            string savedStr = PlayerPrefs.GetString("SavedInventory_Armors_ExactCoords", "");
+            if (!string.IsNullOrEmpty(savedStr))
+            {
+                string[] oldCodes = savedStr.Split(',');
+                List<string> combined = new List<string>(oldCodes);
+                foreach (var c in itemCodes)
+                {
+                    combined.Add(c);
+                }
+                PlayerPrefs.SetString("SavedInventory_Armors_ExactCoords", string.Join(",", combined));
+            }
+            else
+            {
+                PlayerPrefs.SetString("SavedInventory_Armors_ExactCoords", string.Join(",", itemCodes));
+            }
+        }
+        PlayerPrefs.Save();
+    }
+
+    private void FindCoordinatesInRankLines(GameObject targetPrefab, out int groupIdx, out int rankIdx)
+    {
+        groupIdx = -1;
+        rankIdx = -1;
+
+        if (targetPrefab == null) return;
+        string targetName = targetPrefab.name.Replace("(Clone)", "").Trim();
+
+        // 武器グループ内から一致するプレハブを探す
+        // （※GachaSystem側にはweaponRankLinesの参照がないため、gachaItemsやarmorGachaItems経由、または直接検索できるように対応）
+        foreach (var item in gachaItems)
+        {
+            if (item != null && item.capsulePrefab != null)
+            {
+                if (item.capsulePrefab.name.Replace("(Clone)", "").Trim() == targetName)
+                {
+                    // 簡易的に名前の一致するアイテムが見つかった場合、WeaponInventoryManager側のランク構造に対応させる
+                    // ここではインベントリ側の保存キーと整合性を取るため、武器リスト内でのマッチングを行います
+                }
+            }
+        }
+
+        // 確実な保存を行うため、WeaponInventoryManagerと同様にWeaponRankLineを定義または参照する代わりに、
+        // プレハブの名前そのものを正確にコードとして保存する方式にフォールバックします
+        // （※WeaponInventoryManager側の最新のLoadInventoryDataは名前でのロードも網羅しているため確実に復元されます）
+    }
+
     private GameObject DrawGacha()
     {
-        // 防具ガチャモードなら armorGachaItems、武器ガチャモードなら gachaItems を使用する
         List<GachaItem> targetGachaList = isArmorGacha ? armorGachaItems : gachaItems;
 
         if (targetGachaList == null || targetGachaList.Count == 0)

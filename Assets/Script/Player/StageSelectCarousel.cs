@@ -69,9 +69,6 @@ public class StageSelectCarousel : MonoBehaviour
     [Tooltip("クリアしていないステージの『次のステージ』以降に適用する灰色の色味")]
     public Color lockedStageColor = new Color(0.35f, 0.35f, 0.35f, 1f);
 
-    // ==========================================
-    // ★追加：プレイボタン自体のUI（Image）をインスペクターから直接参照する設定欄
-    // ==========================================
     [Header("【プレイボタンのUI設定】")]
     [Tooltip("灰色や通常色に切り替えたいプレイボタンのUI（Imageコンポーネント）をここにセットしてください")]
     public Image playButtonUIImage;
@@ -107,6 +104,9 @@ public class StageSelectCarousel : MonoBehaviour
     private Color[] currentItemColors;
 
     private GameObject[] spawnedLockedUIs;
+
+    // ★追加：各ステージのインフォテキストの「元のテキスト内容」を記憶しておくための辞書
+    private Dictionary<GameObject, string> originalStageTextValues = new Dictionary<GameObject, string>();
 
     void Start()
     {
@@ -148,6 +148,24 @@ public class StageSelectCarousel : MonoBehaviour
                 }
 
                 currentItemColors[i] = centerColor;
+
+                // ★追加：各ステージのインフォテキストの初期テキストを記憶しておく
+                if (stageItems[i].stageInfoTextObject != null)
+                {
+                    TextMeshProUGUI tmpText = stageItems[i].stageInfoTextObject.GetComponent<TextMeshProUGUI>();
+                    if (tmpText != null)
+                    {
+                        originalStageTextValues[stageItems[i].stageInfoTextObject] = tmpText.text;
+                    }
+                    else
+                    {
+                        Text legacyText = stageItems[i].stageInfoTextObject.GetComponent<Text>();
+                        if (legacyText != null)
+                        {
+                            originalStageTextValues[stageItems[i].stageInfoTextObject] = legacyText.text;
+                        }
+                    }
+                }
             }
         }
 
@@ -246,9 +264,6 @@ public class StageSelectCarousel : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    // =========================================================
-    // ★修正：インスペクターで指定したプレイボタンのUI（Image）の色を切り替える処理
-    // =========================================================
     private void UpdatePlayButtonState()
     {
         bool isCenterStageLocked = IsStageLocked(currentCenterIndex);
@@ -258,7 +273,6 @@ public class StageSelectCarousel : MonoBehaviour
             startStageButton.interactable = !isCenterStageLocked;
         }
 
-        // インスペクターで設定したプレイボタンのUI画像の色を通常色または灰色に変更する
         if (playButtonUIImage != null)
         {
             Color targetBtnColor = isCenterStageLocked ? lockedPlayButtonColor : normalPlayButtonColor;
@@ -276,6 +290,54 @@ public class StageSelectCarousel : MonoBehaviour
             {
                 bool isLocked = IsStageLocked(i);
                 spawnedLockedUIs[i].SetActive(isLocked);
+            }
+        }
+    }
+
+    // =========================================================
+    // ★追加：未開放ステージの場合にテキストを「まだ解放されていません!」に書き換える処理
+    // =========================================================
+    private void UpdateStageInfoTextsVisibility()
+    {
+        for (int i = 0; i < stageItems.Length; i++)
+        {
+            if (stageItems[i] != null && stageItems[i].stageInfoTextObject != null)
+            {
+                bool isCenter = (i == currentCenterIndex);
+                stageItems[i].stageInfoTextObject.SetActive(isCenter);
+
+                if (isCenter)
+                {
+                    bool isLocked = IsStageLocked(i);
+
+                    TextMeshProUGUI tmpText = stageItems[i].stageInfoTextObject.GetComponent<TextMeshProUGUI>();
+                    if (tmpText != null)
+                    {
+                        if (isLocked)
+                        {
+                            tmpText.text = "まだ解放されていません!";
+                        }
+                        else if (originalStageTextValues.ContainsKey(stageItems[i].stageInfoTextObject))
+                        {
+                            tmpText.text = originalStageTextValues[stageItems[i].stageInfoTextObject];
+                        }
+                    }
+                    else
+                    {
+                        Text legacyText = stageItems[i].stageInfoTextObject.GetComponent<Text>();
+                        if (legacyText != null)
+                        {
+                            if (isLocked)
+                            {
+                                legacyText.text = "まだ解放されていません!";
+                            }
+                            else if (originalStageTextValues.ContainsKey(stageItems[i].stageInfoTextObject))
+                            {
+                                legacyText.text = originalStageTextValues[stageItems[i].stageInfoTextObject];
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -453,14 +515,10 @@ public class StageSelectCarousel : MonoBehaviour
                     itemCanvasGroups[i].interactable = isVisible;
                     itemCanvasGroups[i].blocksRaycasts = isVisible;
                 }
-
-                if (stageItems[i].stageInfoTextObject != null)
-                {
-                    stageItems[i].stageInfoTextObject.SetActive(i == currentCenterIndex);
-                }
             }
         }
 
+        UpdateStageInfoTextsVisibility();
         UpdateLockedUIPrefabsVisibility();
         UpdatePlayButtonState();
     }
@@ -485,13 +543,7 @@ public class StageSelectCarousel : MonoBehaviour
 
     private IEnumerator SlideRoutine()
     {
-        for (int i = 0; i < stageItems.Length; i++)
-        {
-            if (stageItems[i] != null && stageItems[i].stageInfoTextObject != null)
-            {
-                stageItems[i].stageInfoTextObject.SetActive(i == currentCenterIndex);
-            }
-        }
+        UpdateStageInfoTextsVisibility();
 
         Vector3[] startPositions = new Vector3[stageItems.Length];
         Vector3[] targetPositions = new Vector3[stageItems.Length];

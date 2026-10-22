@@ -52,10 +52,10 @@ public class WeaponSlotStatUI
     [Tooltip("このSlotの「攻撃力」を数字で表示するテキスト")]
     public TextMeshProUGUI attackValueText;
 
-    [Tooltip("このSlotの「弾の飛ぶ速度」を数字で表示するテキスト")]
+    [Tooltip("This Slotの「弾の飛ぶ速度」を数字で表示するテキスト")]
     public TextMeshProUGUI bulletSpeedValueText;
 
-    [Tooltip("このSlotの「弾のブレ」を数字で表示するテキスト")]
+    [Tooltip("This Slotの条件の「弾のブレ」を数字で表示するテキスト")]
     public TextMeshProUGUI spreadValueText;
 }
 
@@ -88,6 +88,10 @@ public class EvolutionRule
 
     [Tooltip("このPrefabを何個選択したら進化できるか")]
     public int requiredCount = 3;
+
+    [Header("【演出用ポジション設定】")]
+    [Tooltip("この進化ルールで使用する演出用のPosition（requiredCountと同数、または複数個のTransformを登録してください）")]
+    public Transform[] evolutionSpawnPositions;
 }
 
 // ==========================================
@@ -144,7 +148,7 @@ public class WeaponInventoryManager : MonoBehaviour
     [Tooltip("武器ステータス切替ボタンの「選択されている」時の色")]
     public Color activeStatButtonColor = Color.white;
 
-    [Tooltip("武器ステータス切替ボタンのアイコンなどの「選択されていない」時の色（灰色）")]
+    [Tooltip("武器ステータス切替ボタンのアイコンなどの多様な選択状態の色（灰色）")]
     public Color inactiveStatButtonColor = Color.gray;
 
     [Header("所持している武器のリスト")]
@@ -179,7 +183,7 @@ public class WeaponInventoryManager : MonoBehaviour
     [Tooltip("レアリティボタンの「選択されている」時の色（通常色）")]
     public Color activeRarityColor = Color.white;
 
-    [Tooltip("レアリティボタンの「選択されていない」時の色（灰色）")]
+    [Tooltip("レアリティボタンのゲージや選択されていない時の色（灰色）")]
     public Color inactiveRarityColor = Color.gray;
 
     // ==========================================
@@ -214,7 +218,7 @@ public class WeaponInventoryManager : MonoBehaviour
     // 進化（合成）システムの設定
     // ==========================================
     [Header("【武器・防具の進化（合成）システム設定】")]
-    [Tooltip("進化に必要な素材の個数条件（どのPrefabを何個で進化できるか）")]
+    [Tooltip("進化に必要な素材の個数条件とポジション参照リスト")]
     public EvolutionRule[] evolutionRules;
 
     [Tooltip("【重要】種類ごとのランク順配列（Rank1〜Rank6をグループごとに設定してください）")]
@@ -223,8 +227,14 @@ public class WeaponInventoryManager : MonoBehaviour
     [Tooltip("条件を満たしている時だけ押せるようになる「進化実行ボタン」")]
     public Button executeEvolutionButton;
 
-    [Tooltip("進化ボタンのUI（Image）※押せないときは自動で灰色になります")]
+    [Tooltip("進化ボタンのUI（Image）")]
     public Image executeEvolutionButtonImage;
+
+    [Tooltip("条件を満たしていない時（通常時）の合成ボタンの色")]
+    public Color normalEvolutionButtonColor = Color.gray;
+
+    [Tooltip("条件を満たしている時（合成可能時）の合成ボタンの色")]
+    public Color readyEvolutionButtonColor = Color.white;
 
     [Tooltip("進化ボタンが押せるようになった時に表示したい、ホーム画面などのとあるUI")]
     public GameObject conditionalVisibleUI;
@@ -232,11 +242,25 @@ public class WeaponInventoryManager : MonoBehaviour
     [Tooltip("進化演出中に画面全体を明るく光らせるためのパネル（UI Imageなど。最初は非表示に設定されます）")]
     public Image flashPanelImage;
 
+    [Tooltip("Content内の位置から指定Positionへ移動する際にかかる時間（秒）※Inspectorで変更可能")]
+    public float moveToPositionDuration = 0.5f;
+
     [Tooltip("ボタン①：押したらとあるUIを非表示にするボタン")]
     public Button hideButton1;
 
-    [Tooltip("ボタン②：押したらとあるUIを非表示にして、選択してるPrefabが円を描きながら回転・収束してワープする演出を開始するボタン")]
+    [Tooltip("ボタン②（合成ボタン）：押したらとあるUIを非表示にして、選択してるPrefabが指定Positionへ移動し円を描いてワープする演出を開始するボタン")]
     public Button warpAnimationButton;
+
+    [Header("【合成ボタンの親オブジェクトUI（複数選択時のみ表示用）】")]
+    [Tooltip("合成ボタン（warpAnimationButton等）やその背景枠などの親オブジェクト。選択モード時のみ表示されます")]
+    public GameObject warpButtonParentUI;
+
+    // ==========================================
+    // デバッグ設定
+    // ==========================================
+    [Header("【デバッグ設定】")]
+    [Tooltip("チェックを入れている時、Pキーを押すとContentに入るPrefabをすべて一括削除します")]
+    public bool enableDebugDeleteKey = false;
 
     private GameObject currentSelectionFrame;
 
@@ -265,6 +289,10 @@ public class WeaponInventoryManager : MonoBehaviour
 
     // 進化演出中フラグ
     private bool isEvolutionAnimating = false;
+
+    // セーブ・ロード用のキー
+    private const string SAVE_KEY_WEAPONS_COORDS = "SavedInventory_Weapons_ExactCoords";
+    private const string SAVE_KEY_ARMORS_COORDS = "SavedInventory_Armors_ExactCoords";
 
     void Start()
     {
@@ -297,7 +325,6 @@ public class WeaponInventoryManager : MonoBehaviour
         SetupMultiSelectButtons();
         SetupEvolutionSystemButtons();
 
-        // ★追加：起動時はフラッシュパネルを確実に非表示にしておく
         if (flashPanelImage != null)
         {
             flashPanelImage.gameObject.SetActive(false);
@@ -322,6 +349,8 @@ public class WeaponInventoryManager : MonoBehaviour
             currentSelectionFrame.SetActive(false);
         }
 
+        LoadInventoryData();
+
         CheckAndAddNewItemsFromKeeper();
         SortWeapons();
 
@@ -336,9 +365,219 @@ public class WeaponInventoryManager : MonoBehaviour
         UpdateEvolutionButtonState();
     }
 
-    // ==========================================
-    // 各種初期セットアップメソッド群
-    // ==========================================
+    void Update()
+    {
+        if (enableDebugDeleteKey && Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("【デバッグ】Pキーが押されたため、インベントリ内のPrefabをすべて削除します。");
+
+            if (!isShowingArmor)
+            {
+                testWeaponPrefabs = new GameObject[0];
+                for (int s = 0; s < selectedWeapons.Length; s++)
+                {
+                    selectedWeapons[s] = null;
+                    selectedSlotWeaponPrefabs[s] = null;
+                    selectedWeaponItemIndices[s] = -1;
+                    if (WeaponDataKeeper.equippedWeaponPrefabs != null && s < WeaponDataKeeper.equippedWeaponPrefabs.Length)
+                    {
+                        WeaponDataKeeper.equippedWeaponPrefabs[s] = null;
+                    }
+                }
+                PopulateTestWeapons();
+            }
+            else
+            {
+                armorPrefabs = new GameObject[0];
+                for (int c = 0; c < selectedArmors.Length; c++)
+                {
+                    selectedArmors[c] = null;
+                    selectedArmorItemIndices[c] = -1;
+                    ArmorStats.EquipArmor(c, null);
+                    if (categoryButtons != null && c < categoryButtons.Length && categoryButtons[c].targetArmorImage != null)
+                    {
+                        categoryButtons[c].targetArmorImage.sprite = null;
+                        UpdateArmorImageAlpha(categoryButtons[c].targetArmorImage);
+                    }
+                }
+                PopulateArmorContent();
+            }
+
+            SaveInventoryData();
+            UpdateStatusTexts();
+            UpdateWeaponStatTexts();
+            UpdateEvolutionButtonState();
+        }
+    }
+
+    private void SaveInventoryData()
+    {
+        if (testWeaponPrefabs != null)
+        {
+            List<string> itemCodes = new List<string>();
+            foreach (var w in testWeaponPrefabs)
+            {
+                if (w != null && TryGetWeaponCoordinates(w, out int groupIdx, out int rankIdx))
+                {
+                    itemCodes.Add($"{groupIdx}:{rankIdx}");
+                }
+            }
+            PlayerPrefs.SetString(SAVE_KEY_WEAPONS_COORDS, string.Join(",", itemCodes));
+        }
+
+        if (armorPrefabs != null)
+        {
+            List<string> itemCodes = new List<string>();
+            foreach (var a in armorPrefabs)
+            {
+                if (a != null && TryGetArmorCoordinates(a, out int categoryIdx, out int itemIdx))
+                {
+                    itemCodes.Add($"{categoryIdx}:{itemIdx}");
+                }
+            }
+            PlayerPrefs.SetString(SAVE_KEY_ARMORS_COORDS, string.Join(",", itemCodes));
+        }
+
+        PlayerPrefs.Save();
+    }
+
+    private void LoadInventoryData()
+    {
+        if (PlayerPrefs.HasKey(SAVE_KEY_WEAPONS_COORDS))
+        {
+            string savedStr = PlayerPrefs.GetString(SAVE_KEY_WEAPONS_COORDS, "");
+            if (!string.IsNullOrEmpty(savedStr))
+            {
+                string[] codes = savedStr.Split(',');
+                List<GameObject> restoredList = new List<GameObject>();
+
+                foreach (string code in codes)
+                {
+                    string[] parts = code.Split(':');
+                    if (parts.Length == 2 && int.TryParse(parts[0], out int groupIdx) && int.TryParse(parts[1], out int rankIdx))
+                    {
+                        GameObject prefab = GetWeaponPrefabByCoordinates(groupIdx, rankIdx);
+                        if (prefab != null)
+                        {
+                            restoredList.Add(prefab);
+                        }
+                    }
+                }
+                if (restoredList.Count > 0)
+                {
+                    testWeaponPrefabs = restoredList.ToArray();
+                }
+            }
+        }
+
+        if (PlayerPrefs.HasKey(SAVE_KEY_ARMORS_COORDS))
+        {
+            string savedStr = PlayerPrefs.GetString(SAVE_KEY_ARMORS_COORDS, "");
+            if (!string.IsNullOrEmpty(savedStr))
+            {
+                string[] codes = savedStr.Split(',');
+                List<GameObject> restoredList = new List<GameObject>();
+
+                foreach (string code in codes)
+                {
+                    string[] parts = code.Split(':');
+                    if (parts.Length == 2 && int.TryParse(parts[0], out int catIdx) && int.TryParse(parts[1], out int itmIdx))
+                    {
+                        GameObject prefab = GetArmorPrefabByCoordinates(catIdx, itmIdx);
+                        if (prefab != null)
+                        {
+                            restoredList.Add(prefab);
+                        }
+                    }
+                }
+                if (restoredList.Count > 0)
+                {
+                    armorPrefabs = restoredList.ToArray();
+                }
+            }
+        }
+    }
+
+    private bool TryGetWeaponCoordinates(GameObject targetPrefab, out int groupIdx, out int rankIdx)
+    {
+        groupIdx = -1;
+        rankIdx = -1;
+
+        if (weaponRankLines == null || targetPrefab == null) return false;
+
+        for (int g = 0; g < weaponRankLines.Length; g++)
+        {
+            var line = weaponRankLines[g];
+            if (line != null && line.ranks != null)
+            {
+                for (int r = 0; r < line.ranks.Length; r++)
+                {
+                    if (line.ranks[r] == targetPrefab)
+                    {
+                        groupIdx = g;
+                        rankIdx = r;
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private GameObject GetWeaponPrefabByCoordinates(int groupIdx, int rankIdx)
+    {
+        if (weaponRankLines != null && groupIdx >= 0 && groupIdx < weaponRankLines.Length)
+        {
+            var line = weaponRankLines[groupIdx];
+            if (line != null && line.ranks != null && rankIdx >= 0 && rankIdx < line.ranks.Length)
+            {
+                return line.ranks[rankIdx];
+            }
+        }
+        return null;
+    }
+
+    private bool TryGetArmorCoordinates(GameObject targetPrefab, out int categoryIdx, out int itemIdx)
+    {
+        categoryIdx = -1;
+        itemIdx = -1;
+
+        if (categoryButtons == null || targetPrefab == null) return false;
+
+        for (int c = 0; c < categoryButtons.Length; c++)
+        {
+            var cat = categoryButtons[c];
+            if (cat != null && cat.displayTargetPrefabs != null)
+            {
+                for (int d = 0; d < cat.displayTargetPrefabs.Length; d++)
+                {
+                    var elem = cat.displayTargetPrefabs[d];
+                    if (elem != null && elem.targetPrefab == targetPrefab)
+                    {
+                        categoryIdx = c;
+                        itemIdx = d;
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private GameObject GetArmorPrefabByCoordinates(int categoryIdx, int itemIdx)
+    {
+        if (categoryButtons != null && categoryIdx >= 0 && categoryIdx < categoryButtons.Length)
+        {
+            var cat = categoryButtons[categoryIdx];
+            if (cat != null && cat.displayTargetPrefabs != null && itemIdx >= 0 && itemIdx < cat.displayTargetPrefabs.Length)
+            {
+                var elem = cat.displayTargetPrefabs[itemIdx];
+                if (elem != null) return elem.targetPrefab;
+            }
+        }
+        return null;
+    }
+
     private void SetupWeaponStatSlotButtons()
     {
         if (weaponSlotStatUIs == null) return;
@@ -440,6 +679,10 @@ public class WeaponInventoryManager : MonoBehaviour
         if (deleteSelectedParentUI != null) deleteSelectedParentUI.SetActive(isMultiSelectMode);
         if (exitMultiSelectParentUI != null) exitMultiSelectParentUI.SetActive(isMultiSelectMode);
 
+        if (warpAnimationButton != null) warpAnimationButton.gameObject.SetActive(isMultiSelectMode);
+        if (executeEvolutionButton != null) executeEvolutionButton.gameObject.SetActive(isMultiSelectMode);
+        if (warpButtonParentUI != null) warpButtonParentUI.SetActive(isMultiSelectMode);
+
         if (buttonsToHideInMultiSelect != null)
         {
             for (int i = 0; i < buttonsToHideInMultiSelect.Length; i++)
@@ -449,6 +692,15 @@ public class WeaponInventoryManager : MonoBehaviour
                     buttonsToHideInMultiSelect[i].SetActive(!isMultiSelectMode);
                 }
             }
+        }
+
+        if (isMultiSelectMode)
+        {
+            UpdateEvolutionButtonState();
+        }
+        else
+        {
+            if (conditionalVisibleUI != null) conditionalVisibleUI.SetActive(false);
         }
     }
 
@@ -525,30 +777,47 @@ public class WeaponInventoryManager : MonoBehaviour
     // ==========================================
     private void UpdateEvolutionButtonState()
     {
+        if (!isMultiSelectMode)
+        {
+            if (warpAnimationButton != null) warpAnimationButton.gameObject.SetActive(false);
+            if (executeEvolutionButton != null) executeEvolutionButton.gameObject.SetActive(false);
+            if (warpButtonParentUI != null) warpButtonParentUI.SetActive(false);
+            if (conditionalVisibleUI != null) conditionalVisibleUI.SetActive(false);
+            return;
+        }
+
+        if (warpAnimationButton != null) warpAnimationButton.gameObject.SetActive(true);
+        if (executeEvolutionButton != null) executeEvolutionButton.gameObject.SetActive(true);
+        if (warpButtonParentUI != null) warpButtonParentUI.SetActive(true);
+
         bool canEvolve = CheckCurrentSelectionForEvolution(out EvolutionRule matchedRule, out List<Transform> selectedTransforms);
 
-        Color targetColor = (canEvolve && !isEvolutionAnimating) ? activeRarityColor : inactiveRarityColor;
+        Color targetColor = (canEvolve && !isEvolutionAnimating) ? readyEvolutionButtonColor : normalEvolutionButtonColor;
 
         if (warpAnimationButton != null)
         {
             warpAnimationButton.interactable = canEvolve && !isEvolutionAnimating;
-            if (warpAnimationButton.image != null) warpAnimationButton.image.color = targetColor;
+            if (warpAnimationButton.image != null)
+            {
+                Color currentC = warpAnimationButton.image.color;
+                warpAnimationButton.image.color = new Color(targetColor.r, targetColor.g, targetColor.b, currentC.a);
+            }
         }
 
         if (executeEvolutionButton != null)
         {
             executeEvolutionButton.interactable = canEvolve && !isEvolutionAnimating;
-            if (executeEvolutionButton.image != null) executeEvolutionButton.image.color = targetColor;
+            if (executeEvolutionButton.image != null)
+            {
+                Color currentC = executeEvolutionButton.image.color;
+                executeEvolutionButton.image.color = new Color(targetColor.r, targetColor.g, targetColor.b, currentC.a);
+            }
         }
 
         if (executeEvolutionButtonImage != null)
         {
-            executeEvolutionButtonImage.color = targetColor;
-        }
-
-        if (conditionalVisibleUI != null)
-        {
-            conditionalVisibleUI.SetActive(canEvolve && !isEvolutionAnimating);
+            Color currentC = executeEvolutionButtonImage.color;
+            executeEvolutionButtonImage.color = new Color(targetColor.r, targetColor.g, targetColor.b, currentC.a);
         }
     }
 
@@ -576,7 +845,6 @@ public class WeaponInventoryManager : MonoBehaviour
             prefabToTransformsMap[prefab].Add(t);
         }
 
-        // 別種や別ランクが混ざっている場合は不可（種類数が1でなければならない）
         if (prefabToTransformsMap.Count != 1) return false;
 
         foreach (var kvp in prefabToTransformsMap)
@@ -634,11 +902,56 @@ public class WeaponInventoryManager : MonoBehaviour
         if (conditionalVisibleUI != null) conditionalVisibleUI.SetActive(false);
         if (hideButton1 != null) hideButton1.gameObject.SetActive(false);
 
-        float animDuration = 1.5f;
-        float elapsed = 0f;
+        float moveDuration = Mathf.Max(0.05f, moveToPositionDuration);
+        float moveElapsed = 0f;
+
+        Vector3[] startPosForMove = new Vector3[selectedTransforms.Count];
+        Vector3[] targetPosForMove = new Vector3[selectedTransforms.Count];
+
+        for (int i = 0; i < selectedTransforms.Count; i++)
+        {
+            if (selectedTransforms[i] != null)
+            {
+                startPosForMove[i] = selectedTransforms[i].position;
+
+                if (rule.evolutionSpawnPositions != null && rule.evolutionSpawnPositions.Length > 0)
+                {
+                    int posIdx = Mathf.Min(i, rule.evolutionSpawnPositions.Length - 1);
+                    if (rule.evolutionSpawnPositions[posIdx] != null)
+                    {
+                        targetPosForMove[i] = rule.evolutionSpawnPositions[posIdx].position;
+                    }
+                    else
+                    {
+                        targetPosForMove[i] = startPosForMove[i];
+                    }
+                }
+                else
+                {
+                    targetPosForMove[i] = startPosForMove[i];
+                }
+            }
+        }
+
+        while (moveElapsed < moveDuration)
+        {
+            moveElapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(moveElapsed / moveDuration);
+            float smoothT = Mathf.SmoothStep(0f, 1f, t);
+
+            for (int i = 0; i < selectedTransforms.Count; i++)
+            {
+                if (selectedTransforms[i] != null)
+                {
+                    selectedTransforms[i].position = Vector3.Lerp(startPosForMove[i], targetPosForMove[i], smoothT);
+                    selectedTransforms[i].localScale = Vector3.one;
+                }
+            }
+            yield return null;
+        }
 
         Vector3 centerPos = Vector3.zero;
-        if (contentPanel != null && selectedTransforms.Count > 0)
+        if (selectedTransforms.Count > 0)
         {
             foreach (Transform t in selectedTransforms)
             {
@@ -646,6 +959,9 @@ public class WeaponInventoryManager : MonoBehaviour
             }
             centerPos /= selectedTransforms.Count;
         }
+
+        float animDuration = 1.0f;
+        float elapsed = 0f;
 
         Vector3[] startPositions = new Vector3[selectedTransforms.Count];
         for (int i = 0; i < selectedTransforms.Count; i++)
@@ -656,7 +972,8 @@ public class WeaponInventoryManager : MonoBehaviour
             }
         }
 
-        // 1. 選択しているPrefabが円を描くように表示され、回転しながら重なり合うように近づいていく演出
+        bool dataProcessed = false;
+
         while (elapsed < animDuration)
         {
             elapsed += Time.deltaTime;
@@ -670,7 +987,7 @@ public class WeaponInventoryManager : MonoBehaviour
                 if (tr == null) continue;
 
                 float angle = (i * (360f / count)) + (smoothT * 720f);
-                float radius = Mathf.Lerp(100f, 0f, smoothT);
+                float radius = Mathf.Lerp(50f, 0f, smoothT);
                 float rad = angle * Mathf.Deg2Rad;
 
                 Vector3 offset = new Vector3(Mathf.Cos(rad) * radius, Mathf.Sin(rad) * radius, 0f);
@@ -678,40 +995,51 @@ public class WeaponInventoryManager : MonoBehaviour
 
                 tr.position = Vector3.Lerp(startPositions[i], targetPos, smoothT);
                 tr.Rotate(Vector3.forward, 360f * Time.deltaTime * 2f);
-                tr.localScale = Vector3.Lerp(Vector3.one, Vector3.one * 0.2f, smoothT);
+                tr.localScale = Vector3.one;
+            }
+
+            if (flashPanelImage != null && !flashPanelImage.gameObject.activeSelf)
+            {
+                flashPanelImage.gameObject.SetActive(true);
+            }
+
+            if (flashPanelImage != null)
+            {
+                float flashProgress = Mathf.Clamp01(elapsed / (animDuration * 0.8f));
+                Color c = flashPanelImage.color;
+                c.a = flashProgress;
+                flashPanelImage.color = c;
+
+                if (!dataProcessed && flashProgress >= 0.99f)
+                {
+                    ExecuteEvolutionDataProcess(rule);
+                    dataProcessed = true;
+                }
             }
 
             yield return null;
         }
 
-        // 2. ★追加：重なりそうになったタイミングで flashPanelImage を有効化し、画面全体を明るく光らせる
-        if (flashPanelImage != null)
+        if (!dataProcessed)
         {
-            flashPanelImage.gameObject.SetActive(true);
-            float flashElapsed = 0f;
-            float flashDuration = 0.4f;
-
-            while (flashElapsed < flashDuration)
-            {
-                flashElapsed += Time.deltaTime;
-                float alpha = Mathf.Clamp01(flashElapsed / flashDuration);
-                Color c = flashPanelImage.color;
-                c.a = alpha;
-                flashPanelImage.color = c;
-                yield return null;
-            }
+            ExecuteEvolutionDataProcess(rule);
         }
 
-        // 3. データの処理：素材を消費し、1つ上のランクのPrefabをContent内に追加する
-        ExecuteEvolutionDataProcess(rule);
+        foreach (Transform tr in selectedTransforms)
+        {
+            if (tr != null)
+            {
+                Destroy(tr.gameObject);
+            }
+        }
+        selectedTransforms.Clear();
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
 
-        // 4. 少ししたら光が消えて通常に戻る
         if (flashPanelImage != null)
         {
             float fadeElapsed = 0f;
-            float fadeDuration = 0.6f;
+            float fadeDuration = 0.5f;
 
             while (fadeElapsed < fadeDuration)
             {
@@ -722,12 +1050,12 @@ public class WeaponInventoryManager : MonoBehaviour
                 flashPanelImage.color = c;
                 yield return null;
             }
-            // ★追加：演出が終わったらフラッシュパネルを再び非表示にする
             flashPanelImage.gameObject.SetActive(false);
         }
 
         isEvolutionAnimating = false;
 
+        OnClickExitMultiSelectMode();
         if (!isShowingArmor)
         {
             PopulateTestWeapons();
@@ -736,8 +1064,6 @@ public class WeaponInventoryManager : MonoBehaviour
         {
             PopulateArmorContent();
         }
-
-        UpdateEvolutionButtonState();
     }
 
     private void ExecuteEvolutionDataProcess(EvolutionRule rule)
@@ -831,6 +1157,8 @@ public class WeaponInventoryManager : MonoBehaviour
             UpdateStatusTexts();
             UpdateWeaponStatTexts();
         }
+
+        SaveInventoryData();
     }
 
     // ==========================================
@@ -983,6 +1311,8 @@ public class WeaponInventoryManager : MonoBehaviour
             UpdateStatusTexts();
             UpdateWeaponStatTexts();
         }
+
+        SaveInventoryData();
         UpdateEvolutionButtonState();
     }
 
@@ -1364,6 +1694,8 @@ public class WeaponInventoryManager : MonoBehaviour
 
     private void CheckAndAddNewItemsFromKeeper()
     {
+        bool isUpdated = false;
+
         if (WeaponDataKeeper.gachaResultWeapons.Count > 0)
         {
             List<GameObject> weaponList = new List<GameObject>(testWeaponPrefabs != null ? testWeaponPrefabs : new GameObject[0]);
@@ -1378,6 +1710,7 @@ public class WeaponInventoryManager : MonoBehaviour
 
             testWeaponPrefabs = weaponList.ToArray();
             WeaponDataKeeper.gachaResultWeapons.Clear();
+            isUpdated = true;
             Debug.Log("ガチャ結果の新しい武器をインベントリに追加しました！");
         }
 
@@ -1395,7 +1728,13 @@ public class WeaponInventoryManager : MonoBehaviour
 
             armorPrefabs = armorList.ToArray();
             CapsuleOpener.gachaResultArmors.Clear();
+            isUpdated = true;
             Debug.Log("ガチャ結果の新しい防具をインベントリに追加しました！");
+        }
+
+        if (isUpdated)
+        {
+            SaveInventoryData();
         }
     }
 
@@ -1758,9 +2097,7 @@ public class WeaponInventoryManager : MonoBehaviour
                 {
                     if (!usedMasterFlags[m] && armorPrefabs[m] == allowedElement.targetPrefab)
                     {
-                        itemsToDisplay.Add(armorPrefabs[m]);
-                        itemsMasterIndices.Add(m);
-                        usedMasterFlags[m] = true;
+                        itemsToDecision(armorPrefabs[m], itemsToDisplay, itemsMasterIndices, m, usedMasterFlags);
                     }
                 }
             }
@@ -1793,5 +2130,12 @@ public class WeaponInventoryManager : MonoBehaviour
         }
 
         UpdateEvolutionButtonState();
+    }
+
+    private void itemsToDecision(GameObject prefab, List<GameObject> list, List<int> indices, int m, bool[] flags)
+    {
+        list.Add(prefab);
+        indices.Add(m);
+        flags[m] = true;
     }
 }
