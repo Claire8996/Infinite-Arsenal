@@ -21,6 +21,13 @@ public class UIElementSetting
 public class TutorialStep
 {
     public UIElementSetting[] stepUIElements;
+
+    // ★追加：Clear Reward Steps等でこのステップが表示された際に入手できるエメラルドとコインの取得数
+    [Tooltip("このステップのオブジェクトが表示された時に入手するエメラルド数")]
+    public int rewardEmeralds = 0;
+
+    [Tooltip("このステップのオブジェクトが表示された時に入手するコイン数")]
+    public int rewardCoins = 0;
 }
 
 [System.Serializable]
@@ -93,7 +100,7 @@ public class DisablePlayerControl : MonoBehaviour
         if (exitUIText != null) exitUIText.SetActive(false);
 
         HideInitialUIElements(initialTutorialSteps);
-        HideInitialUIElements(clearRewardSteps);
+        HideClearRewardUIElements(clearRewardSteps);
         if (enemyWaves != null)
         {
             foreach (var wave in enemyWaves)
@@ -121,9 +128,30 @@ public class DisablePlayerControl : MonoBehaviour
         if (steps == null) return;
         foreach (TutorialStep step in steps)
         {
+            if (step == null || step.stepUIElements == null) continue;
             foreach (UIElementSetting setting in step.stepUIElements)
             {
-                if (setting.uiObject != null && setting.hideAtStart) setting.uiObject.SetActive(false);
+                if (setting != null && setting.uiObject != null && setting.hideAtStart)
+                {
+                    setting.uiObject.SetActive(false);
+                }
+            }
+        }
+    }
+
+    // ★追加：Clear Reward Stepsに設定されているオブジェクトを最初は確実に非表示にする
+    void HideClearRewardUIElements(TutorialStep[] steps)
+    {
+        if (steps == null) return;
+        foreach (TutorialStep step in steps)
+        {
+            if (step == null || step.stepUIElements == null) continue;
+            foreach (UIElementSetting setting in step.stepUIElements)
+            {
+                if (setting != null && setting.uiObject != null)
+                {
+                    setting.uiObject.SetActive(false);
+                }
             }
         }
     }
@@ -236,11 +264,17 @@ public class DisablePlayerControl : MonoBehaviour
         if (darkPanel != null) darkPanel.SetActive(false);
 
         Camera mainCam = Camera.main;
-        if (chestLookTarget != null && mainCam != null && playerTransform != null)
+        Quaternion startCamRot = Quaternion.identity;
+        Quaternion origLocalRot = Quaternion.identity;
+        Quaternion targetLookRot = Quaternion.identity;
+        bool canRotateCam = (chestLookTarget != null && mainCam != null && playerTransform != null);
+
+        if (canRotateCam)
         {
-            Quaternion startCamRot = mainCam.transform.rotation;
+            startCamRot = mainCam.transform.rotation;
+            origLocalRot = mainCam.transform.localRotation;
             Vector3 dirToTarget = (chestLookTarget.position - mainCam.transform.position).normalized;
-            Quaternion targetLookRot = Quaternion.LookRotation(dirToTarget);
+            targetLookRot = Quaternion.LookRotation(dirToTarget);
 
             float t = 0;
             float duration = 1.0f;
@@ -261,7 +295,25 @@ public class DisablePlayerControl : MonoBehaviour
             clearParticle.Play();
         }
 
-        yield return new WaitForSeconds(0.5f);
+        // ★修正：宝箱が光りだしてから1.5秒待って元の視点に戻る
+        yield return new WaitForSeconds(1.5f);
+
+        if (canRotateCam)
+        {
+            float t = 0;
+            float duration = 1.0f;
+
+            while (t < 1f)
+            {
+                float smoothT = Mathf.SmoothStep(0, 1, t);
+                mainCam.transform.rotation = Quaternion.Slerp(targetLookRot, startCamRot, smoothT);
+                t += Time.deltaTime / duration;
+                yield return null;
+            }
+            mainCam.transform.rotation = startCamRot;
+            mainCam.transform.localRotation = origLocalRot;
+        }
+
         currentPhase = EventPhase.GoalReady;
         SetEventMode(false);
     }
@@ -462,36 +514,47 @@ public class DisablePlayerControl : MonoBehaviour
     void HighlightCurrentStepUI(TutorialStep[] steps, int index)
     {
         List<TextMeshProUGUI> textsToType = new List<TextMeshProUGUI>();
+        bool isClearRewardStep = (steps == clearRewardSteps);
 
-        foreach (UIElementSetting setting in steps[index].stepUIElements)
+        if (steps[index].stepUIElements != null)
         {
-            GameObject ui = setting.uiObject;
-            if (ui != null)
+            foreach (UIElementSetting setting in steps[index].stepUIElements)
             {
-                if (setting.hideAtStart) ui.SetActive(true);
-                Canvas canvas = ui.GetComponent<Canvas>();
-                if (canvas == null)
+                if (setting == null) continue;
+                GameObject ui = setting.uiObject;
+                if (ui != null)
                 {
-                    canvas = ui.AddComponent<Canvas>();
-                    ui.AddComponent<GraphicRaycaster>();
-                }
-                canvas.overrideSorting = true;
-                canvas.sortingOrder = 100;
-
-                // ★変更：Use Typewriter にチェックが入っているUIだけをタイプライター演出の対象にする！
-                if (setting.useTypewriter)
-                {
-                    TextMeshProUGUI[] tmpros = ui.GetComponentsInChildren<TextMeshProUGUI>();
-                    foreach (var tmp in tmpros)
+                    if (setting.hideAtStart || isClearRewardStep) ui.SetActive(true);
+                    Canvas canvas = ui.GetComponent<Canvas>();
+                    if (canvas == null)
                     {
-                        if (!originalTexts.ContainsKey(tmp))
+                        canvas = ui.AddComponent<Canvas>();
+                        ui.AddComponent<GraphicRaycaster>();
+                    }
+                    canvas.overrideSorting = true;
+                    canvas.sortingOrder = 100;
+
+                    // ★変更：Use Typewriter にチェックが入っているUIだけをタイプライター演出の対象にする！
+                    if (setting.useTypewriter)
+                    {
+                        TextMeshProUGUI[] tmpros = ui.GetComponentsInChildren<TextMeshProUGUI>();
+                        foreach (var tmp in tmpros)
                         {
-                            originalTexts[tmp] = tmp.text;
+                            if (!originalTexts.ContainsKey(tmp))
+                            {
+                                originalTexts[tmp] = tmp.text;
+                            }
+                            textsToType.Add(tmp);
                         }
-                        textsToType.Add(tmp);
                     }
                 }
             }
+        }
+
+        // ★追加：Clear Reward Stepsのオブジェクトが表示されたタイミングで設定分のエメラルドとコインを入手する
+        if (isClearRewardStep)
+        {
+            GrantClearStepRewards(steps[index]);
         }
 
         if (textsToType.Count > 0)
@@ -501,10 +564,58 @@ public class DisablePlayerControl : MonoBehaviour
         }
     }
 
+    // ★追加：ステップに設定されているエメラルドとコインを付与してセーブする処理
+    void GrantClearStepRewards(TutorialStep step)
+    {
+        if (step == null) return;
+
+        bool isSaved = false;
+
+        if (step.rewardEmeralds > 0)
+        {
+            EmeraldDisplay emeraldDisplay = FindObjectOfType<EmeraldDisplay>();
+            int defaultEmeralds = (emeraldDisplay != null) ? emeraldDisplay.defaultEmeralds : 1000;
+            int currentEmeralds = PlayerPrefs.GetInt("PlayerEmeralds", defaultEmeralds);
+            int newEmeralds = currentEmeralds + step.rewardEmeralds;
+            PlayerPrefs.SetInt("PlayerEmeralds", newEmeralds);
+            isSaved = true;
+
+            if (emeraldDisplay != null)
+            {
+                emeraldDisplay.UpdateEmeraldDisplay();
+            }
+        }
+
+        if (step.rewardCoins > 0)
+        {
+            CoinDisplay coinDisplay = FindObjectOfType<CoinDisplay>();
+            int defaultCoins = (coinDisplay != null) ? coinDisplay.defaultCoins : 1000;
+            int currentCoins = PlayerPrefs.GetInt("PlayerCoins", defaultCoins);
+            int newCoins = currentCoins + step.rewardCoins;
+            PlayerPrefs.SetInt("PlayerCoins", newCoins);
+            isSaved = true;
+
+            if (coinDisplay != null)
+            {
+                coinDisplay.UpdateCoinDisplay();
+            }
+        }
+
+        if (isSaved)
+        {
+            PlayerPrefs.Save();
+        }
+    }
+
     void RemoveHighlightCurrentStepUI(TutorialStep[] steps, int index)
     {
+        bool isClearRewardStep = (steps == clearRewardSteps);
+
+        if (steps[index].stepUIElements == null) return;
+
         foreach (UIElementSetting setting in steps[index].stepUIElements)
         {
+            if (setting == null) continue;
             GameObject ui = setting.uiObject;
             if (ui != null)
             {
@@ -512,7 +623,7 @@ public class DisablePlayerControl : MonoBehaviour
                 if (raycaster != null) Destroy(raycaster);
                 Canvas canvas = ui.GetComponent<Canvas>();
                 if (canvas != null) Destroy(canvas);
-                if (setting.hideAtStart) ui.SetActive(false);
+                if (setting.hideAtStart || isClearRewardStep) ui.SetActive(false);
             }
         }
     }

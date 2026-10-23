@@ -27,6 +27,9 @@ public class MissionEntry
     [Tooltip("このミッションをクリアした際にもらえるエメラルド数")]
     public int rewardEmeralds = 100;
 
+    [Tooltip("このミッションをクリアした際にもらえるコイン数")]
+    public int rewardCoins = 0;
+
     [Header("【詳細設定（AutoDetectのままでも文章から自動判別します）】")]
     public MissionCategory category = MissionCategory.AutoDetectFromText;
 
@@ -46,9 +49,6 @@ public class MissionManager : MonoBehaviour
     [Tooltip("表示・非表示を切り替えるとあるオブジェクト（ミッション画面全体のパネルなど）")]
     public GameObject missionWindowObject;
 
-    // ==========================================
-    // ★追加：ミッションがクリア（ボタンが押せる状態）になった時にホーム画面に表示するUI
-    // ==========================================
     [Header("【ホーム画面の通知UI設定】")]
     [Tooltip("クリアしたミッションの報酬受取ボタンが押せるようになったら表示し、すべて受け取って押せるボタンがなくなったら非表示にするホーム画面のUIオブジェクト")]
     public GameObject homeNotificationUI;
@@ -75,6 +75,19 @@ public class MissionManager : MonoBehaviour
 
     [Tooltip("ランダムで何個のミッションを表示するか（初期値：5個）")]
     public int displayMissionCount = 5;
+
+    // ==========================================
+    // ★変更：エメラルドとコインのスプライト（Sprite）＆反映先Image設定
+    // ==========================================
+    [Header("【報酬アイコンのスプライト設定（エメラルド2つ・コイン2つ）】")]
+    [Tooltip("エメラルドが1以上（コインが0）の時にPrefabのImageへ反映するスプライト（2つ）")]
+    public Sprite[] emeraldSprites = new Sprite[2];
+
+    [Tooltip("コインが1以上（エメラルドが0）の時にPrefabのImageへ反映するスプライト（2つ）")]
+    public Sprite[] coinSprites = new Sprite[2];
+
+    [Tooltip("（任意）スプライトを反映するPrefab側の2つのImage（未設定の場合はPrefab内の「Emerald」「Emerald (1)」のImageに自動反映されます）")]
+    public Image[] prefabRewardImages = new Image[2];
 
     [Header("【ミッション内容の一覧配列（今後いつでも追加可能）】")]
     public MissionEntry[] missions = new MissionEntry[]
@@ -118,6 +131,7 @@ public class MissionManager : MonoBehaviour
     {
         public int missionIndex;
         public MissionItemUI itemUI;
+        public Image[] resolvedTargetImages = new Image[2];
     }
     private List<SpawnedMissionPair> spawnedMissionItems = new List<SpawnedMissionPair>();
 
@@ -141,7 +155,7 @@ public class MissionManager : MonoBehaviour
         BuildMissionListUI();
 
         UpdateCountdownDisplay();
-        UpdateHomeNotificationUIState(); // 初回起動時にも通知UIの表示状態をチェック
+        UpdateHomeNotificationUIState();
     }
 
     void Update()
@@ -266,7 +280,6 @@ public class MissionManager : MonoBehaviour
         {
             missionWindowObject.SetActive(false);
         }
-        // ミッション画面を閉じた時にもホーム画面の通知UIの状態を再確認して更新する
         UpdateHomeNotificationUIState();
     }
 
@@ -357,10 +370,13 @@ public class MissionManager : MonoBehaviour
             bool isCleared = IsMissionCleared(entry);
             bool isClaimed = IsMissionClaimed(mIndex);
 
+            // 表示する報酬数値（エメラルドが0でコインが1以上ならコイン数を表示）
+            int displayRewardAmount = IsCoinRewardMission(entry) ? entry.rewardCoins : entry.rewardEmeralds;
+
             int capturedIndex = mIndex;
             itemUI.Setup(
                 entry.missionDescription,
-                entry.rewardEmeralds,
+                displayRewardAmount,
                 currentProgress,
                 targetAmount,
                 isCleared,
@@ -369,15 +385,188 @@ public class MissionManager : MonoBehaviour
                 () => OnClaimMissionReward(capturedIndex)
             );
 
-            spawnedMissionItems.Add(new SpawnedMissionPair
+            SpawnedMissionPair pair = new SpawnedMissionPair
             {
                 missionIndex = mIndex,
                 itemUI = itemUI
-            });
+            };
+
+            ResolveAndApplyCurrencySprites(itemObj, pair, entry);
+
+            spawnedMissionItems.Add(pair);
         }
 
         SortMissionUIOrder();
         UpdateHomeNotificationUIState();
+    }
+
+    // エメラルドが0かつコインが1以上かどうかを判定する補助メソッド
+    private bool IsCoinRewardMission(MissionEntry entry)
+    {
+        if (entry == null) return false;
+        return entry.rewardEmeralds == 0 && entry.rewardCoins >= 1;
+    }
+
+    // エメラルドが1以上かつコインが0かどうかを判定する補助メソッド
+    private bool IsEmeraldRewardMission(MissionEntry entry)
+    {
+        if (entry == null) return false;
+        return entry.rewardCoins == 0 && entry.rewardEmeralds >= 1;
+    }
+
+    // 生成されたミッションPrefab内の2つのImage（Emerald / Emerald (1)）を特定し、該当する方のSpriteを反映するメソッド
+    private void ResolveAndApplyCurrencySprites(GameObject itemObj, SpawnedMissionPair pair, MissionEntry entry)
+    {
+        if (itemObj == null || pair == null || entry == null) return;
+
+        for (int i = 0; i < 2; i++)
+        {
+            if (pair.resolvedTargetImages[i] == null)
+            {
+                // 1. Inspectorの prefabRewardImages に設定されている場合は対応する階層からImageを取得
+                if (prefabRewardImages != null && i < prefabRewardImages.Length && prefabRewardImages[i] != null)
+                {
+                    GameObject matchedObj = FindCorrespondingUIInInstance(itemObj, prefabRewardImages[i].gameObject);
+                    if (matchedObj != null)
+                    {
+                        pair.resolvedTargetImages[i] = matchedObj.GetComponent<Image>();
+                    }
+                }
+
+                // 2. 未設定または見つからなかった場合は、Prefab内の「Emerald」「Emerald (1)」からImageを自動取得
+                if (pair.resolvedTargetImages[i] == null)
+                {
+                    string fallbackName = (i == 0) ? "Emerald" : "Emerald (1)";
+                    Transform found = FindDeepChildByName(itemObj.transform, fallbackName);
+                    if (found != null)
+                    {
+                        pair.resolvedTargetImages[i] = found.GetComponent<Image>();
+                    }
+                }
+            }
+        }
+
+        // もし2つ目のImageが MissionItemUI の flyingUIObject に登録されている場合も補完
+        if (pair.resolvedTargetImages[1] == null && pair.itemUI != null && pair.itemUI.flyingUIObject != null)
+        {
+            pair.resolvedTargetImages[1] = pair.itemUI.flyingUIObject.GetComponent<Image>();
+        }
+
+        ApplyCurrencySpritesToImages(pair, entry);
+    }
+
+    private void ApplyCurrencySpritesToImages(SpawnedMissionPair pair, MissionEntry entry)
+    {
+        if (pair == null || entry == null) return;
+
+        bool useCoinSprite = IsCoinRewardMission(entry);
+        bool useEmeraldSprite = IsEmeraldRewardMission(entry);
+
+        if (!useCoinSprite && !useEmeraldSprite)
+        {
+            useEmeraldSprite = true;
+        }
+
+        for (int i = 0; i < 2; i++)
+        {
+            Image targetImg = pair.resolvedTargetImages[i];
+            if (targetImg == null) continue;
+
+            Sprite spriteToApply = null;
+
+            if (useCoinSprite)
+            {
+                spriteToApply = GetSpriteFromArray(coinSprites, i);
+            }
+            else if (useEmeraldSprite)
+            {
+                spriteToApply = GetSpriteFromArray(emeraldSprites, i);
+            }
+
+            if (spriteToApply != null)
+            {
+                targetImg.sprite = spriteToApply;
+            }
+        }
+    }
+
+    // 配列から指定インデックスのSpriteを取得（片方だけ設定されている場合は設定されている方を返す）
+    private Sprite GetSpriteFromArray(Sprite[] sprites, int index)
+    {
+        if (sprites == null || sprites.Length == 0) return null;
+
+        if (index >= 0 && index < sprites.Length && sprites[index] != null)
+        {
+            return sprites[index];
+        }
+
+        foreach (Sprite s in sprites)
+        {
+            if (s != null) return s;
+        }
+
+        return null;
+    }
+
+    private GameObject FindCorrespondingUIInInstance(GameObject instanceRoot, GameObject referenceObj)
+    {
+        if (instanceRoot == null || referenceObj == null) return null;
+
+        if (referenceObj.transform.IsChildOf(instanceRoot.transform))
+        {
+            return referenceObj;
+        }
+
+        if (missionItemPrefab != null && referenceObj.transform.IsChildOf(missionItemPrefab.transform))
+        {
+            List<int> indexPath = new List<int>();
+            Transform current = referenceObj.transform;
+            while (current != null && current != missionItemPrefab.transform)
+            {
+                indexPath.Add(current.GetSiblingIndex());
+                current = current.parent;
+            }
+
+            if (current == missionItemPrefab.transform)
+            {
+                Transform target = instanceRoot.transform;
+                for (int i = indexPath.Count - 1; i >= 0; i--)
+                {
+                    int childIdx = indexPath[i];
+                    if (childIdx >= 0 && childIdx < target.childCount)
+                    {
+                        target = target.GetChild(childIdx);
+                    }
+                    else
+                    {
+                        target = null;
+                        break;
+                    }
+                }
+                if (target != null) return target.gameObject;
+            }
+        }
+
+        Transform byName = FindDeepChildByName(instanceRoot.transform, referenceObj.name);
+        if (byName != null)
+        {
+            return byName.gameObject;
+        }
+
+        return null;
+    }
+
+    private Transform FindDeepChildByName(Transform parent, string targetName)
+    {
+        if (parent == null || string.IsNullOrEmpty(targetName)) return null;
+
+        foreach (Transform child in parent)
+        {
+            if (child.name == targetName) return child;
+            Transform found = FindDeepChildByName(child, targetName);
+            if (found != null) return found;
+        }
+        return null;
     }
 
     public void RefreshAllMissionUIs()
@@ -392,6 +581,7 @@ public class MissionManager : MonoBehaviour
             bool isCleared = IsMissionCleared(entry);
             bool isClaimed = IsMissionClaimed(pair.missionIndex);
 
+            ApplyCurrencySpritesToImages(pair, entry);
             pair.itemUI.RefreshState(currentProgress, targetAmount, isCleared, isClaimed);
         }
 
@@ -409,13 +599,6 @@ public class MissionManager : MonoBehaviour
 
         PlayerPrefs.SetInt(KEY_CLAIMED_PREFIX + missionIndex, 1);
 
-        EmeraldDisplay emeraldDisplay = FindObjectOfType<EmeraldDisplay>();
-        int defaultEmeralds = (emeraldDisplay != null) ? emeraldDisplay.defaultEmeralds : 1000;
-        int oldEmeralds = PlayerPrefs.GetInt("PlayerEmeralds", defaultEmeralds);
-        int newEmeralds = oldEmeralds + entry.rewardEmeralds;
-        PlayerPrefs.SetInt("PlayerEmeralds", newEmeralds);
-        PlayerPrefs.Save();
-
         MissionItemUI claimedItemUI = null;
         GameObject flyingUISource = null;
         foreach (var pair in spawnedMissionItems)
@@ -428,12 +611,38 @@ public class MissionManager : MonoBehaviour
             }
         }
 
-        if (emeraldDisplay != null)
+        if (IsCoinRewardMission(entry))
         {
-            emeraldDisplay.PlayMissionEmeraldAcquireEffect(oldEmeralds, newEmeralds, flyingUISource);
-        }
+            CoinDisplay coinDisplay = FindObjectOfType<CoinDisplay>();
+            int defaultCoins = (coinDisplay != null) ? coinDisplay.defaultCoins : 1000;
+            int oldCoins = PlayerPrefs.GetInt("PlayerCoins", defaultCoins);
+            int newCoins = oldCoins + entry.rewardCoins;
+            PlayerPrefs.SetInt("PlayerCoins", newCoins);
+            PlayerPrefs.Save();
 
-        Debug.Log($"ミッション「{entry.missionDescription}」クリア報酬としてエメラルドを {entry.rewardEmeralds} 個獲得しました！（現在: {newEmeralds}個）");
+            if (coinDisplay != null)
+            {
+                coinDisplay.PlayMissionCoinAcquireEffect(oldCoins, newCoins, flyingUISource);
+            }
+
+            Debug.Log($"ミッション「{entry.missionDescription}」クリア報酬としてコインを {entry.rewardCoins} 枚獲得しました！（現在: {newCoins}枚）");
+        }
+        else
+        {
+            EmeraldDisplay emeraldDisplay = FindObjectOfType<EmeraldDisplay>();
+            int defaultEmeralds = (emeraldDisplay != null) ? emeraldDisplay.defaultEmeralds : 1000;
+            int oldEmeralds = PlayerPrefs.GetInt("PlayerEmeralds", defaultEmeralds);
+            int newEmeralds = oldEmeralds + entry.rewardEmeralds;
+            PlayerPrefs.SetInt("PlayerEmeralds", newEmeralds);
+            PlayerPrefs.Save();
+
+            if (emeraldDisplay != null)
+            {
+                emeraldDisplay.PlayMissionEmeraldAcquireEffect(oldEmeralds, newEmeralds, flyingUISource);
+            }
+
+            Debug.Log($"ミッション「{entry.missionDescription}」クリア報酬としてエメラルドを {entry.rewardEmeralds} 個獲得しました！（現在: {newEmeralds}個）");
+        }
 
         if (claimedItemUI != null)
         {
@@ -444,7 +653,7 @@ public class MissionManager : MonoBehaviour
         }
 
         SortMissionUIOrder();
-        UpdateHomeNotificationUIState(); // 報酬を受け取ったのでホーム画面の通知UI状態を再チェック
+        UpdateHomeNotificationUIState();
     }
 
     private void SortMissionUIOrder()
@@ -470,10 +679,6 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    // ==========================================
-    // ★追加：現在表示されているミッションの中に「クリアしていてまだ報酬を受け取っていない（＝ボタンが押せる）」ものが1つでもあるかチェックし、
-    // ホーム画面の通知UIの表示・非表示を切り替えるメソッド
-    // ==========================================
     private void UpdateHomeNotificationUIState()
     {
         if (homeNotificationUI == null) return;
@@ -484,7 +689,6 @@ public class MissionManager : MonoBehaviour
         {
             if (pair.itemUI != null)
             {
-                // クリアしている（IsCleared == true）かつ、まだ報酬を受け取っていない（IsClaimed == false）ならボタンが押せる状態
                 if (pair.itemUI.IsCleared && !pair.itemUI.IsClaimed)
                 {
                     hasClaimableMission = true;
@@ -493,7 +697,6 @@ public class MissionManager : MonoBehaviour
             }
         }
 
-        // 押せるボタンが1つでもあれば表示、なければ非表示にする
         homeNotificationUI.SetActive(hasClaimableMission);
     }
 
