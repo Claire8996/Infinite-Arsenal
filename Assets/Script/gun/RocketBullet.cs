@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class RocketBullet : MonoBehaviour
 {
@@ -16,16 +17,58 @@ public class RocketBullet : MonoBehaviour
     [Tooltip("爆風に巻き込んだ敵に与えるダメージ量")]
     public int explosionDamage = 100;
 
+    // ==========================================
+    // ★追加：着弾時の爆発音（開始秒数・終了秒数指定）設定
+    // ==========================================
+    [Header("効果音（爆発音）設定")]
+    [Tooltip("爆発音を再生するAudioSource（Prefab自身にAdd Componentしたものをセットしてください）")]
+    public AudioSource explosionAudioSource;
+
+    [Tooltip("着弾時に流す効果音（AudioClip）")]
+    public AudioClip explosionSoundClip;
+
+    [Tooltip("効果音を何秒から流すか（開始時間）")]
+    public float soundStartTime = 0f;
+
+    [Tooltip("効果音を何秒まで再生するか（終了時間 ※0以下にすると最後まで再生します）")]
+    public float soundEndTime = 0f;
+
+    [Tooltip("効果音の音量（0.0 〜 1.0）")]
+    [Range(0f, 1f)]
+    public float soundVolume = 1.0f;
+
+    private static AudioClip trimmedExplosionClip;
+    private static AudioClip cachedSourceClip;
+    private static float cachedStartTime = -1f;
+    private static float cachedEndTime = -1f;
+
     void Awake()
     {
         // 生成された瞬間に「Wall」と「Player」のColliderを貫通（衝突無視）するように設定
         IgnoreWallAndPlayerCollisions();
+        SetupAudioSource();
+        RebuildTrimmedAudioClipIfNeeded();
     }
 
     void Start()
     {
         // 念のためStartでも再確認
         IgnoreWallAndPlayerCollisions();
+    }
+
+    private void SetupAudioSource()
+    {
+        if (explosionAudioSource == null)
+        {
+            explosionAudioSource = GetComponent<AudioSource>();
+            if (explosionAudioSource == null)
+            {
+                explosionAudioSource = gameObject.AddComponent<AudioSource>();
+            }
+        }
+
+        explosionAudioSource.playOnAwake = false;
+        explosionAudioSource.loop = false;
     }
 
     private void IgnoreWallAndPlayerCollisions()
@@ -94,6 +137,9 @@ public class RocketBullet : MonoBehaviour
             return;
         }
 
+        // ★追加：着弾時に爆発音を再生する（オブジェクトが破棄されても音が消えないよう PlayClipAtPoint を使用、または親なしの独立した再生）
+        PlayExplosionSound();
+
         // 1. 爆発エフェクトを生成する
         if (explosionEffectPrefab != null)
         {
@@ -111,24 +157,17 @@ public class RocketBullet : MonoBehaviour
             if (nearbyObject.CompareTag("Enemy"))
             {
                 // =========================================================
-                // 敵が物理的な衝撃で「上」にも吹き飛ばないようにする処理
+                // ★修正：爆風で敵が吹き飛ばないようにする処理（AddExplosionForceを削除し速度を固定）
                 // =========================================================
                 Rigidbody enemyRb = nearbyObject.GetComponent<Rigidbody>();
                 if (enemyRb != null)
                 {
-                    enemyRb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
-                    float currentVelocityY = enemyRb.velocity.y;
-                    if (currentVelocityY > 0f)
-                    {
-                        currentVelocityY = 0f;
-                    }
-
-                    enemyRb.velocity = new Vector3(enemyRb.velocity.x, currentVelocityY, enemyRb.velocity.z);
+                    enemyRb.velocity = Vector3.zero;
                     enemyRb.angularVelocity = Vector3.zero;
                 }
                 // =========================================================
 
-                // ★追加：与えた爆発ダメージをミッションの合計ダメージ数に加算する
+                // 与えた爆発ダメージをミッションの合計ダメージ数に加算する
                 MissionManager.AddDamage(totalExplosionDamage);
 
                 // 1. スライムかどうかチェック
@@ -158,10 +197,107 @@ public class RocketBullet : MonoBehaviour
                 {
                     cactus.TakeDamage(totalExplosionDamage);
                 }
+
+                // 5. ブルースライムかどうかチェック
+                BlueSlimeAI blueSlime = nearbyObject.GetComponent<BlueSlimeAI>();
+                if (blueSlime != null)
+                {
+                    blueSlime.TakeDamage(totalExplosionDamage);
+                }
             }
         }
 
         // 3. 爆発したので、このロケット弾自体は消滅する
         Destroy(gameObject);
+    }
+
+    private void PlayExplosionSound()
+    {
+        if (explosionSoundClip == null) return;
+
+        RebuildTrimmedAudioClipIfNeeded();
+
+        AudioClip clipToPlay = trimmedExplosionClip != null ? trimmedExplosionClip : explosionSoundClip;
+
+        // 弾が消滅（Destroy）しても音が途中で切れないよう、一時的なオーディオ用オブジェクトをその場に生成して鳴らす
+        GameObject tempAudioObj = new GameObject("TempExplosionAudio");
+        tempAudioObj.transform.position = transform.position;
+        AudioSource aSource = tempAudioObj.AddComponent<AudioSource>();
+        aSource.clip = clipToPlay;
+        aSource.volume = soundVolume;
+        aSource.spatialBlend = 0f; // 2Dまたは必要に応じて調整
+        aSource.Play();
+
+        Destroy(tempAudioObj, clipToPlay.length + 0.1f);
+    }
+
+    private void RebuildTrimmedAudioClipIfNeeded()
+    {
+        if (explosionSoundClip == null) return;
+
+        if (cachedSourceClip == explosionSoundClip &&
+            Mathf.Approximately(cachedStartTime, soundStartTime) &&
+            Mathf.Approximately(cachedEndTime, soundEndTime) &&
+            trimmedExplosionClip != null)
+        {
+            return;
+        }
+
+        cachedSourceClip = explosionSoundClip;
+        cachedStartTime = soundStartTime;
+        cachedEndTime = soundEndTime;
+
+        if (trimmedExplosionClip != null && trimmedExplosionClip != explosionSoundClip)
+        {
+            trimmedExplosionClip = null;
+        }
+
+        if (soundStartTime <= 0f && soundEndTime <= 0f)
+        {
+            trimmedExplosionClip = explosionSoundClip;
+            return;
+        }
+
+        if (explosionSoundClip.loadState == AudioDataLoadState.Unloaded)
+        {
+            explosionSoundClip.LoadAudioData();
+        }
+
+        int frequency = explosionSoundClip.frequency;
+        int channels = explosionSoundClip.channels;
+        int totalSamples = explosionSoundClip.samples;
+
+        int startSample = Mathf.Clamp(Mathf.RoundToInt(soundStartTime * frequency), 0, Mathf.Max(0, totalSamples - 1));
+        int endSample = totalSamples;
+
+        if (soundEndTime > 0f && soundEndTime * frequency > startSample)
+        {
+            endSample = Mathf.Clamp(Mathf.RoundToInt(soundEndTime * frequency), startSample + 1, totalSamples);
+        }
+
+        int sampleLength = endSample - startSample;
+        if (sampleLength <= 0) return;
+
+        float[] data = new float[sampleLength * channels];
+        if (!explosionSoundClip.GetData(data, startSample))
+        {
+            return;
+        }
+
+        int fadeFrames = Mathf.Min(sampleLength / 10, Mathf.Max(1, frequency * 3 / 1000));
+        for (int f = 0; f < fadeFrames; f++)
+        {
+            float t = (float)f / fadeFrames;
+            int headBase = f * channels;
+            int tailBase = (sampleLength - 1 - f) * channels;
+            for (int ch = 0; ch < channels; ch++)
+            {
+                data[headBase + ch] *= t;
+                data[tailBase + ch] *= t;
+            }
+        }
+
+        trimmedExplosionClip = AudioClip.Create(explosionSoundClip.name + "_TrimmedExplosion", sampleLength, channels, frequency, false);
+        trimmedExplosionClip.SetData(data, 0);
     }
 }

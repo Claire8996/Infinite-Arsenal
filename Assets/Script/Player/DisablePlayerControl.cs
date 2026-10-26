@@ -564,7 +564,7 @@ public class DisablePlayerControl : MonoBehaviour
         }
     }
 
-    // ★追加：ステップに設定されているエメラルドとコインを付与してセーブする処理
+    // ★修正：未保存時に1000が加算されないようデフォルト値を 0 に変更
     void GrantClearStepRewards(TutorialStep step)
     {
         if (step == null) return;
@@ -574,7 +574,7 @@ public class DisablePlayerControl : MonoBehaviour
         if (step.rewardEmeralds > 0)
         {
             EmeraldDisplay emeraldDisplay = FindObjectOfType<EmeraldDisplay>();
-            int defaultEmeralds = (emeraldDisplay != null) ? emeraldDisplay.defaultEmeralds : 1000;
+            int defaultEmeralds = (emeraldDisplay != null) ? emeraldDisplay.defaultEmeralds : 0;
             int currentEmeralds = PlayerPrefs.GetInt("PlayerEmeralds", defaultEmeralds);
             int newEmeralds = currentEmeralds + step.rewardEmeralds;
             PlayerPrefs.SetInt("PlayerEmeralds", newEmeralds);
@@ -589,7 +589,7 @@ public class DisablePlayerControl : MonoBehaviour
         if (step.rewardCoins > 0)
         {
             CoinDisplay coinDisplay = FindObjectOfType<CoinDisplay>();
-            int defaultCoins = (coinDisplay != null) ? coinDisplay.defaultCoins : 1000;
+            int defaultCoins = (coinDisplay != null) ? coinDisplay.defaultCoins : 0;
             int currentCoins = PlayerPrefs.GetInt("PlayerCoins", defaultCoins);
             int newCoins = currentCoins + step.rewardCoins;
             PlayerPrefs.SetInt("PlayerCoins", newCoins);

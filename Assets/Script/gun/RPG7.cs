@@ -1,32 +1,59 @@
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class RPG7 : MonoBehaviour
 {
-    [Header("e‚Ìİ’è")]
-    [Tooltip("”­Ë‚·‚é’eŠÛiƒƒPƒbƒg’ej‚ÌƒvƒŒƒnƒu")]
+    [Header("éŠƒã®è¨­å®š")]
+    [Tooltip("ç™ºå°„ã™ã‚‹å¼¾ä¸¸ï¼ˆãƒ­ã‚±ãƒƒãƒˆå¼¾ï¼‰ã®ãƒ—ãƒ¬ãƒãƒ–")]
     public GameObject bulletPrefab;
 
-    [Tooltip("’eŠÛ‚Æ‰Œ‚ªo‚éˆÊ’uieŒûj")]
+    [Tooltip("å¼¾ä¸¸ã¨ç…™ãŒå‡ºã‚‹ä½ç½®ï¼ˆéŠƒå£ï¼‰")]
     public Transform muzzlePoint;
 
-    [Tooltip("’e‚Ì”ò‚Ô‘¬“x")]
-    public float bulletSpeed = 35f; // šƒƒPƒbƒg’e‚Í‰‘¬‚ª­‚µ’x‚ßiƒVƒ…[ƒb‚Æ”ò‚ñ‚Å‚¢‚­Š´‚¶j
+    [Tooltip("å¼¾ã®é£›ã¶é€Ÿåº¦")]
+    public float bulletSpeed = 35f; // â˜…ãƒ­ã‚±ãƒƒãƒˆå¼¾ã¯åˆé€ŸãŒå°‘ã—é…ã‚ï¼ˆã‚·ãƒ¥ãƒ¼ãƒƒã¨é£›ã‚“ã§ã„ãæ„Ÿã˜ï¼‰
 
-    [Tooltip("Ÿ‚Ì’e‚ªŒ‚‚Ä‚é‚æ‚¤‚É‚È‚é‚Ü‚Å‚ÌŠÔi•bj")]
-    public float fireRate = 2.5f; // šƒƒPƒ‰ƒ“‚È‚Ì‚ÅƒŠƒ[ƒh‚ÉŠÔ‚ª‚©‚©‚éi˜AË•s‰Âjİ’è
+    [Tooltip("æ¬¡ã®å¼¾ãŒæ’ƒã¦ã‚‹ã‚ˆã†ã«ãªã‚‹ã¾ã§ã®æ™‚é–“ï¼ˆç§’ï¼‰")]
+    public float fireRate = 2.5f; // â˜…ãƒ­ã‚±ãƒ©ãƒ³ãªã®ã§ãƒªãƒ­ãƒ¼ãƒ‰ã«æ™‚é–“ãŒã‹ã‹ã‚‹ï¼ˆé€£å°„ä¸å¯ï¼‰è¨­å®š
 
-    [Tooltip("’e‚ÌƒuƒŒi”’l‚ğ‘å‚«‚­‚·‚é‚Ù‚Ç’…’e“_‚ªƒoƒ‰‚¯‚éj")]
-    public float spreadAmount = 0.02f; // šƒuƒŒ‚Í‚Ù‚Ú–³‚µ
+    [Tooltip("å¼¾ã®ãƒ–ãƒ¬ï¼ˆæ•°å€¤ã‚’å¤§ããã™ã‚‹ã»ã©ç€å¼¾ç‚¹ãŒãƒãƒ©ã‘ã‚‹ï¼‰")]
+    public float spreadAmount = 0.02f; // â˜…ãƒ–ãƒ¬ã¯ã»ã¼ç„¡ã—
 
-    [Header("ƒGƒtƒFƒNƒgİ’è")]
-    [Tooltip("”­–C‚Éo‚·‰Œ‚Ìƒp[ƒeƒBƒNƒ‹iƒoƒbƒNƒuƒ‰ƒXƒg“™‚Ì‰Œj")]
+    [Header("ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè¨­å®š")]
+    [Tooltip("ç™ºç ²æ™‚ã«å‡ºã™ç…™ã®ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ï¼ˆãƒãƒƒã‚¯ãƒ–ãƒ©ã‚¹ãƒˆç­‰ã®ç…™ï¼‰")]
     public ParticleSystem smokeParticle;
 
-    [Header("UIİ’è")]
-    [Tooltip("‚±‚ÌRPG7ê—p‚ÌƒŒƒeƒBƒNƒ‹iÆ€jUI")]
+    [Header("UIè¨­å®š")]
+    [Tooltip("ã“ã®RPG7å°‚ç”¨ã®ãƒ¬ãƒ†ã‚£ã‚¯ãƒ«ï¼ˆç…§æº–ï¼‰UI")]
     public GameObject reticleUI;
 
+    // ==========================================
+    // â˜…è¿½åŠ ï¼šç™ºç ²æ™‚ã®åŠ¹æœéŸ³ï¼ˆé–‹å§‹ç§’æ•°ãƒ»çµ‚äº†ç§’æ•°æŒ‡å®šï¼‰è¨­å®š
+    // ==========================================
+    [Header("åŠ¹æœéŸ³ï¼ˆéŠƒå£°ï¼‰è¨­å®š")]
+    [Tooltip("éŠƒå£°ã‚’å†ç”Ÿã™ã‚‹AudioSourceï¼ˆPrefabè‡ªèº«ã«Add Componentã—ãŸã‚‚ã®ã‚’ã‚»ãƒƒãƒˆã—ã¦ãã ã•ã„ï¼‰")]
+    public AudioSource gunAudioSource;
+
+    [Tooltip("ç™ºç ²æ™‚ã«æµã™åŠ¹æœéŸ³ï¼ˆAudioClipï¼‰")]
+    public AudioClip shootSoundClip;
+
+    [Tooltip("åŠ¹æœéŸ³ã‚’ä½•ç§’ã‹ã‚‰æµã™ã‹ï¼ˆé–‹å§‹æ™‚é–“ï¼‰")]
+    public float soundStartTime = 0f;
+
+    [Tooltip("åŠ¹æœéŸ³ã‚’ä½•ç§’ã¾ã§å†ç”Ÿã™ã‚‹ã‹ï¼ˆçµ‚äº†æ™‚é–“ â€»0ä»¥ä¸‹ã«ã™ã‚‹ã¨æœ€å¾Œã¾ã§å†ç”Ÿã—ã¾ã™ï¼‰")]
+    public float soundEndTime = 0f;
+
+    [Tooltip("åŠ¹æœéŸ³ã®éŸ³é‡ï¼ˆ0.0 ã€œ 1.0ï¼‰")]
+    [Range(0f, 1f)]
+    public float soundVolume = 1.0f;
+
     private float nextFireTime = 0f;
+
+    private AudioClip trimmedShootClip;
+    private AudioClip cachedSourceClip;
+    private float cachedStartTime = -1f;
+    private float cachedEndTime = -1f;
+    private Coroutine stopSoundCoroutine;
 
     void Awake()
     {
@@ -34,6 +61,24 @@ public class RPG7 : MonoBehaviour
         {
             reticleUI = GameObject.Find("RPG7Reticle");
         }
+
+        SetupAudioSource();
+        RebuildTrimmedAudioClipIfNeeded();
+    }
+
+    private void SetupAudioSource()
+    {
+        if (gunAudioSource == null)
+        {
+            gunAudioSource = GetComponent<AudioSource>();
+            if (gunAudioSource == null)
+            {
+                gunAudioSource = gameObject.AddComponent<AudioSource>();
+            }
+        }
+
+        gunAudioSource.playOnAwake = false;
+        gunAudioSource.loop = false;
     }
 
     void OnEnable()
@@ -50,7 +95,7 @@ public class RPG7 : MonoBehaviour
     {
         if (DisablePlayerControl.IsEventActive) return;
 
-        // ƒƒPƒ‰ƒ“‚Í1”­‚¸‚ÂŒ‚‚Â‚Ì‚ÅAGetButtonDowni‰Ÿ‚µ‚½uŠÔj‚É‚·‚é‚Ì‚ª‚¨‚·‚·‚ß‚Å‚·
+        // ãƒ­ã‚±ãƒ©ãƒ³ã¯1ç™ºãšã¤æ’ƒã¤ã®ã§ã€GetButtonDownï¼ˆæŠ¼ã—ãŸç¬é–“ï¼‰ã«ã™ã‚‹ã®ãŒãŠã™ã™ã‚ã§ã™
         if (Input.GetButtonDown("Fire1") && Time.time >= nextFireTime)
         {
             Shoot();
@@ -60,6 +105,9 @@ public class RPG7 : MonoBehaviour
     void Shoot()
     {
         nextFireTime = Time.time + fireRate;
+
+        // â˜…è¿½åŠ ï¼šç™ºç ²æ™‚ã®åŠ¹æœéŸ³ã‚’å†ç”Ÿ
+        PlayShootSound();
 
         if (bulletPrefab != null && muzzlePoint != null)
         {
@@ -87,12 +135,12 @@ public class RPG7 : MonoBehaviour
             {
                 rb = bullet.AddComponent<Rigidbody>();
             }
-            // š’Ç‰ÁFƒƒPƒbƒg’e‚Í‚Ü‚Á‚·‚®”ò‚Ô‚Ì‚ÅAd—Í‚Å—‚¿‚È‚¢‚æ‚¤‚É‚·‚é
+            // â˜…è¿½åŠ ï¼šãƒ­ã‚±ãƒƒãƒˆå¼¾ã¯ã¾ã£ã™ãé£›ã¶ã®ã§ã€é‡åŠ›ã§è½ã¡ãªã„ã‚ˆã†ã«ã™ã‚‹
             rb.useGravity = false;
 
             rb.velocity = shootDirection * bulletSpeed;
 
-            // ‰½‚©‚É‚Ô‚Â‚©‚é‚Ü‚Å’·‚ß‚Éc‚·
+            // ä½•ã‹ã«ã¶ã¤ã‹ã‚‹ã¾ã§é•·ã‚ã«æ®‹ã™
             Destroy(bullet, 5f);
         }
 
@@ -100,6 +148,130 @@ public class RPG7 : MonoBehaviour
         {
             smokeParticle.Stop();
             smokeParticle.Play();
+        }
+    }
+
+    private void PlayShootSound()
+    {
+        if (gunAudioSource == null) SetupAudioSource();
+
+        if (shootSoundClip == null && gunAudioSource.clip != null && gunAudioSource.clip != trimmedShootClip)
+        {
+            shootSoundClip = gunAudioSource.clip;
+        }
+
+        if (shootSoundClip == null) return;
+
+        RebuildTrimmedAudioClipIfNeeded();
+
+        if (trimmedShootClip != null)
+        {
+            gunAudioSource.PlayOneShot(trimmedShootClip, soundVolume);
+        }
+        else
+        {
+            gunAudioSource.clip = shootSoundClip;
+            gunAudioSource.volume = soundVolume;
+
+            float clipLen = shootSoundClip.length;
+            float safeStart = Mathf.Clamp(soundStartTime, 0f, Mathf.Max(0f, clipLen - 0.01f));
+            gunAudioSource.time = safeStart;
+            gunAudioSource.Play();
+
+            if (soundEndTime > safeStart)
+            {
+                float playDuration = Mathf.Min(soundEndTime, clipLen) - safeStart;
+                if (stopSoundCoroutine != null) StopCoroutine(stopSoundCoroutine);
+                stopSoundCoroutine = StartCoroutine(StopAudioAfterDelay(playDuration));
+            }
+        }
+    }
+
+    private IEnumerator StopAudioAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (gunAudioSource != null && gunAudioSource.isPlaying)
+        {
+            gunAudioSource.Stop();
+        }
+    }
+
+    private void RebuildTrimmedAudioClipIfNeeded()
+    {
+        if (shootSoundClip == null) return;
+
+        if (cachedSourceClip == shootSoundClip &&
+            Mathf.Approximately(cachedStartTime, soundStartTime) &&
+            Mathf.Approximately(cachedEndTime, soundEndTime) &&
+            trimmedShootClip != null)
+        {
+            return;
+        }
+
+        cachedSourceClip = shootSoundClip;
+        cachedStartTime = soundStartTime;
+        cachedEndTime = soundEndTime;
+
+        if (trimmedShootClip != null && trimmedShootClip != shootSoundClip)
+        {
+            Destroy(trimmedShootClip);
+            trimmedShootClip = null;
+        }
+
+        if (soundStartTime <= 0f && soundEndTime <= 0f)
+        {
+            trimmedShootClip = shootSoundClip;
+            return;
+        }
+
+        if (shootSoundClip.loadState == AudioDataLoadState.Unloaded)
+        {
+            shootSoundClip.LoadAudioData();
+        }
+
+        int frequency = shootSoundClip.frequency;
+        int channels = shootSoundClip.channels;
+        int totalSamples = shootSoundClip.samples;
+
+        int startSample = Mathf.Clamp(Mathf.RoundToInt(soundStartTime * frequency), 0, Mathf.Max(0, totalSamples - 1));
+        int endSample = totalSamples;
+
+        if (soundEndTime > 0f && soundEndTime * frequency > startSample)
+        {
+            endSample = Mathf.Clamp(Mathf.RoundToInt(soundEndTime * frequency), startSample + 1, totalSamples);
+        }
+
+        int sampleLength = endSample - startSample;
+        if (sampleLength <= 0) return;
+
+        float[] data = new float[sampleLength * channels];
+        if (!shootSoundClip.GetData(data, startSample))
+        {
+            return;
+        }
+
+        int fadeFrames = Mathf.Min(sampleLength / 10, Mathf.Max(1, frequency * 3 / 1000));
+        for (int f = 0; f < fadeFrames; f++)
+        {
+            float t = (float)f / fadeFrames;
+            int headBase = f * channels;
+            int tailBase = (sampleLength - 1 - f) * channels;
+            for (int ch = 0; ch < channels; ch++)
+            {
+                data[headBase + ch] *= t;
+                data[tailBase + ch] *= t;
+            }
+        }
+
+        trimmedShootClip = AudioClip.Create(shootSoundClip.name + "_TrimmedShot", sampleLength, channels, frequency, false);
+        trimmedShootClip.SetData(data, 0);
+    }
+
+    void OnDestroy()
+    {
+        if (trimmedShootClip != null && trimmedShootClip != shootSoundClip)
+        {
+            Destroy(trimmedShootClip);
         }
     }
 }

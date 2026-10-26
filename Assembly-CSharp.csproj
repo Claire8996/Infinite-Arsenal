@@ -82,6 +82,7 @@
     <Compile Include="Assets\Script\gacha\GachaSystem.cs" />
     <Compile Include="Assets\Script\gacha\ArmorItemLinker.cs" />
     <Compile Include="Assets\Script\Mission\MissionItemUI.cs" />
+    <Compile Include="Assets\Script\Enemy\BlueSlimeAI.cs" />
     <Compile Include="Assets\Script\Enemy\Billboard.cs" />
     <Compile Include="Assets\Script\gun\WeaponInventoryManager.cs" />
     <Compile Include="Assets\Script\gacha\UIFloatingEffect.cs" />
@@ -92,9 +93,12 @@
     <Compile Include="Assets\Script\gun\RPG7.cs" />
     <Compile Include="Assets\Script\Title\TitleManager.cs" />
     <Compile Include="Assets\Synty\SidekickCharacters\_Demos\Scripts\RuntimeColorDemo.cs" />
+    <Compile Include="Assets\Script\gacha\CoinDisplay.cs" />
     <Compile Include="Assets\Script\gun\StageWeaponDisplay.cs" />
     <Compile Include="Assets\Script\Enemy\MushroomAI.cs" />
+    <Compile Include="Assets\Script\UI\UIBounce.cs" />
     <Compile Include="Assets\Script\gacha\EmeraldDisplay.cs" />
+    <Compile Include="Assets\Script\Player\TutorialManager.cs" />
     <Compile Include="Assets\Script\Player\StageSelectCarousel.cs" />
     <Compile Include="Assets\Script\gun\TutorialWeaponEquipper.cs" />
     <Compile Include="Assets\Script\Player\EnergyManager.cs" />
@@ -107,6 +111,7 @@
     <Compile Include="Assets\Script\Mission\MissionManager.cs" />
     <Compile Include="Assets\Script\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Script\Enemy\SkeletonArcherAI.cs" />
+    <Compile Include="Assets\Script\Audio\BGMPlayer.cs" />
     <Compile Include="Assets\Script\Player\SceneTransitionManager.cs" />
     <Compile Include="Assets\Script\gun\EquippedWeaponDisplay.cs" />
     <Compile Include="Assets\Script\Player\PlayerHealth.cs" />
@@ -135,6 +140,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\RPGMonsterCouplePBRPolyart\HowToTestHDRP_BuiltIN.txt" />
     <None Include="Assets\Stylized3DMonster\ProjectMini\ShaderMaster\MonsterCelShaderOption.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />

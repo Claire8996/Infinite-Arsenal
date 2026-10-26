@@ -662,6 +662,9 @@ public class GachaSystem : MonoBehaviour
             yield return new WaitForSeconds(spawnInterval);
         }
 
+        // ★追加：チュートリアル確定ガチャのフラグをリセット
+        TutorialManager.ForceTutorialGacha = false;
+
         yield return new WaitForSeconds(rollTime + flyTime);
 
         if (backgroundFadeImage != null)
@@ -775,11 +778,43 @@ public class GachaSystem : MonoBehaviour
 
     private IEnumerator AnimateSingleCapsule(int index, RectTransform[] targetPositionsArray, int totalPulls)
     {
-        GameObject selectedPrefab = DrawGacha();
+        GameObject selectedPrefab = null;
+        GameObject forcedReward = null;
+
+        // ★追加：チュートリアル確定ガチャが指定されている場合は、指定されたカプセルと中身を使用する
+        if (TutorialManager.ForceTutorialGacha)
+        {
+            if (TutorialManager.ForcedCapsulePrefabs != null && index < TutorialManager.ForcedCapsulePrefabs.Count)
+            {
+                selectedPrefab = TutorialManager.ForcedCapsulePrefabs[index];
+            }
+            if (TutorialManager.ForcedRewardPrefabs != null && index < TutorialManager.ForcedRewardPrefabs.Count)
+            {
+                forcedReward = TutorialManager.ForcedRewardPrefabs[index];
+            }
+        }
+
+        if (selectedPrefab == null)
+        {
+            selectedPrefab = DrawGacha();
+        }
         if (selectedPrefab == null) yield break;
 
-        // もし capsulePrefab 自体が直接武器・防具Prefabとして登録されている場合はその場で追加する
-        if (IsRegisteredInventoryPrefab(selectedPrefab, out bool isDirectArmor))
+        if (forcedReward != null)
+        {
+            if (IsRegisteredInventoryPrefab(forcedReward, out bool isForcedArmor))
+            {
+                if (isForcedArmor) CapsuleOpener.gachaResultArmors.Add(forcedReward);
+                else WeaponDataKeeper.gachaResultWeapons.Add(forcedReward);
+            }
+            else
+            {
+                if (isArmorGacha) CapsuleOpener.gachaResultArmors.Add(forcedReward);
+                else WeaponDataKeeper.gachaResultWeapons.Add(forcedReward);
+            }
+            SaveInventoryImmediately();
+        }
+        else if (IsRegisteredInventoryPrefab(selectedPrefab, out bool isDirectArmor))
         {
             if (isDirectArmor)
             {
@@ -793,6 +828,13 @@ public class GachaSystem : MonoBehaviour
         }
 
         GameObject capsule = Instantiate(selectedPrefab, startPos.position, Quaternion.identity, initialCapsuleParent);
+
+        // ★追加：チュートリアルで中身のPrefabが指定されている場合、カプセル内のスクリプトにもそのPrefabをセットする
+        if (forcedReward != null)
+        {
+            OverrideCapsuleRewardInInstance(capsule, forcedReward);
+        }
+
         RectTransform capRect = capsule.GetComponent<RectTransform>();
 
         float elapsed = 0f;
@@ -848,6 +890,44 @@ public class GachaSystem : MonoBehaviour
                 capRect.localEulerAngles = Vector3.Lerp(capCurrentRot, capFlyRot, easeOutT);
             }
             yield return null;
+        }
+    }
+
+    // ★追加：カプセル開封時に表示・獲得される中身をチュートリアル指定のPrefabに固定する補助メソッド
+    private void OverrideCapsuleRewardInInstance(GameObject capsuleInstance, GameObject targetRewardPrefab)
+    {
+        if (capsuleInstance == null || targetRewardPrefab == null) return;
+
+        MonoBehaviour[] scripts = capsuleInstance.GetComponentsInChildren<MonoBehaviour>(true);
+        foreach (MonoBehaviour script in scripts)
+        {
+            if (script == null) continue;
+            System.Type type = script.GetType();
+            if (type == typeof(Button) || type == typeof(Image) || type == typeof(GachaSystem)) continue;
+
+            var fields = type.GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            foreach (var f in fields)
+            {
+                if (f.FieldType == typeof(GameObject))
+                {
+                    GameObject currentVal = f.GetValue(script) as GameObject;
+                    if (currentVal != null && IsRegisteredInventoryPrefab(currentVal, out _))
+                    {
+                        f.SetValue(script, targetRewardPrefab);
+                    }
+                }
+                else if (typeof(IList<GameObject>).IsAssignableFrom(f.FieldType))
+                {
+                    IList<GameObject> list = f.GetValue(script) as IList<GameObject>;
+                    if (list != null && list.Count > 0)
+                    {
+                        for (int i = 0; i < list.Count; i++)
+                        {
+                            list[i] = targetRewardPrefab;
+                        }
+                    }
+                }
+            }
         }
     }
 

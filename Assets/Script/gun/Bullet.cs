@@ -87,25 +87,19 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             // =========================================================
-            // 敵が物理的な衝撃で「上」にも吹き飛ばないようにする処理
+            // ★修正：敵が弾の衝撃で吹き飛ばないようにする処理
             // =========================================================
             Rigidbody enemyRb = collision.gameObject.GetComponent<Rigidbody>();
             if (enemyRb != null)
             {
-                float currentVelocityY = enemyRb.velocity.y;
-                if (currentVelocityY > 0f)
-                {
-                    currentVelocityY = 0f;
-                }
-
-                enemyRb.velocity = new Vector3(0f, currentVelocityY, 0f);
+                enemyRb.velocity = Vector3.zero;
                 enemyRb.angularVelocity = Vector3.zero;
             }
             // =========================================================
 
             int totalDamage = damage + ArmorStats.TotalAttackBonus;
 
-            // ★追加：与えたダメージをミッションの合計ダメージ数に加算する
+            // 与えたダメージをミッションの合計ダメージ数に加算する
             MissionManager.AddDamage(totalDamage);
 
             // 1. スライムかどうかチェック
@@ -134,6 +128,13 @@ public class Bullet : MonoBehaviour
             if (cactus != null)
             {
                 cactus.TakeDamage(totalDamage);
+            }
+
+            // 5. ブルースライムかどうかチェック
+            BlueSlimeAI blueSlime = collision.gameObject.GetComponent<BlueSlimeAI>();
+            if (blueSlime != null)
+            {
+                blueSlime.TakeDamage(totalDamage);
             }
 
             // 敵に当たった場合は弾を消滅させる
