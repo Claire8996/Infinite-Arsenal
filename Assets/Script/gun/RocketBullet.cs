@@ -18,7 +18,7 @@ public class RocketBullet : MonoBehaviour
     public int explosionDamage = 100;
 
     // ==========================================
-    // ★追加：着弾時の爆発音（開始秒数・終了秒数指定）設定
+    // 着弾時の爆発音（開始秒数・終了秒数指定）設定
     // ==========================================
     [Header("効果音（爆発音）設定")]
     [Tooltip("爆発音を再生するAudioSource（Prefab自身にAdd Componentしたものをセットしてください）")]
@@ -137,7 +137,7 @@ public class RocketBullet : MonoBehaviour
             return;
         }
 
-        // ★追加：着弾時に爆発音を再生する（オブジェクトが破棄されても音が消えないよう PlayClipAtPoint を使用、または親なしの独立した再生）
+        // 着弾時に爆発音を再生する
         PlayExplosionSound();
 
         // 1. 爆発エフェクトを生成する
@@ -153,56 +153,75 @@ public class RocketBullet : MonoBehaviour
 
         foreach (Collider nearbyObject in colliders)
         {
-            // ぶつかった相手が「Enemy」タグを持っていた場合
-            if (nearbyObject.CompareTag("Enemy"))
+            // ぶつかった相手が「Enemy」タグを持っていた場合、または各種敵AIコンポーネントを持っている場合
+            bool isEnemy = nearbyObject.CompareTag("Enemy") ||
+                           nearbyObject.GetComponentInParent<SlimeAI>() != null ||
+                           nearbyObject.GetComponentInParent<StarFishAI>() != null ||
+                           nearbyObject.GetComponentInParent<TurtleShellAI>() != null ||
+                           nearbyObject.GetComponentInParent<MushroomAI>() != null ||
+                           nearbyObject.GetComponentInParent<CactusAI>() != null ||
+                           nearbyObject.GetComponentInParent<BlueSlimeAI>() != null ||
+                           nearbyObject.GetComponentInParent<SheepAI>() != null;
+
+            if (isEnemy)
             {
-                // =========================================================
-                // ★修正：爆風で敵が吹き飛ばないようにする処理（AddExplosionForceを削除し速度を固定）
-                // =========================================================
-                Rigidbody enemyRb = nearbyObject.GetComponent<Rigidbody>();
-                if (enemyRb != null)
+                Rigidbody enemyRb = nearbyObject.GetComponentInParent<Rigidbody>();
+                if (enemyRb != null && !enemyRb.isKinematic)
                 {
                     enemyRb.velocity = Vector3.zero;
                     enemyRb.angularVelocity = Vector3.zero;
                 }
-                // =========================================================
 
                 // 与えた爆発ダメージをミッションの合計ダメージ数に加算する
                 MissionManager.AddDamage(totalExplosionDamage);
 
                 // 1. スライムかどうかチェック
-                SlimeAI slime = nearbyObject.GetComponent<SlimeAI>();
+                SlimeAI slime = nearbyObject.GetComponentInParent<SlimeAI>();
                 if (slime != null)
                 {
                     slime.TakeDamage(totalExplosionDamage);
                 }
 
-                // 2. タートルシェルかどうかチェック
-                TurtleShellAI turtle = nearbyObject.GetComponent<TurtleShellAI>();
+                // 2. スターフィッシュかどうかチェック
+                StarFishAI starfish = nearbyObject.GetComponentInParent<StarFishAI>();
+                if (starfish != null)
+                {
+                    starfish.TakeDamage(totalExplosionDamage);
+                }
+
+                // 3. タートルシェルかどうかチェック
+                TurtleShellAI turtle = nearbyObject.GetComponentInParent<TurtleShellAI>();
                 if (turtle != null)
                 {
                     turtle.TakeDamage(totalExplosionDamage);
                 }
 
-                // 3. マッシュルームかどうかチェック
-                MushroomAI mushroom = nearbyObject.GetComponent<MushroomAI>();
+                // 4. マッシュルームかどうかチェック
+                MushroomAI mushroom = nearbyObject.GetComponentInParent<MushroomAI>();
                 if (mushroom != null)
                 {
                     mushroom.TakeDamage(totalExplosionDamage);
                 }
 
-                // 4. サボテンかどうかチェック
-                CactusAI cactus = nearbyObject.GetComponent<CactusAI>();
+                // 5. サボテンかどうかチェック
+                CactusAI cactus = nearbyObject.GetComponentInParent<CactusAI>();
                 if (cactus != null)
                 {
                     cactus.TakeDamage(totalExplosionDamage);
                 }
 
-                // 5. ブルースライムかどうかチェック
-                BlueSlimeAI blueSlime = nearbyObject.GetComponent<BlueSlimeAI>();
+                // 6. ブルースライムかどうかチェック
+                BlueSlimeAI blueSlime = nearbyObject.GetComponentInParent<BlueSlimeAI>();
                 if (blueSlime != null)
                 {
                     blueSlime.TakeDamage(totalExplosionDamage);
+                }
+
+                // 7. シープ（SheepAI）かどうかチェック
+                SheepAI sheep = nearbyObject.GetComponentInParent<SheepAI>();
+                if (sheep != null)
+                {
+                    sheep.TakeDamage(totalExplosionDamage);
                 }
             }
         }
@@ -219,13 +238,12 @@ public class RocketBullet : MonoBehaviour
 
         AudioClip clipToPlay = trimmedExplosionClip != null ? trimmedExplosionClip : explosionSoundClip;
 
-        // 弾が消滅（Destroy）しても音が途中で切れないよう、一時的なオーディオ用オブジェクトをその場に生成して鳴らす
         GameObject tempAudioObj = new GameObject("TempExplosionAudio");
         tempAudioObj.transform.position = transform.position;
         AudioSource aSource = tempAudioObj.AddComponent<AudioSource>();
         aSource.clip = clipToPlay;
         aSource.volume = soundVolume;
-        aSource.spatialBlend = 0f; // 2Dまたは必要に応じて調整
+        aSource.spatialBlend = 0f;
         aSource.Play();
 
         Destroy(tempAudioObj, clipToPlay.length + 0.1f);

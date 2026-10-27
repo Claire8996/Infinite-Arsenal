@@ -5,6 +5,22 @@ using TMPro; // もしTextMeshProを使っている場合はこれが必要で�
 
 public class EmeraldDisplay : MonoBehaviour
 {
+    // ==========================================
+    // ★追加：別シーンの EmeraldLinkedText と数値を紐づけるための共有データ・メソッド
+    // ==========================================
+    public const string EMERALD_SAVE_KEY = "PlayerEmeralds";
+    private static int cachedDefaultEmeralds = 1000;
+    private static bool hasInitializedDefault = false;
+
+    /// <summary>
+    /// 別シーンのスクリプトから現在のエメラルド数を安全に取得するための連動メソッド
+    /// </summary>
+    public static int GetCurrentEmeralds(int fallbackDefault = 1000)
+    {
+        int defVal = hasInitializedDefault ? cachedDefaultEmeralds : fallbackDefault;
+        return PlayerPrefs.GetInt(EMERALD_SAVE_KEY, defVal);
+    }
+
     [Header("【エメラルドの数を表示するテキスト】")]
     [Tooltip("標準のTextコンポーネント用")]
     public Text normalText;
@@ -13,7 +29,7 @@ public class EmeraldDisplay : MonoBehaviour
     public TextMeshProUGUI tmpText;
 
     // ==========================================
-    // ★追加：リアルタイムで同じ数値に増える別のテキスト（＆UIが飛んでいく目標先）
+    // リアルタイムで同じ数値に増える別のテキスト（＆UIが飛んでいく目標先）
     // ==========================================
     [Header("【新しく追加するエメラルド表示テキスト（2つ目）】")]
     [Tooltip("新しく追加する標準のTextコンポーネント用")]
@@ -37,7 +53,7 @@ public class EmeraldDisplay : MonoBehaviour
     public string prefix = "";
     public string suffix = "";
 
-    // 💡 万が一セーブデータがまだ無い時のために、GachaSystemで設定した初期値をここにも入れておく
+    // 万が一セーブデータがまだ無い時のために、GachaSystemで設定した初期値をここにも入れておく
     [Header("セーブデータが無い場合の初期値")]
     public int defaultEmeralds = 1000;
 
@@ -46,13 +62,20 @@ public class EmeraldDisplay : MonoBehaviour
     private int currentDisplayedValue = 0;
     private Coroutine effectCoroutine;
 
+    void Awake()
+    {
+        // 初期値を別シーンにも共有できるよう記録
+        cachedDefaultEmeralds = defaultEmeralds;
+        hasInitializedDefault = true;
+    }
+
     void Start()
     {
-        currentDisplayedValue = PlayerPrefs.GetInt("PlayerEmeralds", defaultEmeralds);
+        currentDisplayedValue = PlayerPrefs.GetInt(EMERALD_SAVE_KEY, defaultEmeralds);
         UpdateEmeraldDisplay();
     }
 
-    // 💡 （任意）もしこのシーンを開いたままエメラルドが増減することがある場合は、
+    // もしこのシーンを開いたままエメラルドが増減することがある場合は、
     // Updateで常に監視するか、このメソッドを外部から呼び出してください。
     void Update()
     {
@@ -69,7 +92,7 @@ public class EmeraldDisplay : MonoBehaviour
         if (isCountingUp) return;
 
         // GachaSystemで保存している「PlayerEmeralds」のセーブデータを読み込む
-        int currentEmeralds = PlayerPrefs.GetInt("PlayerEmeralds", defaultEmeralds);
+        int currentEmeralds = PlayerPrefs.GetInt(EMERALD_SAVE_KEY, defaultEmeralds);
         currentDisplayedValue = currentEmeralds;
 
         SetAllTextsValue(currentEmeralds);
@@ -91,7 +114,7 @@ public class EmeraldDisplay : MonoBehaviour
             tmpText.text = displayText;
         }
 
-        // 2. ★追加：新しく追加した別のエメラルドテキスト（同じ数値をリアルタイム表示）
+        // 2. 新しく追加した別のエメラルドテキスト（同じ数値をリアルタイム表示）
         if (secondNormalText != null)
         {
             secondNormalText.text = displayText;
@@ -104,7 +127,7 @@ public class EmeraldDisplay : MonoBehaviour
     }
 
     // ==========================================
-    // ★追加：ミッション完了ボタンを押した時に呼ばれる演出メソッド
+    // ミッション完了ボタンを押した時に呼ばれる演出メソッド
     // （Prefab内のUIを新しいテキストに向けて飛ばし、1秒かけて数値を増やす）
     // ==========================================
     public void PlayMissionEmeraldAcquireEffect(int startEmeralds, int targetEmeralds, GameObject flyingUISource)
@@ -198,7 +221,7 @@ public class EmeraldDisplay : MonoBehaviour
         }
 
         // 最終的な数値を確実にセットして通常監視モードへ戻す
-        int finalEmeralds = PlayerPrefs.GetInt("PlayerEmeralds", targetEmeralds);
+        int finalEmeralds = PlayerPrefs.GetInt(EMERALD_SAVE_KEY, targetEmeralds);
         currentDisplayedValue = finalEmeralds;
         SetAllTextsValue(finalEmeralds);
 

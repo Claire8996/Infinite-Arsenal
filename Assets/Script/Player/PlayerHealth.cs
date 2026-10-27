@@ -38,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
     public TextMeshProUGUI speedValueText;
 
     // =========================================================
-    // ★追加：ゲームオーバー時のメニューオブジェクトおよびボタン設定
+    // ゲームオーバー時のメニューオブジェクトおよびボタン設定
     // =========================================================
     [Header("【ゲームオーバーメニュー設定】")]
     [Tooltip("ゲームオーバーの文字が表示された時に表示する複数のオブジェクト")]
@@ -77,7 +77,7 @@ public class PlayerHealth : MonoBehaviour
         // 最初のUI表示を更新する
         UpdateUI();
 
-        // ★追加：ゲームオーバー用ボタンのリスナー登録とオブジェクトの初期非表示化
+        // ゲームオーバー用ボタンのリスナー登録とオブジェクトの初期非表示化
         if (homeButton != null)
         {
             homeButton.onClick.AddListener(OnClickHome);
@@ -96,14 +96,14 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    // ★追加：ホーム画面へ戻るボタンが押された時の処理
+    // ホーム画面へ戻るボタンが押された時の処理
     public void OnClickHome()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("HomeScene");
     }
 
-    // ★追加：ステージをリスタートするボタンが押された時の処理
+    // ステージをリスタートするボタンが押された時の処理
     public void OnClickRestart()
     {
         Time.timeScale = 1f;
@@ -114,7 +114,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isDead) return;
 
-        // ★追加：TutorialSceneでは敵に攻撃されても体力が減らないようにする
+        // TutorialSceneでは敵に攻撃されても体力が減らないようにする
         string currentSceneName = SceneManager.GetActiveScene().name;
         if (currentSceneName.IndexOf("Tutorial", System.StringComparison.OrdinalIgnoreCase) >= 0)
         {
@@ -191,6 +191,18 @@ public class PlayerHealth : MonoBehaviour
 
         MouseLook lookScript = GetComponentInChildren<MouseLook>();
         if (lookScript != null) lookScript.enabled = false;
+
+        // =========================================================
+        // ★追加：ゲームオーバーになったらすべての銃器スクリプトを無効化して撃てなくする
+        // =========================================================
+        AK47 ak = GetComponentInChildren<AK47>(true); if (ak != null) ak.enabled = false;
+        Shotgun shotgun = GetComponentInChildren<Shotgun>(true); if (shotgun != null) shotgun.enabled = false;
+        LMG lmg = GetComponentInChildren<LMG>(true); if (lmg != null) lmg.enabled = false;
+        M4 m4 = GetComponentInChildren<M4>(true); if (m4 != null) m4.enabled = false;
+        M107 m107 = GetComponentInChildren<M107>(true); if (m107 != null) m107.enabled = false;
+        M249 m249 = GetComponentInChildren<M249>(true); if (m249 != null) m249.enabled = false;
+        Pistol pistol = GetComponentInChildren<Pistol>(true); if (pistol != null) pistol.enabled = false;
+        RPG7 rpg7 = GetComponentInChildren<RPG7>(true); if (rpg7 != null) rpg7.enabled = false;
 
         StartCoroutine(PlayUltimateGameOverEffect());
     }
@@ -485,7 +497,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
         // ---------------------------------------------------------
-        // 6. ★追加：ゲームオーバー文字表示＆演出完了後に複数のオブジェクトを表示し、カーソルを有効化
+        // 6. ゲームオーバー文字表示＆演出完了後に複数のオブジェクトを表示し、カーソルを有効化
         // ---------------------------------------------------------
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

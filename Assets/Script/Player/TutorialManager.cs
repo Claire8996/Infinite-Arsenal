@@ -97,6 +97,14 @@ public class TutorialManager : MonoBehaviour
     public static List<GameObject> ForcedCapsulePrefabs = new List<GameObject>();
     public static List<GameObject> ForcedRewardPrefabs = new List<GameObject>();
 
+    // ★追加：チュートリアル中のシーン移動で未初期化のEnergyManagerがエネルギーを0に上書きしてしまうのを防ぐ保護用変数
+    private static int protectedEnergyValue = -1;
+    private static float protectedTimerValue = -1f;
+    private static string protectedLastTimeValue = "";
+    private const string ENERGY_KEY = "SavedEnergy";
+    private const string TIMER_KEY = "SavedTimer";
+    private const string LAST_TIME_KEY = "LastSavedTime";
+
     [Header("【デバッグ・テスト用設定】")]
     [Tooltip("TutorialSceneを通らずに今のシーンから直接チュートリアルをテストしたい場合はチェックを入れてください")]
     public bool debugStartFromThisScene = false;
@@ -306,6 +314,9 @@ public class TutorialManager : MonoBehaviour
 
     void Awake()
     {
+        // ★追加：EnergyManager.Start() が呼ばれるよりも前の Awake の段階で、壊されたエネルギーセーブデータを保護・復元する
+        RestoreOrBackupEnergyInAwake();
+
         string sceneName = SceneManager.GetActiveScene().name;
 
         if (sceneName.IndexOf("Tutorial", System.StringComparison.OrdinalIgnoreCase) >= 0)
@@ -342,7 +353,99 @@ public class TutorialManager : MonoBehaviour
         }
 
         InitializeHideStatesForCurrentPhase();
+
+        // ★追加：非表示にされたUI内にEnergyManagerがある場合でも、未初期化(0)のままOnDestroyで保存されないよう初期値を同期する
+        SyncAllEnergyManagersInScene();
+
         StartCoroutine(RunTutorialForCurrentScene());
+    }
+
+    // ==========================================
+    // ★追加：未初期化のEnergyManagerによるエネルギー消失（0上書き→1になる現象）を防ぐ保護メソッド群
+    // ==========================================
+    private void RestoreOrBackupEnergyInAwake()
+    {
+        if (PlayerPrefs.HasKey(ENERGY_KEY))
+        {
+            int currentSaved = PlayerPrefs.GetInt(ENERGY_KEY, 50);
+
+            // 直前のシーンの未初期化EnergyManager.OnDestroy()によって0や1に破壊されていた場合、保護していた値に戻す
+            if (currentSaved <= 1 && protectedEnergyValue > 1)
+            {
+                PlayerPrefs.SetInt(ENERGY_KEY, protectedEnergyValue);
+                if (protectedTimerValue > 0f)
+                {
+                    PlayerPrefs.SetFloat(TIMER_KEY, protectedTimerValue);
+                }
+                if (!string.IsNullOrEmpty(protectedLastTimeValue))
+                {
+                    PlayerPrefs.SetString(LAST_TIME_KEY, protectedLastTimeValue);
+                }
+                PlayerPrefs.Save();
+            }
+            else if (currentSaved > 1)
+            {
+                protectedEnergyValue = currentSaved;
+                protectedTimerValue = PlayerPrefs.GetFloat(TIMER_KEY, 300f);
+                protectedLastTimeValue = PlayerPrefs.GetString(LAST_TIME_KEY, System.DateTime.Now.ToString());
+            }
+        }
+        else if (protectedEnergyValue > 1)
+        {
+            PlayerPrefs.SetInt(ENERGY_KEY, protectedEnergyValue);
+            PlayerPrefs.SetFloat(TIMER_KEY, protectedTimerValue > 0f ? protectedTimerValue : 300f);
+            PlayerPrefs.SetString(LAST_TIME_KEY, !string.IsNullOrEmpty(protectedLastTimeValue) ? protectedLastTimeValue : System.DateTime.Now.ToString());
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            protectedEnergyValue = 50;
+            protectedTimerValue = 300f;
+            protectedLastTimeValue = System.DateTime.Now.ToString();
+        }
+    }
+
+    private void SyncAllEnergyManagersInScene()
+    {
+        EnergyManager[] energyManagers = FindObjectsOfType<EnergyManager>(true);
+        if (energyManagers == null || energyManagers.Length == 0) return;
+
+        FieldInfo energyField = typeof(EnergyManager).GetField("currentEnergy", BindingFlags.NonPublic | BindingFlags.Instance);
+        FieldInfo timerField = typeof(EnergyManager).GetField("currentTimer", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        int validEnergy = PlayerPrefs.HasKey(ENERGY_KEY) ? PlayerPrefs.GetInt(ENERGY_KEY, 50) : 50;
+        if (validEnergy <= 1 && protectedEnergyValue > 1) validEnergy = protectedEnergyValue;
+        if (validEnergy <= 0) validEnergy = 50;
+
+        float validTimer = PlayerPrefs.HasKey(TIMER_KEY) ? PlayerPrefs.GetFloat(TIMER_KEY, 300f) : 300f;
+        if (validTimer <= 0f) validTimer = 300f;
+
+        foreach (EnergyManager em in energyManagers)
+        {
+            if (em == null) continue;
+
+            if (energyField != null)
+            {
+                int curVal = (int)energyField.GetValue(em);
+                if (curVal <= 0)
+                {
+                    energyField.SetValue(em, validEnergy);
+                }
+                else if (curVal > 1)
+                {
+                    protectedEnergyValue = curVal;
+                }
+            }
+
+            if (timerField != null)
+            {
+                float curTimer = (float)timerField.GetValue(em);
+                if (curTimer <= 0f)
+                {
+                    timerField.SetValue(em, validTimer);
+                }
+            }
+        }
     }
 
     private void InitializeHideStatesForCurrentPhase()
@@ -525,6 +628,7 @@ public class TutorialManager : MonoBehaviour
             yield return StartCoroutine(PlayUIElementsSequence(phase1HomeSteps));
             ForceHideStepUIObjects(phase1HomeSteps);
 
+            SyncAllEnergyManagersInScene();
             CurrentPhase = 2;
             if (!string.IsNullOrEmpty(gachaSceneName))
             {
@@ -548,6 +652,7 @@ public class TutorialManager : MonoBehaviour
 
             yield return new WaitUntil(() => goSelectClicked);
 
+            SyncAllEnergyManagersInScene();
             CurrentPhase = 5;
             if (!string.IsNullOrEmpty(weaponSelectSceneName))
             {
@@ -685,6 +790,7 @@ public class TutorialManager : MonoBehaviour
             });
             yield return new WaitUntil(() => returnHomeClicked);
 
+            SyncAllEnergyManagersInScene();
             CurrentPhase = 4;
             if (!string.IsNullOrEmpty(homeSceneName))
             {
@@ -1044,6 +1150,7 @@ public class TutorialManager : MonoBehaviour
 
         yield return new WaitUntil(() => backClicked);
 
+        SyncAllEnergyManagersInScene();
         CurrentPhase = 6;
         if (!string.IsNullOrEmpty(homeSceneName))
         {

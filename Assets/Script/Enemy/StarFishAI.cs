@@ -65,6 +65,11 @@ public class StarFishAI : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         myCollider = GetComponent<Collider>();
 
+        if (rb != null)
+        {
+            rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        }
+
         renderers = GetComponentsInChildren<Renderer>();
         originalColors = new Color[renderers.Length];
         for (int i = 0; i < renderers.Length; i++)
@@ -102,6 +107,11 @@ public class StarFishAI : MonoBehaviour
                 {
                     foreach (Collider targetCol in targetCols)
                     {
+                        if (IsWallCollider(targetCol))
+                        {
+                            Physics.IgnoreCollision(myCol, targetCol, false);
+                            continue;
+                        }
                         Physics.IgnoreCollision(myCol, targetCol, true);
                     }
                 }
@@ -110,6 +120,14 @@ public class StarFishAI : MonoBehaviour
         catch (System.Exception e)
         {
             Debug.LogWarning("タグ '" + passThroughTag + "' の処理でエラー: " + e.Message);
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (!isDead)
+        {
+            PreventWallPenetration();
         }
     }
 
@@ -179,6 +197,8 @@ public class StarFishAI : MonoBehaviour
         {
             Chase();
         }
+
+        PreventWallPenetration();
     }
 
     void Chase()
@@ -269,8 +289,91 @@ public class StarFishAI : MonoBehaviour
         return false;
     }
 
+    bool IsWallCollider(Collider col)
+    {
+        if (col == null) return false;
+        try
+        {
+            if (col.CompareTag("Wall") ||
+                (col.transform.parent != null && col.transform.parent.CompareTag("Wall")) ||
+                col.transform.root.CompareTag("Wall"))
+            {
+                return true;
+            }
+        }
+        catch { }
+        return false;
+    }
+
+    void PreventWallPenetration()
+    {
+        if (myCollider == null) myCollider = GetComponent<Collider>();
+        if (myCollider == null || !myCollider.enabled) return;
+
+        Bounds b = myCollider.bounds;
+        float radius = Mathf.Max(b.extents.x, Mathf.Max(b.extents.y, b.extents.z)) + 0.5f;
+        Collider[] hits = Physics.OverlapSphere(b.center, radius);
+
+        foreach (Collider col in hits)
+        {
+            if (col == null || col == myCollider) continue;
+            if (!IsWallCollider(col)) continue;
+
+            Physics.IgnoreCollision(myCollider, col, false);
+
+            if (Physics.ComputePenetration(
+                myCollider, transform.position, transform.rotation,
+                col, col.transform.position, col.transform.rotation,
+                out Vector3 dir, out float dist))
+            {
+                Vector3 pushDir = new Vector3(dir.x, 0f, dir.z);
+                if (pushDir.sqrMagnitude > 0.0001f) pushDir.Normalize();
+                else pushDir = dir;
+
+                transform.position += pushDir * (dist + 0.01f);
+
+                if (rb != null && !rb.isKinematic)
+                {
+                    Vector3 vel = rb.velocity;
+                    float intoWall = Vector3.Dot(vel, -pushDir);
+                    if (intoWall > 0f)
+                    {
+                        vel += pushDir * intoWall;
+                        rb.velocity = vel;
+                    }
+                }
+            }
+        }
+
+        if (rb != null && !rb.isKinematic)
+        {
+            Vector3 horizVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            float speed = horizVel.magnitude;
+            if (speed > 0.01f)
+            {
+                Vector3 moveDir = horizVel / speed;
+                float checkDist = Mathf.Max(b.extents.x, b.extents.z) + speed * Time.fixedDeltaTime + 0.1f;
+                RaycastHit[] rayHits = Physics.RaycastAll(b.center, moveDir, checkDist);
+                foreach (var rh in rayHits)
+                {
+                    if (rh.collider != null && rh.collider != myCollider && IsWallCollider(rh.collider))
+                    {
+                        Vector3 normal = new Vector3(rh.normal.x, 0f, rh.normal.z).normalized;
+                        float into = Vector3.Dot(horizVel, -normal);
+                        if (into > 0f)
+                        {
+                            horizVel += normal * into;
+                            rb.velocity = new Vector3(horizVel.x, rb.velocity.y, horizVel.z);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     bool IsObstacle(Collider col)
     {
+        if (IsWallCollider(col)) return true;
         if (col.CompareTag("Player") || col.CompareTag("Enemy")) return false;
         if (col.isTrigger) return false;
 

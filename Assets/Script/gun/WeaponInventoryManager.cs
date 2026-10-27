@@ -303,10 +303,11 @@ public class WeaponInventoryManager : MonoBehaviour
     // 進化演出中フラグ
     private bool isEvolutionAnimating = false;
 
-    // セーブ・ロード用のキー
+    // セーブ・ロード用のキー（名前による保存を廃止し、座標とインデックスのみで管理）
     private const string SAVE_KEY_WEAPONS_COORDS = "SavedInventory_Weapons_ExactCoords";
     private const string SAVE_KEY_ARMORS_COORDS = "SavedInventory_Armors_ExactCoords";
     private const string SAVE_KEY_EQUIPPED_WEAPONS = "SavedInventory_EquippedWeapons_Indices";
+    private const string SAVE_KEY_EQUIPPED_WEAPON_COORDS = "SavedInventory_EquippedWeapons_Coords";
     private const string SAVE_KEY_EQUIPPED_ARMORS = "SavedInventory_EquippedArmors_Indices";
 
     void Start()
@@ -368,6 +369,7 @@ public class WeaponInventoryManager : MonoBehaviour
 
         CheckAndAddNewItemsFromKeeper();
         SortWeapons();
+        SaveInventoryData();
 
         // 装備情報の復元（セーブデータからロード）
         LoadEquippedSelections();
@@ -436,7 +438,7 @@ public class WeaponInventoryManager : MonoBehaviour
             List<string> itemCodes = new List<string>();
             foreach (var w in testWeaponPrefabs)
             {
-                if (w != null && TryGetWeaponCoordinates(w, out int groupIdx, out int rankIdx))
+                if (w != null && IsValidWeaponPrefab(w) && TryGetWeaponCoordinates(w, out int groupIdx, out int rankIdx))
                 {
                     itemCodes.Add($"{groupIdx}:{rankIdx}");
                 }
@@ -458,6 +460,22 @@ public class WeaponInventoryManager : MonoBehaviour
         }
 
         PlayerPrefs.Save();
+    }
+
+    private bool IsValidWeaponPrefab(GameObject prefab)
+    {
+        if (weaponRankLines == null) return false;
+        foreach (var line in weaponRankLines)
+        {
+            if (line != null && line.ranks != null)
+            {
+                foreach (var r in line.ranks)
+                {
+                    if (r == prefab) return true;
+                }
+            }
+        }
+        return false;
     }
 
     private void LoadInventoryData()
@@ -518,11 +536,10 @@ public class WeaponInventoryManager : MonoBehaviour
     }
 
     // ==========================================
-    // 💡 追加：装備・選択状態（武器スロット・防具カテゴリ）のセーブとロード
+    // 名前を一切使わず、インデックスと座標（groupIdx:rankIdx）のみで装備状態をセーブ・ロードする
     // ==========================================
     private void SaveEquippedSelections()
     {
-        // 武器スロットのインデックスをカンマ区切りで保存（未選択は-1）
         if (selectedWeaponItemIndices != null)
         {
             List<string> indices = new List<string>();
@@ -533,7 +550,24 @@ public class WeaponInventoryManager : MonoBehaviour
             PlayerPrefs.SetString(SAVE_KEY_EQUIPPED_WEAPONS, string.Join(",", indices));
         }
 
-        // 防具カテゴリのインデックスをカンマ区切りで保存（未選択は-1）
+        if (selectedSlotWeaponPrefabs != null)
+        {
+            List<string> equippedCoords = new List<string>();
+            for (int i = 0; i < selectedSlotWeaponPrefabs.Length; i++)
+            {
+                GameObject p = selectedSlotWeaponPrefabs[i];
+                if (p != null && TryGetWeaponCoordinates(p, out int gIdx, out int rIdx))
+                {
+                    equippedCoords.Add($"{gIdx}:{rIdx}");
+                }
+                else
+                {
+                    equippedCoords.Add("-1:-1");
+                }
+            }
+            PlayerPrefs.SetString(SAVE_KEY_EQUIPPED_WEAPON_COORDS, string.Join(",", equippedCoords));
+        }
+
         if (selectedArmorItemIndices != null)
         {
             List<string> indices = new List<string>();
@@ -549,6 +583,11 @@ public class WeaponInventoryManager : MonoBehaviour
 
     private void LoadEquippedSelections()
     {
+        if (WeaponDataKeeper.equippedWeaponPrefabs == null || WeaponDataKeeper.equippedWeaponPrefabs.Length < 3)
+        {
+            WeaponDataKeeper.equippedWeaponPrefabs = new GameObject[3];
+        }
+
         if (PlayerPrefs.HasKey(SAVE_KEY_EQUIPPED_WEAPONS))
         {
             string savedStr = PlayerPrefs.GetString(SAVE_KEY_EQUIPPED_WEAPONS, "");
@@ -560,10 +599,10 @@ public class WeaponInventoryManager : MonoBehaviour
                     if (int.TryParse(parts[s], out int idx))
                     {
                         selectedWeaponItemIndices[s] = idx;
-                        if (idx >= 0 && testWeaponPrefabs != null && idx < testWeaponPrefabs.Length)
+                        if (idx >= 0 && testWeaponPrefabs != null && idx < testWeaponPrefabs.Length && testWeaponPrefabs[idx] != null)
                         {
                             selectedSlotWeaponPrefabs[s] = testWeaponPrefabs[idx];
-                            if (WeaponDataKeeper.equippedWeaponPrefabs != null && s < WeaponDataKeeper.equippedWeaponPrefabs.Length)
+                            if (s < WeaponDataKeeper.equippedWeaponPrefabs.Length)
                             {
                                 WeaponDataKeeper.equippedWeaponPrefabs[s] = testWeaponPrefabs[idx];
                             }
@@ -572,6 +611,8 @@ public class WeaponInventoryManager : MonoBehaviour
                 }
             }
         }
+
+        SaveEquippedSelections();
 
         if (PlayerPrefs.HasKey(SAVE_KEY_EQUIPPED_ARMORS))
         {
@@ -590,7 +631,6 @@ public class WeaponInventoryManager : MonoBehaviour
                             ArmorStats stats = armorPrefab != null ? armorPrefab.GetComponentInChildren<ArmorStats>(true) : null;
                             ArmorStats.EquipArmor(c, stats);
 
-                            // スプライトの復元
                             if (categoryButtons != null && c < categoryButtons.Length && categoryButtons[c] != null)
                             {
                                 ContentCategoryButton cat = categoryButtons[c];
@@ -1936,7 +1976,7 @@ public class WeaponInventoryManager : MonoBehaviour
 
             foreach (GameObject newWeapon in WeaponDataKeeper.gachaResultWeapons)
             {
-                if (newWeapon != null)
+                if (newWeapon != null && IsValidWeaponPrefab(newWeapon))
                 {
                     weaponList.Add(newWeapon);
                 }
@@ -2133,7 +2173,7 @@ public class WeaponInventoryManager : MonoBehaviour
         {
             GameObject prefab = testWeaponPrefabs[i];
 
-            if (prefab != null && IsPrefabMatchCurrentRarity(prefab))
+            if (prefab != null && IsValidWeaponPrefab(prefab) && IsPrefabMatchCurrentRarity(prefab))
             {
                 GameObject newWeapon = Instantiate(prefab, contentPanel);
 

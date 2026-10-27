@@ -1,30 +1,30 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 [System.Serializable]
 public class WaveData
 {
-    [Tooltip("‚±‚ÌƒEƒF[ƒu‚ÅoŒ»‚³‚¹‚é“G‚ÌƒvƒŒƒnƒu")]
+    [Tooltip("ã“ã®ã‚¦ã‚§ãƒ¼ãƒ–ã§å‡ºç¾ã•ã›ã‚‹æ•µã®ãƒ—ãƒ¬ãƒãƒ–")]
     public GameObject[] enemyPrefabs;
 
-    [Tooltip("“G‚ğoŒ»‚³‚¹‚éˆÊ’uiã‚Ì“GƒvƒŒƒnƒu‚Æ“¯‚¶‡”ÔE”‚Åİ’èj")]
+    [Tooltip("æ•µã‚’å‡ºç¾ã•ã›ã‚‹ä½ç½®ï¼ˆä¸Šã®æ•µãƒ—ãƒ¬ãƒãƒ–ã¨åŒã˜é †ç•ªãƒ»æ•°ã§è¨­å®šï¼‰")]
     public Transform[] spawnPositions;
 }
 
 // ==========================================
-// š’Ç‰ÁF•ñV‚âƒ`ƒ…[ƒgƒŠƒAƒ‹ƒXƒeƒbƒv—p‚ÌUI‚¨‚æ‚Ñ•ñVİ’èƒNƒ‰ƒX
+// å ±é…¬ã‚„ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã‚¹ãƒ†ãƒƒãƒ—ç”¨ã®UIãŠã‚ˆã³å ±é…¬è¨­å®šã‚¯ãƒ©ã‚¹
 // ==========================================
 [System.Serializable]
 public class WaveUIElementSetting
 {
-    [Tooltip("‘ÎÛ‚ÌUIƒIƒuƒWƒFƒNƒg")]
+    [Tooltip("å¯¾è±¡ã®UIã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     public GameObject uiObject;
     public bool hideAtStart = true;
-    [Tooltip("ƒ`ƒFƒbƒN‚ğ“ü‚ê‚é‚ÆA‚±‚ÌUI‚ÌƒeƒLƒXƒg‚ğ1•¶š‚¸‚Â•\¦‚µ‚Ü‚·")]
+    [Tooltip("ãƒã‚§ãƒƒã‚¯ã‚’å…¥ã‚Œã‚‹ã¨ã€ã“ã®UIã®ãƒ†ã‚­ã‚¹ãƒˆã‚’1æ–‡å­—ãšã¤è¡¨ç¤ºã—ã¾ã™")]
     public bool useTypewriter = false;
 }
 
@@ -33,53 +33,53 @@ public class WaveRewardStep
 {
     public WaveUIElementSetting[] stepUIElements;
 
-    [Tooltip("‚±‚ÌƒXƒeƒbƒv‚ÌƒIƒuƒWƒFƒNƒg‚ª•\¦‚³‚ê‚½‚É“üè‚·‚éƒGƒƒ‰ƒ‹ƒh”")]
+    [Tooltip("ã“ã®ã‚¹ãƒ†ãƒƒãƒ—ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¡¨ç¤ºã•ã‚ŒãŸæ™‚ã«å…¥æ‰‹ã™ã‚‹ã‚¨ãƒ¡ãƒ©ãƒ«ãƒ‰æ•°")]
     public int rewardEmeralds = 0;
 
-    [Tooltip("‚±‚ÌƒXƒeƒbƒv‚ÌƒIƒuƒWƒFƒNƒg‚ª•\¦‚³‚ê‚½‚É“üè‚·‚éƒRƒCƒ“”")]
+    [Tooltip("ã“ã®ã‚¹ãƒ†ãƒƒãƒ—ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¡¨ç¤ºã•ã‚ŒãŸæ™‚ã«å…¥æ‰‹ã™ã‚‹ã‚³ã‚¤ãƒ³æ•°")]
     public int rewardCoins = 0;
 }
 
 public class WaveManager : MonoBehaviour
 {
-    [Header("isó‹µUIİ’è")]
-    [Tooltip("Œ•‚ÌƒAƒCƒRƒ“‚Ì•û‚ÌƒeƒLƒXƒgi—á: 1 / 3j")]
+    [Header("é€²è¡ŒçŠ¶æ³UIè¨­å®š")]
+    [Tooltip("å‰£ã®ã‚¢ã‚¤ã‚³ãƒ³ã®æ–¹ã®ãƒ†ã‚­ã‚¹ãƒˆï¼ˆä¾‹: 1 / 3ï¼‰")]
     public TextMeshProUGUI waveProgressText;
 
-    [Tooltip("ƒ{ƒX‚ÌŠçƒAƒCƒRƒ“‚Ì•û‚ÌƒeƒLƒXƒgi—á: 2 / 5j")]
+    [Tooltip("ãƒœã‚¹ã®é¡”ã‚¢ã‚¤ã‚³ãƒ³ã®æ–¹ã®ãƒ†ã‚­ã‚¹ãƒˆï¼ˆä¾‹: 2 / 5ï¼‰")]
     public TextMeshProUGUI enemyCountText;
 
-    [Header("ƒV[ƒ“ŠJn‚ÌUI‰‰o")]
-    [Tooltip("•\¦‚µ‚½‚¢UI‚ÌCanvasGroupi“§–¾“x‘€ì—pj")]
+    [Header("ã‚·ãƒ¼ãƒ³é–‹å§‹æ™‚ã®UIæ¼”å‡º")]
+    [Tooltip("è¡¨ç¤ºã—ãŸã„UIã®CanvasGroupï¼ˆé€æ˜åº¦æ“ä½œç”¨ï¼‰")]
     public CanvasGroup introUIGroup;
-    [Tooltip("•\¦‚µ‚½‚¢UI‚ÌTransformiŠg‘åk¬—pj")]
+    [Tooltip("è¡¨ç¤ºã—ãŸã„UIã®Transformï¼ˆæ‹¡å¤§ç¸®å°ç”¨ï¼‰")]
     public Transform introUITransform;
 
-    [Header("ƒEƒF[ƒuİ’è")]
+    [Header("ã‚¦ã‚§ãƒ¼ãƒ–è¨­å®š")]
     public WaveData[] enemyWaves;
-    [Header("ƒGƒtƒFƒNƒgİ’è")]
+    [Header("ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè¨­å®š")]
     public GameObject spawnSmokePrefab;
     public float smokeWaitTime = 1.5f;
 
-    [Header("ƒ{ƒXíiÅIƒEƒF[ƒuj‚Ìƒ[ƒvİ’è")]
-    [Tooltip("ƒ{ƒXí“Ë“ü‚ÉƒvƒŒƒCƒ„[‚ğƒ[ƒv‚³‚¹‚é’n“_")]
+    [Header("ãƒœã‚¹æˆ¦ï¼ˆæœ€çµ‚ã‚¦ã‚§ãƒ¼ãƒ–ï¼‰ã®ãƒ¯ãƒ¼ãƒ—è¨­å®š")]
+    [Tooltip("ãƒœã‚¹æˆ¦çªå…¥æ™‚ã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ãƒ¯ãƒ¼ãƒ—ã•ã›ã‚‹åœ°ç‚¹")]
     public Transform bossPlayerSpawnPoint;
 
-    [Tooltip("ƒ{ƒXí“Ë“ü‚ÉƒAƒNƒeƒBƒui•\¦j‚É‚·‚éƒIƒuƒWƒFƒNƒgiƒXƒe[ƒW‚â•Ç‚È‚Çj")]
+    [Tooltip("ãƒœã‚¹æˆ¦çªå…¥æ™‚ã«ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ï¼ˆè¡¨ç¤ºï¼‰ã«ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼ˆã‚¹ãƒ†ãƒ¼ã‚¸ã‚„å£ãªã©ï¼‰")]
     public GameObject bossStageObject;
 
-    [Header("ƒNƒŠƒAŒã‚Ì’EoE•ó” İ’è")]
+    [Header("ã‚¯ãƒªã‚¢å¾Œã®è„±å‡ºãƒ»å®ç®±è¨­å®š")]
     public Transform chestLookTarget;
     public ParticleSystem clearParticle;
     public Transform exitPoint;
     public float exitTriggerRadius = 3.0f;
     public GameObject exitUIText;
 
-    [Header("•ó” ŠJ••‚Ì‰‰oİ’è")]
+    [Header("å®ç®±é–‹å°ã®æ¼”å‡ºè¨­å®š")]
     public Transform cinematicCameraPoint;
     public Transform chestLid;
 
-    [Header("š’Ç‰ÁF•ó” ŠJ••Œã‚É‡”Ô‚É•\¦‚·‚é•ñVƒXƒeƒbƒviƒGƒƒ‰ƒ‹ƒh‚âƒRƒCƒ“İ’è•t‚«j")]
+    [Header("å®ç®±é–‹å°å¾Œã«é †ç•ªã«è¡¨ç¤ºã™ã‚‹å ±é…¬ã‚¹ãƒ†ãƒƒãƒ—ï¼ˆã‚¨ãƒ¡ãƒ©ãƒ«ãƒ‰ã‚„ã‚³ã‚¤ãƒ³è¨­å®šä»˜ãï¼‰")]
     public WaveRewardStep[] clearRewardSteps;
 
     public string nextSceneName;
@@ -87,7 +87,7 @@ public class WaveManager : MonoBehaviour
     private int currentWaveIndex = 0;
     private int currentRewardIndex = 0;
     private List<GameObject> activeEnemies = new List<GameObject>();
-    // ‚Ç‚Ì“GPrefab‚©‚ç¶¬‚³‚ê‚½“G‚©‚ğ•Û‚·‚éƒŠƒXƒgiƒ~ƒbƒVƒ‡ƒ“‚ÌŒ‚”j”»’è—pj
+    // ã©ã®æ•µPrefabã‹ã‚‰ç”Ÿæˆã•ã‚ŒãŸæ•µã‹ã‚’ä¿æŒã™ã‚‹ãƒªã‚¹ãƒˆï¼ˆãƒŸãƒƒã‚·ãƒ§ãƒ³ã®æ’ƒç ´åˆ¤å®šç”¨ï¼‰
     private List<GameObject> activeEnemyOriginalPrefabs = new List<GameObject>();
     private int initialEnemyCountForCurrentWave = 0;
 
@@ -102,7 +102,7 @@ public class WaveManager : MonoBehaviour
     private PlayerMovement moveScript;
     private MouseLook lookScript;
 
-    // ƒ^ƒCƒvƒ‰ƒCƒ^[‰‰o—p
+    // ã‚¿ã‚¤ãƒ—ãƒ©ã‚¤ã‚¿ãƒ¼æ¼”å‡ºç”¨
     private Dictionary<TextMeshProUGUI, string> originalTexts = new Dictionary<TextMeshProUGUI, string>();
     private bool isTyping = false;
     private Coroutine typingCoroutine;
@@ -120,7 +120,7 @@ public class WaveManager : MonoBehaviour
 
         if (exitUIText != null) exitUIText.SetActive(false);
 
-        // š’Ç‰ÁFƒNƒŠƒA•ñVUI‚Ì‰Šú”ñ•\¦‰»
+        // ã‚¯ãƒªã‚¢å ±é…¬UIã®åˆæœŸéè¡¨ç¤ºåŒ–
         if (clearRewardSteps != null)
         {
             foreach (WaveRewardStep step in clearRewardSteps)
@@ -154,7 +154,7 @@ public class WaveManager : MonoBehaviour
     {
         if (currentPhase == WavePhase.Battling)
         {
-            // “|‚³‚ê‚ÄÁ–Åinullj‚µ‚½“G‚ğŒŸ’m‚µAƒ~ƒbƒVƒ‡ƒ“is“xi‡ŒvŒ‚”j•“Á’è“GŒ‚”jj‚ğƒJƒEƒ“ƒg‚·‚é
+            // å€’ã•ã‚Œã¦æ¶ˆæ»…ï¼ˆnullï¼‰ã—ãŸæ•µã‚’æ¤œçŸ¥ã—ã€ãƒŸãƒƒã‚·ãƒ§ãƒ³é€²è¡Œåº¦ï¼ˆåˆè¨ˆæ’ƒç ´ï¼†ç‰¹å®šæ•µæ’ƒç ´ï¼‰ã‚’ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹
             for (int i = activeEnemies.Count - 1; i >= 0; i--)
             {
                 if (activeEnemies[i] == null)
@@ -207,7 +207,7 @@ public class WaveManager : MonoBehaviour
             }
         }
 
-        // šC³FClearRewardUI’iŠK‚ÅReturnƒL[“™‚ğ‰Ÿ‚µ‚½Û‚ÌƒXƒeƒbƒv‘—‚è••ñV•t—^ˆ—
+        // ClearRewardUIæ®µéšã§Returnã‚­ãƒ¼ç­‰ã‚’æŠ¼ã—ãŸéš›ã®ã‚¹ãƒ†ãƒƒãƒ—é€ã‚Šï¼†å ±é…¬ä»˜ä¸å‡¦ç†
         if (currentPhase == WavePhase.ClearRewardUI && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
         {
             if (isTyping)
@@ -334,11 +334,17 @@ public class WaveManager : MonoBehaviour
         UpdateProgressUI(enemyWaves.Length, 0, initialEnemyCountForCurrentWave);
 
         Camera mainCam = Camera.main;
-        if (chestLookTarget != null && mainCam != null && playerTransform != null)
+        Quaternion startCamRot = Quaternion.identity;
+        Quaternion origLocalRot = Quaternion.identity;
+        Quaternion targetLookRot = Quaternion.identity;
+        bool canRotateCam = (chestLookTarget != null && mainCam != null && playerTransform != null);
+
+        if (canRotateCam)
         {
-            Quaternion startCamRot = mainCam.transform.rotation;
+            startCamRot = mainCam.transform.rotation;
+            origLocalRot = mainCam.transform.localRotation;
             Vector3 dirToTarget = (chestLookTarget.position - mainCam.transform.position).normalized;
-            Quaternion targetLookRot = Quaternion.LookRotation(dirToTarget);
+            targetLookRot = Quaternion.LookRotation(dirToTarget);
 
             float t = 0;
             float duration = 1.0f;
@@ -359,7 +365,25 @@ public class WaveManager : MonoBehaviour
             clearParticle.Play();
         }
 
-        yield return new WaitForSeconds(0.5f);
+        // â˜…ä¿®æ­£ï¼šDisablePlayerControlã‚¹ã‚¯ãƒªãƒ—ãƒˆã¨åŒæ§˜ã«ã€ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ï¼ˆå…‰ç­‰ï¼‰ãŒã—ã£ã‹ã‚Šç™ºå…‰ã—åˆ‡ã‚‹ã¾ã§1.5ç§’å¾…æ©Ÿã—ã¦ã‹ã‚‰è¦–ç‚¹ã‚’æˆ»ã™
+        yield return new WaitForSeconds(1.5f);
+
+        if (canRotateCam)
+        {
+            float t = 0;
+            float duration = 1.0f;
+
+            while (t < 1f)
+            {
+                float smoothT = Mathf.SmoothStep(0, 1, t);
+                mainCam.transform.rotation = Quaternion.Slerp(targetLookRot, startCamRot, smoothT);
+                t += Time.deltaTime / duration;
+                yield return null;
+            }
+            mainCam.transform.rotation = startCamRot;
+            mainCam.transform.localRotation = origLocalRot;
+        }
+
         currentPhase = WavePhase.GoalReady;
         SetEventMode(false);
     }
@@ -413,7 +437,7 @@ public class WaveManager : MonoBehaviour
 
         yield return new WaitForSeconds(1.0f);
 
-        // š’Ç‰ÁFƒNƒŠƒA•ñVƒXƒeƒbƒv‚ª‘¶İ‚·‚éê‡‚ÍUI•\¦••ñV•t—^‚ğŠJn
+        // ã‚¯ãƒªã‚¢å ±é…¬ã‚¹ãƒ†ãƒƒãƒ—ãŒå­˜åœ¨ã™ã‚‹å ´åˆã¯UIè¡¨ç¤ºï¼†å ±é…¬ä»˜ä¸ã‚’é–‹å§‹
         if (clearRewardSteps != null && clearRewardSteps.Length > 0)
         {
             currentPhase = WavePhase.ClearRewardUI;
@@ -430,9 +454,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    // ==========================================
-    // š’Ç‰ÁFƒNƒŠƒA•ñVƒXƒeƒbƒv‚ÌUI•\¦Eƒ^ƒCƒvƒ‰ƒCƒ^[E•ñV•t—^ˆ—
-    // ==========================================
+    // ã‚¯ãƒªã‚¢å ±é…¬ã‚¹ãƒ†ãƒƒãƒ—ã®UIè¡¨ç¤ºãƒ»ã‚¿ã‚¤ãƒ—ãƒ©ã‚¤ã‚¿ãƒ¼ãƒ»å ±é…¬ä»˜ä¸å‡¦ç†
     void HighlightClearRewardStep(int index)
     {
         if (clearRewardSteps == null || index < 0 || index >= clearRewardSteps.Length) return;
@@ -487,7 +509,7 @@ public class WaveManager : MonoBehaviour
     {
         if (clearRewardSteps == null || currentRewardIndex < 0 || currentRewardIndex >= clearRewardSteps.Length) return;
 
-        // Œ»İ‚ÌƒXƒeƒbƒv‚ÌUI‚ğ”ñ•\¦‚É‚·‚é
+        // ç¾åœ¨ã®ã‚¹ãƒ†ãƒƒãƒ—ã®UIã‚’éè¡¨ç¤ºã«ã™ã‚‹
         WaveRewardStep currentStep = clearRewardSteps[currentRewardIndex];
         if (currentStep.stepUIElements != null)
         {

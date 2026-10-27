@@ -762,7 +762,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5856036004207400644, guid: c4a707723c9b90e498ba05ec86e5f7c7, type: 3}
   muzzlePoint: {fileID: 4423687517149669513}
   bulletSpeed: 150
-  fireRate: 1.5
+  fireRate: 0.3
   spreadAmount: 0.01
   smokeParticle: {fileID: 6804984183706187014}
   reticleUI: {fileID: 5563073351607180660}
@@ -770,7 +770,7 @@ MonoBehaviour:
   shootSoundClip: {fileID: 8300000, guid: 86967b274bb4ddf4f9c0d1e36f416dae, type: 3}
   soundStartTime: 0
   soundEndTime: 0.1
-  soundVolume: 0.3
+  soundVolume: 0.1
 --- !u!33 &3825504753957775463
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -833,7 +833,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
