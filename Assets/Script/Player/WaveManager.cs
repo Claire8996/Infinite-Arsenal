@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 [System.Serializable]
@@ -12,6 +13,31 @@ public class WaveData
 
     [Tooltip("敵を出現させる位置（上の敵プレハブと同じ順番・数で設定）")]
     public Transform[] spawnPositions;
+}
+
+// ==========================================
+// ★追加：報酬やチュートリアルステップ用のUIおよび報酬設定クラス
+// ==========================================
+[System.Serializable]
+public class WaveUIElementSetting
+{
+    [Tooltip("対象のUIオブジェクト")]
+    public GameObject uiObject;
+    public bool hideAtStart = true;
+    [Tooltip("チェックを入れると、このUIのテキストを1文字ずつ表示します")]
+    public bool useTypewriter = false;
+}
+
+[System.Serializable]
+public class WaveRewardStep
+{
+    public WaveUIElementSetting[] stepUIElements;
+
+    [Tooltip("このステップのオブジェクトが表示された時に入手するエメラルド数")]
+    public int rewardEmeralds = 0;
+
+    [Tooltip("このステップのオブジェクトが表示された時に入手するコイン数")]
+    public int rewardCoins = 0;
 }
 
 public class WaveManager : MonoBehaviour
@@ -53,8 +79,8 @@ public class WaveManager : MonoBehaviour
     public Transform cinematicCameraPoint;
     public Transform chestLid;
 
-    [Tooltip("宝箱が開いた後に順番に表示するUI（複数指定可）")]
-    public GameObject[] clearRewardUIs;
+    [Header("★追加：宝箱開封後に順番に表示する報酬ステップ（エメラルドやコイン設定付き）")]
+    public WaveRewardStep[] clearRewardSteps;
 
     public string nextSceneName;
 
@@ -76,6 +102,12 @@ public class WaveManager : MonoBehaviour
     private PlayerMovement moveScript;
     private MouseLook lookScript;
 
+    // タイプライター演出用
+    private Dictionary<TextMeshProUGUI, string> originalTexts = new Dictionary<TextMeshProUGUI, string>();
+    private bool isTyping = false;
+    private Coroutine typingCoroutine;
+    public float typeDelay = 0.05f;
+
     void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -87,11 +119,20 @@ public class WaveManager : MonoBehaviour
         }
 
         if (exitUIText != null) exitUIText.SetActive(false);
-        if (clearRewardUIs != null)
+
+        // ★追加：クリア報酬UIの初期非表示化
+        if (clearRewardSteps != null)
         {
-            foreach (GameObject ui in clearRewardUIs)
+            foreach (WaveRewardStep step in clearRewardSteps)
             {
-                if (ui != null) ui.SetActive(false);
+                if (step == null || step.stepUIElements == null) continue;
+                foreach (WaveUIElementSetting setting in step.stepUIElements)
+                {
+                    if (setting != null && setting.uiObject != null)
+                    {
+                        setting.uiObject.SetActive(false);
+                    }
+                }
             }
         }
 
@@ -166,30 +207,16 @@ public class WaveManager : MonoBehaviour
             }
         }
 
-        if (currentPhase == WavePhase.ClearRewardUI)
+        // ★修正：ClearRewardUI段階でReturnキー等を押した際のステップ送り＆報酬付与処理
+        if (currentPhase == WavePhase.ClearRewardUI && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
         {
-            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            if (isTyping)
             {
-                if (clearRewardUIs[currentRewardIndex] != null)
-                {
-                    clearRewardUIs[currentRewardIndex].SetActive(false);
-                }
-
-                currentRewardIndex++;
-
-                if (currentRewardIndex < clearRewardUIs.Length)
-                {
-                    if (clearRewardUIs[currentRewardIndex] != null)
-                    {
-                        clearRewardUIs[currentRewardIndex].SetActive(true);
-                    }
-                }
-                else
-                {
-                    currentPhase = WavePhase.Finished;
-                    LoadNextScene();
-                }
+                SkipTyping();
+                return;
             }
+
+            AdvanceClearRewardStep();
         }
     }
 
@@ -302,7 +329,6 @@ public class WaveManager : MonoBehaviour
         currentPhase = WavePhase.ForcedLook;
         SetEventMode(true);
 
-        // ★追加：このステージの敵をすべて倒したので、現在のScene名をクリア済みとして記録・解放する
         StageSelectCarousel.MarkStageClearedBySceneName(SceneManager.GetActiveScene().name);
 
         UpdateProgressUI(enemyWaves.Length, 0, initialEnemyCountForCurrentWave);
@@ -387,7 +413,8 @@ public class WaveManager : MonoBehaviour
 
         yield return new WaitForSeconds(1.0f);
 
-        if (clearRewardUIs != null && clearRewardUIs.Length > 0)
+        // ★追加：クリア報酬ステップが存在する場合はUI表示＆報酬付与を開始
+        if (clearRewardSteps != null && clearRewardSteps.Length > 0)
         {
             currentPhase = WavePhase.ClearRewardUI;
             currentRewardIndex = 0;
@@ -395,15 +422,184 @@ public class WaveManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            if (clearRewardUIs[currentRewardIndex] != null)
-            {
-                clearRewardUIs[currentRewardIndex].SetActive(true);
-            }
+            HighlightClearRewardStep(currentRewardIndex);
         }
         else
         {
             LoadNextScene();
         }
+    }
+
+    // ==========================================
+    // ★追加：クリア報酬ステップのUI表示・タイプライター・報酬付与処理
+    // ==========================================
+    void HighlightClearRewardStep(int index)
+    {
+        if (clearRewardSteps == null || index < 0 || index >= clearRewardSteps.Length) return;
+
+        WaveRewardStep step = clearRewardSteps[index];
+        List<TextMeshProUGUI> textsToType = new List<TextMeshProUGUI>();
+
+        if (step.stepUIElements != null)
+        {
+            foreach (WaveUIElementSetting setting in step.stepUIElements)
+            {
+                if (setting == null) continue;
+                GameObject ui = setting.uiObject;
+                if (ui != null)
+                {
+                    ui.SetActive(true);
+                    Canvas canvas = ui.GetComponent<Canvas>();
+                    if (canvas == null)
+                    {
+                        canvas = ui.AddComponent<Canvas>();
+                        ui.AddComponent<GraphicRaycaster>();
+                    }
+                    canvas.overrideSorting = true;
+                    canvas.sortingOrder = 100;
+
+                    if (setting.useTypewriter)
+                    {
+                        TextMeshProUGUI[] tmpros = ui.GetComponentsInChildren<TextMeshProUGUI>();
+                        foreach (var tmp in tmpros)
+                        {
+                            if (!originalTexts.ContainsKey(tmp))
+                            {
+                                originalTexts[tmp] = tmp.text;
+                            }
+                            textsToType.Add(tmp);
+                        }
+                    }
+                }
+            }
+        }
+
+        GrantClearStepRewards(step);
+
+        if (textsToType.Count > 0)
+        {
+            if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+            typingCoroutine = StartCoroutine(TypewriterCoroutine(textsToType));
+        }
+    }
+
+    void AdvanceClearRewardStep()
+    {
+        if (clearRewardSteps == null || currentRewardIndex < 0 || currentRewardIndex >= clearRewardSteps.Length) return;
+
+        // 現在のステップのUIを非表示にする
+        WaveRewardStep currentStep = clearRewardSteps[currentRewardIndex];
+        if (currentStep.stepUIElements != null)
+        {
+            foreach (WaveUIElementSetting setting in currentStep.stepUIElements)
+            {
+                if (setting != null && setting.uiObject != null)
+                {
+                    GraphicRaycaster raycaster = setting.uiObject.GetComponent<GraphicRaycaster>();
+                    if (raycaster != null) Destroy(raycaster);
+                    Canvas canvas = setting.uiObject.GetComponent<Canvas>();
+                    if (canvas != null) Destroy(canvas);
+                    setting.uiObject.SetActive(false);
+                }
+            }
+        }
+
+        currentRewardIndex++;
+
+        if (currentRewardIndex < clearRewardSteps.Length)
+        {
+            HighlightClearRewardStep(currentRewardIndex);
+        }
+        else
+        {
+            currentPhase = WavePhase.Finished;
+            LoadNextScene();
+        }
+    }
+
+    void GrantClearStepRewards(WaveRewardStep step)
+    {
+        if (step == null) return;
+        bool isSaved = false;
+
+        if (step.rewardEmeralds > 0)
+        {
+            EmeraldDisplay emeraldDisplay = FindObjectOfType<EmeraldDisplay>();
+            int defaultEmeralds = (emeraldDisplay != null) ? emeraldDisplay.defaultEmeralds : 0;
+            int currentEmeralds = PlayerPrefs.GetInt("PlayerEmeralds", defaultEmeralds);
+            int newEmeralds = currentEmeralds + step.rewardEmeralds;
+            PlayerPrefs.SetInt("PlayerEmeralds", newEmeralds);
+            isSaved = true;
+
+            if (emeraldDisplay != null)
+            {
+                emeraldDisplay.UpdateEmeraldDisplay();
+            }
+        }
+
+        if (step.rewardCoins > 0)
+        {
+            CoinDisplay coinDisplay = FindObjectOfType<CoinDisplay>();
+            int defaultCoins = (coinDisplay != null) ? coinDisplay.defaultCoins : 0;
+            int currentCoins = PlayerPrefs.GetInt("PlayerCoins", defaultCoins);
+            int newCoins = currentCoins + step.rewardCoins;
+            PlayerPrefs.SetInt("PlayerCoins", newCoins);
+            isSaved = true;
+
+            if (coinDisplay != null)
+            {
+                coinDisplay.UpdateCoinDisplay();
+            }
+        }
+
+        if (isSaved)
+        {
+            PlayerPrefs.Save();
+        }
+    }
+
+    IEnumerator TypewriterCoroutine(List<TextMeshProUGUI> textComps)
+    {
+        isTyping = true;
+
+        foreach (var t in textComps) t.text = "";
+
+        int maxLength = 0;
+        foreach (var t in textComps)
+        {
+            if (originalTexts.ContainsKey(t) && originalTexts[t].Length > maxLength)
+            {
+                maxLength = originalTexts[t].Length;
+            }
+        }
+
+        for (int i = 0; i < maxLength; i++)
+        {
+            foreach (var t in textComps)
+            {
+                if (originalTexts.ContainsKey(t) && i < originalTexts[t].Length)
+                {
+                    t.text += originalTexts[t][i];
+                }
+            }
+            yield return new WaitForSeconds(typeDelay);
+        }
+
+        isTyping = false;
+    }
+
+    void SkipTyping()
+    {
+        if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+
+        foreach (var kvp in originalTexts)
+        {
+            if (kvp.Key != null && kvp.Key.gameObject.activeInHierarchy)
+            {
+                kvp.Key.text = kvp.Value;
+            }
+        }
+        isTyping = false;
     }
 
     void SetEventMode(bool isEvent)
@@ -419,7 +615,6 @@ public class WaveManager : MonoBehaviour
 
     void LoadNextScene()
     {
-        // ★追加：シーン移動直前にも確実に現在のScene名をクリア済みとして記録する
         StageSelectCarousel.MarkStageClearedBySceneName(SceneManager.GetActiveScene().name);
 
         if (!string.IsNullOrEmpty(nextSceneName))

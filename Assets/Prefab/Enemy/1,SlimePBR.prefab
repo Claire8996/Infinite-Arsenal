@@ -548,8 +548,12 @@ MonoBehaviour:
   damage: 100
   avoidDistance: 2
   turnSpeed: 5
-  passThroughObjects:
-  - {fileID: 0}
+  jumpForce: 6
+  maxJumpHeight: 1.8
+  stepCheckDistance: 1
+  stepCheckHeight: 0.25
+  jumpCooldown: 0.8
+  passThroughTag: PassThrough
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.15
   hpBarImage: {fileID: 6568563819265778109}

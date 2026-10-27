@@ -1845,6 +1845,8 @@ RectTransform:
   - {fileID: 489211731}
   - {fileID: 884789196}
   - {fileID: 1173378819}
+  - {fileID: 788716237}
+  - {fileID: 2020404301}
   - {fileID: 1366202280}
   - {fileID: 1740530158}
   - {fileID: 2027741227}
@@ -2525,7 +2527,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u3000 \u6B21\u306F\u30AC\u30C1\u30E3\u3067\u5F15\u3044\u305F\n\u30A2\u30A4\u30C6\u30E0\u3092\u88C5\u5099\u3057\u3066\u307F\u3088\u3046\uFF01"
+  m_text: "\u3000 \u6B21\u306F\u30AC\u30C1\u30E3\u3067\u7372\u5F97\u3057\u305F\n\u30A2\u30A4\u30C6\u30E0\u3092\u88C5\u5099\u3057\u3066\u307F\u3088\u3046\uFF01"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 95c768ea25f093c4ea8d16e606dc3be6, type: 2}
   m_sharedMaterial: {fileID: -5083805796536989642, guid: 95c768ea25f093c4ea8d16e606dc3be6, type: 2}
@@ -2773,6 +2775,99 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786950221}
+  m_CullTransparentMesh: 1
+--- !u!1 &788716236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 788716237}
+  - component: {fileID: 788716240}
+  - component: {fileID: 788716239}
+  - component: {fileID: 788716238}
+  m_Layer: 5
+  m_Name: Arrow (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &788716237
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788716236}
+  m_LocalRotation: {x: 0, y: -0, z: 0.9304176, w: -0.36650118}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 551063280}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 223}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -741.6, y: -9.5}
+  m_SizeDelta: {x: 120, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &788716238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788716236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d458daaa42844e418ceff7107ca9226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatAmplitude: 20
+  floatSpeed: 3.5
+  stretchAmount: 0.15
+  enableTilt: 1
+  tiltAngle: 2
+--- !u!114 &788716239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788716236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 4555c8d4f78373e4d9bbf976d6f4681b, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &788716240
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788716236}
   m_CullTransparentMesh: 1
 --- !u!1 &798879010
 GameObject:
@@ -3113,7 +3208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da899274a188f5c4fa88fad1b1fb46bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugStartFromThisScene: 1
+  debugStartFromThisScene: 0
   debugStartPhase: 1
   fadeImage: {fileID: 1021388521}
   fadeAlphaThreshold: 0.02
@@ -3124,42 +3219,63 @@ MonoBehaviour:
     - uiObject: {fileID: 1740530157}
       hideUntilActive: 1
     nextButton: {fileID: 0}
+    buttonLinkedObject: {fileID: 0}
+    hideButtonLinkedObjectUntilActive: 1
+    extraFrontUI: {fileID: 0}
     useTypewriter: 1
     hideUntilActive: 0
   - uiObjects:
     - uiObject: {fileID: 2027741226}
       hideUntilActive: 1
     nextButton: {fileID: 0}
+    buttonLinkedObject: {fileID: 0}
+    hideButtonLinkedObjectUntilActive: 1
+    extraFrontUI: {fileID: 0}
     useTypewriter: 1
     hideUntilActive: 0
   - uiObjects:
-    - uiObject: {fileID: 884789195}
-      hideUntilActive: 0
     - uiObject: {fileID: 1173378818}
       hideUntilActive: 1
     nextButton: {fileID: 1558316196}
+    buttonLinkedObject: {fileID: 884789195}
+    hideButtonLinkedObjectUntilActive: 0
+    extraFrontUI: {fileID: 0}
     useTypewriter: 0
     hideUntilActive: 0
   gachaSceneName: weapon gacha Scene
   gachaSystem: {fileID: 0}
   backGroundFadeObject: {fileID: 0}
+  gachaOpenAllButton: {fileID: 0}
+  gachaOpenAllButtonUI: {fileID: 0}
   phase2InitialSteps: []
   phase2FirstButton: {fileID: 0}
   phase2FirstButtonHighlightUI: {fileID: 0}
+  phase2FirstButtonExtraFrontUI: {fileID: 0}
+  phase2FirstButtonLinkedObject: {fileID: 0}
+  hidePhase2FirstButtonLinkedObjectUntilActive: 1
   hidePhase2FirstButtonAtStart: 0
   phase2BeforePullSteps: []
   phase2SinglePullButton: {fileID: 0}
   phase2SinglePullHighlightUI: {fileID: 0}
+  phase2SinglePullExtraFrontUI: {fileID: 0}
+  phase2SinglePullButtonLinkedObject: {fileID: 0}
+  hidePhase2SinglePullButtonLinkedObjectUntilActive: 1
   hidePhase2SinglePullAtStart: 0
   phase2SingleCapsulePrefab: {fileID: 0}
   phase2SingleRewardPrefab: {fileID: 0}
   phase3AfterSingleSteps: []
   phase3MidButton: {fileID: 0}
   phase3MidButtonHighlightUI: {fileID: 0}
+  phase3MidButtonExtraFrontUI: {fileID: 0}
+  phase3MidButtonLinkedObject: {fileID: 0}
+  hidePhase3MidButtonLinkedObjectUntilActive: 1
   hidePhase3MidButtonAtStart: 0
   phase3BeforeMultiPullSteps: []
   phase3MultiPullButton: {fileID: 0}
   phase3MultiPullHighlightUI: {fileID: 0}
+  phase3MultiPullExtraFrontUI: {fileID: 0}
+  phase3MultiPullButtonLinkedObject: {fileID: 0}
+  hidePhase3MultiPullButtonLinkedObjectUntilActive: 1
   hidePhase3MultiPullAtStart: 0
   phase3MultiCapsulePrefabs:
   - {fileID: 0}
@@ -3172,6 +3288,9 @@ MonoBehaviour:
   phase3AfterMultiSteps: []
   phase3ReturnHomeButton: {fileID: 0}
   phase3ReturnHomeHighlightUI: {fileID: 0}
+  phase3ReturnHomeExtraFrontUI: {fileID: 0}
+  phase3ReturnHomeButtonLinkedObject: {fileID: 0}
+  hidePhase3ReturnHomeButtonLinkedObjectUntilActive: 1
   hidePhase3ReturnHomeAtStart: 0
   homeSceneName: HomeScene
   phase4HomeReturnSteps:
@@ -3179,26 +3298,41 @@ MonoBehaviour:
     - uiObject: {fileID: 542444796}
       hideUntilActive: 1
     nextButton: {fileID: 0}
+    buttonLinkedObject: {fileID: 0}
+    hideButtonLinkedObjectUntilActive: 0
+    extraFrontUI: {fileID: 0}
     useTypewriter: 1
     hideUntilActive: 0
   phase4GoToSelectButton: {fileID: 1037941321}
   phase4GoToSelectHighlightUI: {fileID: 489211730}
+  phase4GoToSelectExtraFrontUI: {fileID: 0}
+  phase4GoToSelectButtonLinkedObject: {fileID: 788716236}
+  hidePhase4GoToSelectButtonLinkedObjectUntilActive: 1
   hidePhase4GoToSelectAtStart: 0
   weaponSelectSceneName: Weapon SelectScene
   inventoryManager: {fileID: 0}
   phase5SelectSteps: []
   phase5BackButton: {fileID: 0}
   phase5BackButtonUI: {fileID: 0}
+  phase5BackButtonExtraFrontUI: {fileID: 0}
+  phase5BackButtonLinkedObject: {fileID: 0}
+  hidePhase5BackButtonLinkedObjectUntilActive: 1
   hidePhase5BackButtonAtStart: 0
   phase6FinalHomeSteps:
   - uiObjects:
     - uiObject: {fileID: 1343331438}
       hideUntilActive: 1
     nextButton: {fileID: 0}
-    useTypewriter: 0
+    buttonLinkedObject: {fileID: 0}
+    hideButtonLinkedObjectUntilActive: 0
+    extraFrontUI: {fileID: 0}
+    useTypewriter: 1
     hideUntilActive: 0
-  phase6FinalButton: {fileID: 0}
-  phase6FinalHighlightUI: {fileID: 0}
+  phase6FinalButton: {fileID: 1525621536}
+  phase6FinalHighlightUI: {fileID: 786950221}
+  phase6FinalExtraFrontUI: {fileID: 0}
+  phase6FinalButtonLinkedObject: {fileID: 2020404297}
+  hidePhase6FinalButtonLinkedObjectUntilActive: 1
   hidePhase6FinalButtonAtStart: 0
 --- !u!4 &911228969
 Transform:
@@ -7353,6 +7487,99 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992609785}
   m_CullTransparentMesh: 1
+--- !u!1 &2020404297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2020404301}
+  - component: {fileID: 2020404300}
+  - component: {fileID: 2020404299}
+  - component: {fileID: 2020404298}
+  m_Layer: 5
+  m_Name: Arrow (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &2020404298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020404297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d458daaa42844e418ceff7107ca9226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatAmplitude: 20
+  floatSpeed: 3.5
+  stretchAmount: 0.15
+  enableTilt: 1
+  tiltAngle: 2
+--- !u!114 &2020404299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020404297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 4555c8d4f78373e4d9bbf976d6f4681b, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2020404300
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020404297}
+  m_CullTransparentMesh: 1
+--- !u!224 &2020404301
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020404297}
+  m_LocalRotation: {x: 0, y: -0, z: 0.9304176, w: -0.36650118}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 551063280}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 223}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 177.68, y: -345.7}
+  m_SizeDelta: {x: 120, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2023298656
 GameObject:
   m_ObjectHideFlags: 0

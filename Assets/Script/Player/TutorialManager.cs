@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -19,7 +20,7 @@ public class TutorialUIObjectItem
 }
 
 // ==========================================
-// 通常のチュートリアルUI配列の1要素（UI・ボタン・チェックボックス2種）
+// 通常のチュートリアルUI配列の1要素（UI・ボタン・ボタン連動オブジェクト・追加最前面UI・チェックボックス）
 // ==========================================
 [System.Serializable]
 public class TutorialUIElement
@@ -30,6 +31,15 @@ public class TutorialUIElement
     [Tooltip("押されたら次に進むボタン（※未設定の場合はEnterキーまたは画面クリックで次に進みます）")]
     public Button nextButton;
 
+    [Tooltip("ボタンが押せるようになった際に一緒に表示するオブジェクト（矢印など）")]
+    public GameObject buttonLinkedObject;
+
+    [Tooltip("チェックを入れると、buttonLinkedObjectを最初は非表示にしておき、ボタンが押せるようになる時だけ表示します")]
+    public bool hideButtonLinkedObjectUntilActive = true;
+
+    [Tooltip("★追加：ボタンが押せるようになった際に、もう一つどのUIよりもLayerを手前にして表示するオブジェクト（別ガチャのボタンUIなど）")]
+    public GameObject extraFrontUI;
+
     [Tooltip("チェックを入れると、UI内のテキストを1文字ずつ順々に表示します")]
     public bool useTypewriter = false;
 
@@ -38,7 +48,7 @@ public class TutorialUIElement
 }
 
 // ==========================================
-// Weapon SelectScene専用の配列の1要素（UI・ボタン・3つの武器チェックボックス）
+// Weapon SelectScene専用の配列の1要素（UI・ボタン・ボタン連動オブジェクト・追加最前面UI・3つの武器チェックボックス）
 // ==========================================
 [System.Serializable]
 public class WeaponSelectTutorialElement
@@ -48,6 +58,15 @@ public class WeaponSelectTutorialElement
 
     [Tooltip("押されたら次に進むボタン（※武器チェックボックスを使わない場合に使用。未設定なら無視されます）")]
     public Button nextButton;
+
+    [Tooltip("ボタンが押せるようになった際に一緒に表示するオブジェクト（矢印など）")]
+    public GameObject buttonLinkedObject;
+
+    [Tooltip("チェックを入れると、buttonLinkedObjectを最初は非表示にしておき、ボタンが押せるようになる時だけ表示します")]
+    public bool hideButtonLinkedObjectUntilActive = true;
+
+    [Tooltip("★追加：ボタンが押せるようになった際に、もう一つどのUIよりもLayerを手前にして表示するオブジェクト")]
+    public GameObject extraFrontUI;
 
     [Tooltip("Content内の3つの武器Prefabのうち、どれを最前面にして選択待ちにするか（要素0＝1つ目、要素1＝2つ目、要素2＝3つ目）")]
     public bool[] weaponCheckboxes = new bool[3];
@@ -113,6 +132,10 @@ public class TutorialManager : MonoBehaviour
     public GachaSystem gachaSystem;
     [Tooltip("ガチャ結果表示時に出るBackGroundFadeオブジェクト（未設定ならGachaSystemのbackgroundFadeImageを使用）")]
     public GameObject backGroundFadeObject;
+    [Tooltip("ガチャの「すべて開ける」ボタン（未設定でもGachaSystemから自動取得します）")]
+    public Button gachaOpenAllButton;
+    [Tooltip("「すべて開ける」ボタンと一緒に最前面に表示するUI（未設定でも自動処理します）")]
+    public GameObject gachaOpenAllButtonUI;
 
     [Tooltip("① 灰色の背景が表示された後に順番に表示されるUI配列")]
     public TutorialUIElement[] phase2InitialSteps;
@@ -120,6 +143,12 @@ public class TutorialManager : MonoBehaviour
     public Button phase2FirstButton;
     [Tooltip("②のボタンが押せるようになった時にどのUIよりも最前面に来るUI")]
     public GameObject phase2FirstButtonHighlightUI;
+    [Tooltip("★追加：②のボタンが押せるようになった時に、もう一つどのUIよりもLayerを手前にして表示するUI（もう片方のガチャ切替ボタンUIなど）")]
+    public GameObject phase2FirstButtonExtraFrontUI;
+    [Tooltip("ボタンが押せるようになった際に一緒に表示するオブジェクト")]
+    public GameObject phase2FirstButtonLinkedObject;
+    [Tooltip("チェックを入れると、phase2FirstButtonLinkedObjectを最初は非表示にしておき、ボタンが押せるようになる時だけ表示します")]
+    public bool hidePhase2FirstButtonLinkedObjectUntilActive = true;
     [Tooltip("チェックを入れると②のボタンとUIを最初は非表示にしておきます")]
     public bool hidePhase2FirstButtonAtStart = false;
 
@@ -129,6 +158,12 @@ public class TutorialManager : MonoBehaviour
     public Button phase2SinglePullButton;
     [Tooltip("④のボタンが押せるようになった時にどのUIよりも最前面に来るUI")]
     public GameObject phase2SinglePullHighlightUI;
+    [Tooltip("★追加：④のボタンが押せるようになった時に、もう一つどのUIよりもLayerを手前にして表示するUI")]
+    public GameObject phase2SinglePullExtraFrontUI;
+    [Tooltip("ボタンが押せるようになった際に一緒に表示するオブジェクト")]
+    public GameObject phase2SinglePullButtonLinkedObject;
+    [Tooltip("チェックを入れると、phase2SinglePullButtonLinkedObjectを最初は非表示にしておき、ボタンが押せるようになる時だけ表示します")]
+    public bool hidePhase2SinglePullButtonLinkedObjectUntilActive = true;
     [Tooltip("チェックを入れると④のボタンとUIを最初は非表示にしておきます")]
     public bool hidePhase2SinglePullAtStart = false;
 
@@ -147,6 +182,12 @@ public class TutorialManager : MonoBehaviour
     public Button phase3MidButton;
     [Tooltip("⑥のボタンが押せるようになった時にどのUIよりも最前面に来るUI")]
     public GameObject phase3MidButtonHighlightUI;
+    [Tooltip("★追加：⑥のボタンが押せるようになった時に、もう一つどのUIよりもLayerを手前にして表示するUI（もう片方のガチャ切替ボタンUIなど）")]
+    public GameObject phase3MidButtonExtraFrontUI;
+    [Tooltip("ボタンが押せるようになった際に一緒に表示するオブジェクト")]
+    public GameObject phase3MidButtonLinkedObject;
+    [Tooltip("チェックを入れると、phase3MidButtonLinkedObjectを最初は非表示にしておき、ボタンが押せるようになる時だけ表示します")]
+    public bool hidePhase3MidButtonLinkedObjectUntilActive = true;
     [Tooltip("チェックを入れると⑥のボタンとUIを最初は非表示にしておきます")]
     public bool hidePhase3MidButtonAtStart = false;
 
@@ -156,6 +197,12 @@ public class TutorialManager : MonoBehaviour
     public Button phase3MultiPullButton;
     [Tooltip("⑧のボタンが押せるようになった時にどのUIよりも最前面に来るUI")]
     public GameObject phase3MultiPullHighlightUI;
+    [Tooltip("★追加：⑧のボタンが押せるようになった時に、もう一つどのUIよりもLayerを手前にして表示するUI")]
+    public GameObject phase3MultiPullExtraFrontUI;
+    [Tooltip("ボタンが押せるようになった際に一緒に表示するオブジェクト")]
+    public GameObject phase3MultiPullButtonLinkedObject;
+    [Tooltip("チェックを入れると、phase3MultiPullButtonLinkedObjectを最初は非表示にしておき、ボタンが押せるようになる時だけ表示します")]
+    public bool hidePhase3MultiPullButtonLinkedObjectUntilActive = true;
     [Tooltip("チェックを入れると⑧のボタンとUIを最初は非表示にしておきます")]
     public bool hidePhase3MultiPullAtStart = false;
 
@@ -170,6 +217,12 @@ public class TutorialManager : MonoBehaviour
     public Button phase3ReturnHomeButton;
     [Tooltip("⑩のボタンが押せるようになった時にどのUIよりも最前面に来るUI")]
     public GameObject phase3ReturnHomeHighlightUI;
+    [Tooltip("★追加：⑩のボタンが押せるようになった時に、もう一つどのUIよりもLayerを手前にして表示するUI")]
+    public GameObject phase3ReturnHomeExtraFrontUI;
+    [Tooltip("ボタンが押せるようになった際に一緒に表示するオブジェクト")]
+    public GameObject phase3ReturnHomeButtonLinkedObject;
+    [Tooltip("チェックを入れると、phase3ReturnHomeButtonLinkedObjectを最初は非表示にしておき、ボタンが押せるようになる時だけ表示します")]
+    public bool hidePhase3ReturnHomeButtonLinkedObjectUntilActive = true;
     [Tooltip("チェックを入れると⑩のボタンとUIを最初は非表示にしておきます")]
     public bool hidePhase3ReturnHomeAtStart = false;
     [Tooltip("戻る先のHomeSceneの名前")]
@@ -185,6 +238,12 @@ public class TutorialManager : MonoBehaviour
     public Button phase4GoToSelectButton;
     [Tooltip("ボタンが押せるようになった時にどのUIよりも最前面に来るUI")]
     public GameObject phase4GoToSelectHighlightUI;
+    [Tooltip("★追加：ボタンが押せるようになった時に、もう一つどのUIよりもLayerを手前にして表示するUI")]
+    public GameObject phase4GoToSelectExtraFrontUI;
+    [Tooltip("ボタンが押せるようになった際に一緒に表示するオブジェクト")]
+    public GameObject phase4GoToSelectButtonLinkedObject;
+    [Tooltip("チェックを入れると、phase4GoToSelectButtonLinkedObjectを最初は非表示にしておき、ボタンが押せるようになる時だけ表示します")]
+    public bool hidePhase4GoToSelectButtonLinkedObjectUntilActive = true;
     [Tooltip("チェックを入れるとボタンとUIを最初は非表示にしておきます")]
     public bool hidePhase4GoToSelectAtStart = false;
     [Tooltip("移動先のWeapon SelectSceneの名前")]
@@ -202,6 +261,12 @@ public class TutorialManager : MonoBehaviour
     public Button phase5BackButton;
     [Tooltip("BackButtonと一緒にどのUIよりも最前面に来るUI")]
     public GameObject phase5BackButtonUI;
+    [Tooltip("★追加：BackButtonが押せるようになった時に、もう一つどのUIよりもLayerを手前にして表示するUI")]
+    public GameObject phase5BackButtonExtraFrontUI;
+    [Tooltip("ボタンが押せるようになった際に一緒に表示するオブジェクト")]
+    public GameObject phase5BackButtonLinkedObject;
+    [Tooltip("チェックを入れると、phase5BackButtonLinkedObjectを最初は非表示にしておき、ボタンが押せるようになる時だけ表示します")]
+    public bool hidePhase5BackButtonLinkedObjectUntilActive = true;
     [Tooltip("チェックを入れるとBackButtonとUIを最初は非表示にしておきます")]
     public bool hidePhase5BackButtonAtStart = false;
 
@@ -209,11 +274,18 @@ public class TutorialManager : MonoBehaviour
     // 【フェーズ6】HomeScene（Weapon Selectから戻ってきた最終段階）
     // =====================================================
     [Header("【フェーズ6：HomeScene（最終段階）】")]
+    [Tooltip("Weapon SelectSceneから戻ってきた時に順番に表示される複数個のUI配列")]
     public TutorialUIElement[] phase6FinalHomeSteps;
-    [Tooltip("UIが表示され終わった後に最前面に来て押せるようになる最終ボタン")]
+    [Tooltip("UIが表示し終わった後に最前面に来て押せるようになる最終ボタン")]
     public Button phase6FinalButton;
     [Tooltip("最終ボタンと一緒にどのUIよりも最前面に来るUI")]
     public GameObject phase6FinalHighlightUI;
+    [Tooltip("★追加：最終ボタンが押せるようになった時に、もう一つどのUIよりもLayerを手前にして表示するUI")]
+    public GameObject phase6FinalExtraFrontUI;
+    [Tooltip("ボタンが押せるようになった際に一緒に表示するオブジェクト")]
+    public GameObject phase6FinalButtonLinkedObject;
+    [Tooltip("チェックを入れると、phase6FinalButtonLinkedObjectを最初は非表示にしておき、ボタンが押せるようになる時だけ表示します")]
+    public bool hidePhase6FinalButtonLinkedObjectUntilActive = true;
     [Tooltip("チェックを入れると最終ボタンとUIを最初は非表示にしておきます")]
     public bool hidePhase6FinalButtonAtStart = false;
 
@@ -223,11 +295,14 @@ public class TutorialManager : MonoBehaviour
     private bool isTyping = false;
     private Coroutine typingCoroutine;
     private List<GameObject> currentHighlightedObjects = new List<GameObject>();
+    private Dictionary<Graphic, bool> modifiedRaycastTargets = new Dictionary<Graphic, bool>();
 
     private const int GRAY_BG_SORT_ORDER = 900;
-    private const int BUTTON_SORT_ORDER = 1050;
-    private const int TOP_UI_SORT_ORDER = 1100;
-    private const int BUTTON_HIGHLIGHT_UI_SORT_ORDER = 1200;
+    private const int TOP_UI_SORT_ORDER = 1000;
+    private const int BUTTON_HIGHLIGHT_UI_SORT_ORDER = 1150;
+    private const int BUTTON_SORT_ORDER = 1200;
+    private const int LINKED_OBJ_SORT_ORDER = 1250;
+    private const int GACHA_FRONT_SORT_ORDER = 2000;
 
     void Awake()
     {
@@ -284,26 +359,26 @@ public class TutorialManager : MonoBehaviour
             HideElementsIfConfigured(phase3BeforeMultiPullSteps);
             HideElementsIfConfigured(phase3AfterMultiSteps);
 
-            SetActionButtonInitialState(phase2FirstButton, phase2FirstButtonHighlightUI, hidePhase2FirstButtonAtStart);
-            SetActionButtonInitialState(phase2SinglePullButton, phase2SinglePullHighlightUI, hidePhase2SinglePullAtStart);
-            SetActionButtonInitialState(phase3MidButton, phase3MidButtonHighlightUI, hidePhase3MidButtonAtStart);
-            SetActionButtonInitialState(phase3MultiPullButton, phase3MultiPullHighlightUI, hidePhase3MultiPullAtStart);
-            SetActionButtonInitialState(phase3ReturnHomeButton, phase3ReturnHomeHighlightUI, hidePhase3ReturnHomeAtStart);
+            SetActionButtonInitialState(phase2FirstButton, phase2FirstButtonHighlightUI, phase2FirstButtonExtraFrontUI, phase2FirstButtonLinkedObject, hidePhase2FirstButtonAtStart, hidePhase2FirstButtonLinkedObjectUntilActive);
+            SetActionButtonInitialState(phase2SinglePullButton, phase2SinglePullHighlightUI, phase2SinglePullExtraFrontUI, phase2SinglePullButtonLinkedObject, hidePhase2SinglePullAtStart, hidePhase2SinglePullButtonLinkedObjectUntilActive);
+            SetActionButtonInitialState(phase3MidButton, phase3MidButtonHighlightUI, phase3MidButtonExtraFrontUI, phase3MidButtonLinkedObject, hidePhase3MidButtonAtStart, hidePhase3MidButtonLinkedObjectUntilActive);
+            SetActionButtonInitialState(phase3MultiPullButton, phase3MultiPullHighlightUI, phase3MultiPullExtraFrontUI, phase3MultiPullButtonLinkedObject, hidePhase3MultiPullAtStart, hidePhase3MultiPullButtonLinkedObjectUntilActive);
+            SetActionButtonInitialState(phase3ReturnHomeButton, phase3ReturnHomeHighlightUI, phase3ReturnHomeExtraFrontUI, phase3ReturnHomeButtonLinkedObject, hidePhase3ReturnHomeAtStart, hidePhase3ReturnHomeButtonLinkedObjectUntilActive);
         }
         else if (CurrentPhase == 4)
         {
             HideElementsIfConfigured(phase4HomeReturnSteps);
-            SetActionButtonInitialState(phase4GoToSelectButton, phase4GoToSelectHighlightUI, hidePhase4GoToSelectAtStart);
+            SetActionButtonInitialState(phase4GoToSelectButton, phase4GoToSelectHighlightUI, phase4GoToSelectExtraFrontUI, phase4GoToSelectButtonLinkedObject, hidePhase4GoToSelectAtStart, hidePhase4GoToSelectButtonLinkedObjectUntilActive);
         }
         else if (CurrentPhase == 5)
         {
             HideSelectElementsIfConfigured(phase5SelectSteps);
-            SetActionButtonInitialState(phase5BackButton, phase5BackButtonUI, hidePhase5BackButtonAtStart);
+            SetActionButtonInitialState(phase5BackButton, phase5BackButtonUI, phase5BackButtonExtraFrontUI, phase5BackButtonLinkedObject, hidePhase5BackButtonAtStart, hidePhase5BackButtonLinkedObjectUntilActive);
         }
         else if (CurrentPhase == 6)
         {
             HideElementsIfConfigured(phase6FinalHomeSteps);
-            SetActionButtonInitialState(phase6FinalButton, phase6FinalHighlightUI, hidePhase6FinalButtonAtStart);
+            SetActionButtonInitialState(phase6FinalButton, phase6FinalHighlightUI, phase6FinalExtraFrontUI, phase6FinalButtonLinkedObject, hidePhase6FinalButtonAtStart, hidePhase6FinalButtonLinkedObjectUntilActive);
         }
     }
 
@@ -314,29 +389,30 @@ public class TutorialManager : MonoBehaviour
         {
             if (elem == null) continue;
 
-            // ボタンが参照されているElementは、最後のUIが表示されるまでボタンの機能を無効化しておく
-            if (elem.nextButton != null)
-            {
-                elem.nextButton.interactable = false;
-            }
-
             if (elem.uiObjects != null)
             {
                 foreach (var item in elem.uiObjects)
                 {
-                    if (item != null && item.uiObject != null)
+                    if (item != null && item.uiObject != null && elem.hideUntilActive && item.hideUntilActive)
                     {
-                        Button itemBtn = item.uiObject.GetComponentInChildren<Button>(true);
-                        if (itemBtn != null)
-                        {
-                            itemBtn.interactable = false;
-                        }
-
-                        if (elem.hideUntilActive && item.hideUntilActive)
-                        {
-                            item.uiObject.SetActive(false);
-                        }
+                        item.uiObject.SetActive(false);
                     }
+                }
+            }
+
+            if (elem.hideUntilActive)
+            {
+                if (elem.nextButton != null)
+                {
+                    elem.nextButton.gameObject.SetActive(false);
+                }
+                if (elem.buttonLinkedObject != null && elem.hideButtonLinkedObjectUntilActive)
+                {
+                    elem.buttonLinkedObject.SetActive(false);
+                }
+                if (elem.extraFrontUI != null)
+                {
+                    elem.extraFrontUI.SetActive(false);
                 }
             }
         }
@@ -349,10 +425,41 @@ public class TutorialManager : MonoBehaviour
         {
             if (elem == null) continue;
 
-            if (elem.nextButton != null)
+            if (elem.uiObjects != null)
             {
-                elem.nextButton.interactable = false;
+                foreach (var item in elem.uiObjects)
+                {
+                    if (item != null && item.uiObject != null && elem.hideUntilActive && item.hideUntilActive)
+                    {
+                        item.uiObject.SetActive(false);
+                    }
+                }
             }
+
+            if (elem.hideUntilActive)
+            {
+                if (elem.nextButton != null)
+                {
+                    elem.nextButton.gameObject.SetActive(false);
+                }
+                if (elem.buttonLinkedObject != null && elem.hideButtonLinkedObjectUntilActive)
+                {
+                    elem.buttonLinkedObject.SetActive(false);
+                }
+                if (elem.extraFrontUI != null)
+                {
+                    elem.extraFrontUI.SetActive(false);
+                }
+            }
+        }
+    }
+
+    private void ForceHideStepUIObjects(TutorialUIElement[] elements)
+    {
+        if (elements == null) return;
+        foreach (var elem in elements)
+        {
+            if (elem == null) continue;
 
             if (elem.uiObjects != null)
             {
@@ -360,23 +467,34 @@ public class TutorialManager : MonoBehaviour
                 {
                     if (item != null && item.uiObject != null)
                     {
-                        Button itemBtn = item.uiObject.GetComponentInChildren<Button>(true);
-                        if (itemBtn != null)
-                        {
-                            itemBtn.interactable = false;
-                        }
-
-                        if (elem.hideUntilActive && item.hideUntilActive)
-                        {
-                            item.uiObject.SetActive(false);
-                        }
+                        item.uiObject.SetActive(false);
                     }
                 }
             }
         }
     }
 
-    private void SetActionButtonInitialState(Button btn, GameObject highlightUI, bool hideAtStart)
+    private void ForceHideSelectStepUIObjects(WeaponSelectTutorialElement[] elements)
+    {
+        if (elements == null) return;
+        foreach (var elem in elements)
+        {
+            if (elem == null) continue;
+
+            if (elem.uiObjects != null)
+            {
+                foreach (var item in elem.uiObjects)
+                {
+                    if (item != null && item.uiObject != null)
+                    {
+                        item.uiObject.SetActive(false);
+                    }
+                }
+            }
+        }
+    }
+
+    private void SetActionButtonInitialState(Button btn, GameObject highlightUI, GameObject extraFrontUI, GameObject linkedObject, bool hideAtStart, bool hideLinkedAtStart)
     {
         if (btn != null)
         {
@@ -386,6 +504,14 @@ public class TutorialManager : MonoBehaviour
         if (highlightUI != null && hideAtStart)
         {
             highlightUI.SetActive(false);
+        }
+        if (extraFrontUI != null && hideAtStart)
+        {
+            extraFrontUI.SetActive(false);
+        }
+        if (linkedObject != null && hideLinkedAtStart)
+        {
+            linkedObject.SetActive(false);
         }
     }
 
@@ -397,6 +523,7 @@ public class TutorialManager : MonoBehaviour
         if (CurrentPhase == 1)
         {
             yield return StartCoroutine(PlayUIElementsSequence(phase1HomeSteps));
+            ForceHideStepUIObjects(phase1HomeSteps);
 
             CurrentPhase = 2;
             if (!string.IsNullOrEmpty(gachaSceneName))
@@ -411,9 +538,10 @@ public class TutorialManager : MonoBehaviour
         else if (CurrentPhase == 4)
         {
             yield return StartCoroutine(PlayUIElementsSequence(phase4HomeReturnSteps));
+            ForceHideStepUIObjects(phase4HomeReturnSteps);
 
             bool goSelectClicked = false;
-            ActivateAndBringButtonToFront(phase4GoToSelectButton, phase4GoToSelectHighlightUI, () =>
+            ActivateAndBringButtonToFront(phase4GoToSelectButton, phase4GoToSelectHighlightUI, phase4GoToSelectExtraFrontUI, phase4GoToSelectButtonLinkedObject, () =>
             {
                 goSelectClicked = true;
             });
@@ -433,20 +561,29 @@ public class TutorialManager : MonoBehaviour
         else if (CurrentPhase == 6)
         {
             yield return StartCoroutine(PlayUIElementsSequence(phase6FinalHomeSteps));
+            ForceHideStepUIObjects(phase6FinalHomeSteps);
 
             bool finalClicked = false;
             if (phase6FinalButton != null)
             {
-                ActivateAndBringButtonToFront(phase6FinalButton, phase6FinalHighlightUI, () =>
+                ActivateAndBringButtonToFront(phase6FinalButton, phase6FinalHighlightUI, phase6FinalExtraFrontUI, phase6FinalButtonLinkedObject, () =>
                 {
                     finalClicked = true;
                 });
                 yield return new WaitUntil(() => finalClicked);
             }
-            else if (phase6FinalHighlightUI != null)
+            else
             {
-                phase6FinalHighlightUI.SetActive(true);
-                BringToFront(phase6FinalHighlightUI, BUTTON_HIGHLIGHT_UI_SORT_ORDER, false);
+                if (phase6FinalHighlightUI != null)
+                {
+                    phase6FinalHighlightUI.SetActive(true);
+                    BringToFront(phase6FinalHighlightUI, BUTTON_HIGHLIGHT_UI_SORT_ORDER, true);
+                }
+                if (phase6FinalExtraFrontUI != null)
+                {
+                    phase6FinalExtraFrontUI.SetActive(true);
+                    BringToFront(phase6FinalExtraFrontUI, BUTTON_HIGHLIGHT_UI_SORT_ORDER, true);
+                }
             }
 
             CompleteTutorial();
@@ -464,30 +601,39 @@ public class TutorialManager : MonoBehaviour
         if (CurrentPhase == 2)
         {
             yield return StartCoroutine(PlayUIElementsSequence(phase2InitialSteps));
+            ForceHideStepUIObjects(phase2InitialSteps);
 
             bool firstBtnClicked = false;
-            ActivateAndBringButtonToFront(phase2FirstButton, phase2FirstButtonHighlightUI, () =>
+            ActivateAndBringButtonToFront(phase2FirstButton, phase2FirstButtonHighlightUI, phase2FirstButtonExtraFrontUI, phase2FirstButtonLinkedObject, () =>
             {
                 firstBtnClicked = true;
             });
             yield return new WaitUntil(() => firstBtnClicked);
             if (hidePhase2FirstButtonAtStart && phase2FirstButtonHighlightUI != null) phase2FirstButtonHighlightUI.SetActive(false);
+            if (hidePhase2FirstButtonAtStart && phase2FirstButtonExtraFrontUI != null) phase2FirstButtonExtraFrontUI.SetActive(false);
+            if (phase2FirstButtonLinkedObject != null) phase2FirstButtonLinkedObject.SetActive(false);
             RestoreHighlightedObjects();
 
             yield return StartCoroutine(PlayUIElementsSequence(phase2BeforePullSteps));
+            ForceHideStepUIObjects(phase2BeforePullSteps);
 
             SetupForcedSingleGacha();
 
             bool singlePullClicked = false;
-            ActivateAndBringButtonToFront(phase2SinglePullButton, phase2SinglePullHighlightUI, () =>
+            ActivateAndBringButtonToFront(phase2SinglePullButton, phase2SinglePullHighlightUI, phase2SinglePullExtraFrontUI, phase2SinglePullButtonLinkedObject, () =>
             {
                 singlePullClicked = true;
+                if (phase2SinglePullButton != null) phase2SinglePullButton.interactable = false;
             });
             yield return new WaitUntil(() => singlePullClicked);
             if (hidePhase2SinglePullAtStart && phase2SinglePullHighlightUI != null) phase2SinglePullHighlightUI.SetActive(false);
+            if (hidePhase2SinglePullAtStart && phase2SinglePullExtraFrontUI != null) phase2SinglePullExtraFrontUI.SetActive(false);
+            if (phase2SinglePullButtonLinkedObject != null) phase2SinglePullButtonLinkedObject.SetActive(false);
             RestoreHighlightedObjects();
 
+            if (grayBackground != null) grayBackground.SetActive(false);
             yield return StartCoroutine(WaitForGachaBackgroundFadeCycle());
+            ShowGrayBackground();
 
             CurrentPhase = 3;
         }
@@ -495,35 +641,45 @@ public class TutorialManager : MonoBehaviour
         if (CurrentPhase == 3)
         {
             yield return StartCoroutine(PlayUIElementsSequence(phase3AfterSingleSteps));
+            ForceHideStepUIObjects(phase3AfterSingleSteps);
 
             bool midBtnClicked = false;
-            ActivateAndBringButtonToFront(phase3MidButton, phase3MidButtonHighlightUI, () =>
+            ActivateAndBringButtonToFront(phase3MidButton, phase3MidButtonHighlightUI, phase3MidButtonExtraFrontUI, phase3MidButtonLinkedObject, () =>
             {
                 midBtnClicked = true;
             });
             yield return new WaitUntil(() => midBtnClicked);
             if (hidePhase3MidButtonAtStart && phase3MidButtonHighlightUI != null) phase3MidButtonHighlightUI.SetActive(false);
+            if (hidePhase3MidButtonAtStart && phase3MidButtonExtraFrontUI != null) phase3MidButtonExtraFrontUI.SetActive(false);
+            if (phase3MidButtonLinkedObject != null) phase3MidButtonLinkedObject.SetActive(false);
             RestoreHighlightedObjects();
 
             yield return StartCoroutine(PlayUIElementsSequence(phase3BeforeMultiPullSteps));
+            ForceHideStepUIObjects(phase3BeforeMultiPullSteps);
 
             SetupForcedMultiGacha();
 
             bool multiPullClicked = false;
-            ActivateAndBringButtonToFront(phase3MultiPullButton, phase3MultiPullHighlightUI, () =>
+            ActivateAndBringButtonToFront(phase3MultiPullButton, phase3MultiPullHighlightUI, phase3MultiPullExtraFrontUI, phase3MultiPullButtonLinkedObject, () =>
             {
                 multiPullClicked = true;
+                if (phase3MultiPullButton != null) phase3MultiPullButton.interactable = false;
             });
             yield return new WaitUntil(() => multiPullClicked);
             if (hidePhase3MultiPullAtStart && phase3MultiPullHighlightUI != null) phase3MultiPullHighlightUI.SetActive(false);
+            if (hidePhase3MultiPullAtStart && phase3MultiPullExtraFrontUI != null) phase3MultiPullExtraFrontUI.SetActive(false);
+            if (phase3MultiPullButtonLinkedObject != null) phase3MultiPullButtonLinkedObject.SetActive(false);
             RestoreHighlightedObjects();
 
+            if (grayBackground != null) grayBackground.SetActive(false);
             yield return StartCoroutine(WaitForGachaBackgroundFadeCycle());
+            ShowGrayBackground();
 
             yield return StartCoroutine(PlayUIElementsSequence(phase3AfterMultiSteps));
+            ForceHideStepUIObjects(phase3AfterMultiSteps);
 
             bool returnHomeClicked = false;
-            ActivateAndBringButtonToFront(phase3ReturnHomeButton, phase3ReturnHomeHighlightUI, () =>
+            ActivateAndBringButtonToFront(phase3ReturnHomeButton, phase3ReturnHomeHighlightUI, phase3ReturnHomeExtraFrontUI, phase3ReturnHomeButtonLinkedObject, () =>
             {
                 returnHomeClicked = true;
             });
@@ -581,12 +737,134 @@ public class TutorialManager : MonoBehaviour
     {
         if (backGroundFadeObject == null)
         {
-            yield return new WaitForSeconds(2.0f);
+            float timer = 0f;
+            while (timer < 2.0f)
+            {
+                BringGachaElementsToAbsoluteFront();
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            RestoreHighlightedObjects();
             yield break;
         }
 
-        yield return new WaitUntil(() => backGroundFadeObject.activeInHierarchy);
-        yield return new WaitUntil(() => !backGroundFadeObject.activeInHierarchy);
+        while (!backGroundFadeObject.activeInHierarchy)
+        {
+            BringGachaElementsToAbsoluteFront();
+            yield return null;
+        }
+
+        while (backGroundFadeObject.activeInHierarchy)
+        {
+            BringGachaElementsToAbsoluteFront();
+            yield return null;
+        }
+
+        RestoreHighlightedObjects();
+    }
+
+    private void BringGachaElementsToAbsoluteFront()
+    {
+        if (gachaOpenAllButtonUI != null && gachaOpenAllButtonUI.activeInHierarchy)
+        {
+            BringToFront(gachaOpenAllButtonUI, GACHA_FRONT_SORT_ORDER + 10, true);
+
+            if (gachaOpenAllButton == null)
+            {
+                gachaOpenAllButton = gachaOpenAllButtonUI.GetComponentInChildren<Button>(true);
+            }
+        }
+
+        if (gachaOpenAllButton != null && gachaOpenAllButton.gameObject.activeInHierarchy)
+        {
+            gachaOpenAllButton.enabled = true;
+            gachaOpenAllButton.interactable = true;
+            BringToFront(gachaOpenAllButton.gameObject, GACHA_FRONT_SORT_ORDER + 20, true);
+        }
+
+        if (gachaSystem != null)
+        {
+            FieldInfo[] fields = gachaSystem.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            foreach (FieldInfo field in fields)
+            {
+                object val = field.GetValue(gachaSystem);
+                if (val == null) continue;
+
+                if (val is Button btn)
+                {
+                    if (btn != phase2FirstButton && btn != phase2SinglePullButton &&
+                        btn != phase3MidButton && btn != phase3MultiPullButton && btn != phase3ReturnHomeButton)
+                    {
+                        if (btn.gameObject.activeInHierarchy)
+                        {
+                            btn.enabled = true;
+                            btn.interactable = true;
+                            BringToFront(btn.gameObject, GACHA_FRONT_SORT_ORDER + 20, true);
+                        }
+                    }
+                }
+                else if (val is GameObject gObj)
+                {
+                    if (gObj != backGroundFadeObject && gObj.activeInHierarchy && gObj.GetComponentInChildren<Button>(true) != null)
+                    {
+                        BringToFront(gObj, GACHA_FRONT_SORT_ORDER + 15, true);
+                    }
+                }
+                else if (val is IEnumerable<GameObject> objList)
+                {
+                    foreach (GameObject spawnedObj in objList)
+                    {
+                        if (spawnedObj != null && spawnedObj.activeInHierarchy)
+                        {
+                            BringCapsuleOrRewardToFront(spawnedObj);
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach (GameObject prefab in ForcedCapsulePrefabs)
+        {
+            if (prefab == null) continue;
+            BringSpawnedClonesToFront(prefab.name);
+        }
+        foreach (GameObject prefab in ForcedRewardPrefabs)
+        {
+            if (prefab == null) continue;
+            BringSpawnedClonesToFront(prefab.name);
+        }
+    }
+
+    private void BringSpawnedClonesToFront(string prefabName)
+    {
+        GameObject[] rootObjs = SceneManager.GetActiveScene().GetRootGameObjects();
+        foreach (GameObject root in rootObjs)
+        {
+            if (root == null || !root.activeInHierarchy) continue;
+            if (root.name.StartsWith(prefabName))
+            {
+                BringCapsuleOrRewardToFront(root);
+            }
+        }
+    }
+
+    private void BringCapsuleOrRewardToFront(GameObject obj)
+    {
+        if (obj == null) return;
+
+        if (obj.GetComponent<RectTransform>() != null)
+        {
+            BringToFront(obj, GACHA_FRONT_SORT_ORDER, true);
+        }
+
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>(true);
+        foreach (Renderer r in renderers)
+        {
+            if (r != null)
+            {
+                r.sortingOrder = GACHA_FRONT_SORT_ORDER;
+            }
+        }
     }
 
     private IEnumerator RunWeaponSelectSceneTutorial()
@@ -607,34 +885,21 @@ public class TutorialManager : MonoBehaviour
                 List<TextMeshProUGUI> tmpsToType = new List<TextMeshProUGUI>();
                 List<Text> textsToType = new List<Text>();
 
-                int totalItems = step.uiObjects != null ? step.uiObjects.Length : 0;
-
                 if (step.uiObjects != null)
                 {
-                    for (int u = 0; u < totalItems; u++)
+                    for (int u = 0; u < step.uiObjects.Length; u++)
                     {
                         TutorialUIObjectItem item = step.uiObjects[u];
-                        if (item != null && item.uiObject != null)
-                        {
-                            item.uiObject.SetActive(true);
-                            BringToFront(item.uiObject, TOP_UI_SORT_ORDER + u, false);
+                        if (item == null || item.uiObject == null) continue;
 
-                            if (step.useTypewriter)
-                            {
-                                CollectTextComponents(item.uiObject, tmpsToType, textsToType);
-                            }
-                        }
+                        item.uiObject.SetActive(true);
+                        BringToFront(item.uiObject, TOP_UI_SORT_ORDER + u);
 
-                        // 最後のElementが表示されたタイミングで、一緒にボタンや武器選択を有効化する
-                        if (u == totalItems - 1)
+                        if (step.useTypewriter)
                         {
-                            EnableStepButtons(step.uiObjects, step.nextButton);
+                            CollectTextComponents(item.uiObject, tmpsToType, textsToType);
                         }
                     }
-                }
-                else
-                {
-                    EnableStepButtons(null, step.nextButton);
                 }
 
                 List<GameObject> targetWeaponItems = new List<GameObject>();
@@ -648,7 +913,7 @@ public class TutorialManager : MonoBehaviour
                             Transform weaponChild = inventoryManager.contentPanel.GetChild(wIdx);
                             if (weaponChild != null)
                             {
-                                BringToFront(weaponChild.gameObject, BUTTON_SORT_ORDER, true);
+                                BringToFront(weaponChild.gameObject, BUTTON_SORT_ORDER);
                                 targetWeaponItems.Add(weaponChild.gameObject);
                             }
                         }
@@ -663,19 +928,37 @@ public class TutorialManager : MonoBehaviour
 
                 if (targetWeaponItems.Count > 0)
                 {
+                    if (step.extraFrontUI != null)
+                    {
+                        step.extraFrontUI.SetActive(true);
+                        BringToFront(step.extraFrontUI, BUTTON_HIGHLIGHT_UI_SORT_ORDER, true);
+                    }
+                    if (step.buttonLinkedObject != null)
+                    {
+                        step.buttonLinkedObject.SetActive(true);
+                        BringToFrontAsNonBlocking(step.buttonLinkedObject, LINKED_OBJ_SORT_ORDER);
+                    }
+
                     bool weaponSelected = false;
                     foreach (GameObject wObj in targetWeaponItems)
                     {
                         Button b = wObj.GetComponentInChildren<Button>(true);
                         if (b == null) b = wObj.AddComponent<Button>();
-                        b.enabled = true;
-                        b.interactable = true;
 
                         UnityEngine.Events.UnityAction onSelectAction = null;
                         onSelectAction = () =>
                         {
                             if (isTyping) SkipTyping();
                             b.onClick.RemoveListener(onSelectAction);
+
+                            if (step.uiObjects != null)
+                            {
+                                foreach (var item in step.uiObjects)
+                                {
+                                    if (item != null && item.uiObject != null) item.uiObject.SetActive(false);
+                                }
+                            }
+
                             weaponSelected = true;
                         };
                         b.onClick.AddListener(onSelectAction);
@@ -685,7 +968,20 @@ public class TutorialManager : MonoBehaviour
                 }
                 else if (step.nextButton != null)
                 {
-                    EnableStepButtons(step.uiObjects, step.nextButton);
+                    if (step.extraFrontUI != null)
+                    {
+                        step.extraFrontUI.SetActive(true);
+                        BringToFront(step.extraFrontUI, BUTTON_HIGHLIGHT_UI_SORT_ORDER, true);
+                    }
+                    if (step.buttonLinkedObject != null)
+                    {
+                        step.buttonLinkedObject.SetActive(true);
+                        BringToFrontAsNonBlocking(step.buttonLinkedObject, LINKED_OBJ_SORT_ORDER);
+                    }
+
+                    step.nextButton.gameObject.SetActive(true);
+                    step.nextButton.interactable = true;
+                    BringToFront(step.nextButton.gameObject, BUTTON_SORT_ORDER, true);
 
                     bool btnClicked = false;
                     UnityEngine.Events.UnityAction action = null;
@@ -697,6 +993,15 @@ public class TutorialManager : MonoBehaviour
                             return;
                         }
                         step.nextButton.onClick.RemoveListener(action);
+
+                        if (step.uiObjects != null)
+                        {
+                            foreach (var item in step.uiObjects)
+                            {
+                                if (item != null && item.uiObject != null) item.uiObject.SetActive(false);
+                            }
+                        }
+
                         btnClicked = true;
                     };
                     step.nextButton.onClick.AddListener(action);
@@ -705,16 +1010,24 @@ public class TutorialManager : MonoBehaviour
                 }
                 else
                 {
-                    yield return StartCoroutine(WaitForUserAdvanceInput());
-                }
-
-                if (step.uiObjects != null)
-                {
-                    foreach (TutorialUIObjectItem item in step.uiObjects)
+                    if (step.extraFrontUI != null)
                     {
-                        if (item != null && item.uiObject != null && step.hideUntilActive && item.hideUntilActive)
+                        step.extraFrontUI.SetActive(true);
+                        BringToFront(step.extraFrontUI, BUTTON_HIGHLIGHT_UI_SORT_ORDER, true);
+                    }
+                    if (step.buttonLinkedObject != null)
+                    {
+                        step.buttonLinkedObject.SetActive(true);
+                        BringToFrontAsNonBlocking(step.buttonLinkedObject, LINKED_OBJ_SORT_ORDER);
+                    }
+
+                    yield return StartCoroutine(WaitForUserAdvanceInput());
+
+                    if (step.uiObjects != null)
+                    {
+                        foreach (var item in step.uiObjects)
                         {
-                            item.uiObject.SetActive(false);
+                            if (item != null && item.uiObject != null) item.uiObject.SetActive(false);
                         }
                     }
                 }
@@ -724,7 +1037,7 @@ public class TutorialManager : MonoBehaviour
         RestoreHighlightedObjects();
 
         bool backClicked = false;
-        ActivateAndBringButtonToFront(phase5BackButton, phase5BackButtonUI, () =>
+        ActivateAndBringButtonToFront(phase5BackButton, phase5BackButtonUI, phase5BackButtonExtraFrontUI, phase5BackButtonLinkedObject, () =>
         {
             backClicked = true;
         });
@@ -752,34 +1065,21 @@ public class TutorialManager : MonoBehaviour
             List<TextMeshProUGUI> tmpsToType = new List<TextMeshProUGUI>();
             List<Text> textsToType = new List<Text>();
 
-            int totalItems = elem.uiObjects != null ? elem.uiObjects.Length : 0;
-
-            if (elem.uiObjects != null && totalItems > 0)
+            if (elem.uiObjects != null)
             {
-                for (int u = 0; u < totalItems; u++)
+                for (int u = 0; u < elem.uiObjects.Length; u++)
                 {
                     TutorialUIObjectItem item = elem.uiObjects[u];
-                    if (item != null && item.uiObject != null)
-                    {
-                        item.uiObject.SetActive(true);
-                        BringToFront(item.uiObject, TOP_UI_SORT_ORDER + u, false);
+                    if (item == null || item.uiObject == null) continue;
 
-                        if (elem.useTypewriter)
-                        {
-                            CollectTextComponents(item.uiObject, tmpsToType, textsToType);
-                        }
-                    }
+                    item.uiObject.SetActive(true);
+                    BringToFront(item.uiObject, TOP_UI_SORT_ORDER + u);
 
-                    // ★最後のElementのUIが表示されたときに、一緒にボタン等も有効化する
-                    if (u == totalItems - 1)
+                    if (elem.useTypewriter)
                     {
-                        EnableStepButtons(elem.uiObjects, elem.nextButton);
+                        CollectTextComponents(item.uiObject, tmpsToType, textsToType);
                     }
                 }
-            }
-            else
-            {
-                EnableStepButtons(null, elem.nextButton);
             }
 
             if (tmpsToType.Count > 0 || textsToType.Count > 0)
@@ -790,7 +1090,20 @@ public class TutorialManager : MonoBehaviour
 
             if (elem.nextButton != null)
             {
-                EnableStepButtons(elem.uiObjects, elem.nextButton);
+                if (elem.extraFrontUI != null)
+                {
+                    elem.extraFrontUI.SetActive(true);
+                    BringToFront(elem.extraFrontUI, BUTTON_HIGHLIGHT_UI_SORT_ORDER, true);
+                }
+                if (elem.buttonLinkedObject != null)
+                {
+                    elem.buttonLinkedObject.SetActive(true);
+                    BringToFrontAsNonBlocking(elem.buttonLinkedObject, LINKED_OBJ_SORT_ORDER);
+                }
+
+                elem.nextButton.gameObject.SetActive(true);
+                elem.nextButton.interactable = true;
+                BringToFront(elem.nextButton.gameObject, BUTTON_SORT_ORDER, true);
 
                 bool clicked = false;
                 UnityEngine.Events.UnityAction action = null;
@@ -802,6 +1115,15 @@ public class TutorialManager : MonoBehaviour
                         return;
                     }
                     elem.nextButton.onClick.RemoveListener(action);
+
+                    if (elem.uiObjects != null)
+                    {
+                        foreach (var item in elem.uiObjects)
+                        {
+                            if (item != null && item.uiObject != null) item.uiObject.SetActive(false);
+                        }
+                    }
+
                     clicked = true;
                 };
                 elem.nextButton.onClick.AddListener(action);
@@ -810,55 +1132,30 @@ public class TutorialManager : MonoBehaviour
             }
             else
             {
-                yield return StartCoroutine(WaitForUserAdvanceInput());
-            }
-
-            // 各オブジェクトの hideUntilActive に応じて個別に非表示に戻す
-            if (elem.uiObjects != null)
-            {
-                foreach (TutorialUIObjectItem item in elem.uiObjects)
+                if (elem.extraFrontUI != null)
                 {
-                    if (item != null && item.uiObject != null && elem.hideUntilActive && item.hideUntilActive)
+                    elem.extraFrontUI.SetActive(true);
+                    BringToFront(elem.extraFrontUI, BUTTON_HIGHLIGHT_UI_SORT_ORDER, true);
+                }
+                if (elem.buttonLinkedObject != null)
+                {
+                    elem.buttonLinkedObject.SetActive(true);
+                    BringToFrontAsNonBlocking(elem.buttonLinkedObject, LINKED_OBJ_SORT_ORDER);
+                }
+
+                yield return StartCoroutine(WaitForUserAdvanceInput());
+
+                if (elem.uiObjects != null)
+                {
+                    foreach (var item in elem.uiObjects)
                     {
-                        item.uiObject.SetActive(false);
+                        if (item != null && item.uiObject != null) item.uiObject.SetActive(false);
                     }
                 }
             }
         }
 
         RestoreHighlightedObjects();
-    }
-
-    // 最後に表示されるUIと一緒にボタンを有効化＆最前面化するメソッド
-    private void EnableStepButtons(TutorialUIObjectItem[] uiItems, Button targetNextButton)
-    {
-        if (uiItems != null)
-        {
-            for (int u = 0; u < uiItems.Length; u++)
-            {
-                var item = uiItems[u];
-                if (item == null || item.uiObject == null) continue;
-
-                Button[] innerBtns = item.uiObject.GetComponentsInChildren<Button>(true);
-                foreach (Button b in innerBtns)
-                {
-                    if (b != null)
-                    {
-                        b.gameObject.SetActive(true);
-                        b.enabled = true;
-                        b.interactable = true;
-                    }
-                }
-            }
-        }
-
-        if (targetNextButton != null)
-        {
-            targetNextButton.gameObject.SetActive(true);
-            targetNextButton.enabled = true;
-            targetNextButton.interactable = true;
-            BringToFront(targetNextButton.gameObject, BUTTON_SORT_ORDER, true);
-        }
     }
 
     private IEnumerator WaitForUserAdvanceInput()
@@ -985,20 +1282,31 @@ public class TutorialManager : MonoBehaviour
         bgCanvas.sortingOrder = GRAY_BG_SORT_ORDER;
     }
 
-    private void ActivateAndBringButtonToFront(Button btn, GameObject highlightUI, System.Action onClickCallback)
+    private void ActivateAndBringButtonToFront(Button btn, GameObject highlightUI, GameObject extraFrontUI, GameObject linkedObject, System.Action onClickCallback)
     {
-        if (btn != null)
+        if (extraFrontUI != null)
         {
-            btn.gameObject.SetActive(true);
-            btn.enabled = true;
-            btn.interactable = true;
-            BringToFront(btn.gameObject, BUTTON_SORT_ORDER, true);
+            extraFrontUI.SetActive(true);
+            BringToFront(extraFrontUI, BUTTON_HIGHLIGHT_UI_SORT_ORDER, true);
         }
 
         if (highlightUI != null)
         {
             highlightUI.SetActive(true);
-            BringToFront(highlightUI, BUTTON_HIGHLIGHT_UI_SORT_ORDER, false);
+            BringToFront(highlightUI, BUTTON_HIGHLIGHT_UI_SORT_ORDER, true);
+        }
+
+        if (btn != null)
+        {
+            btn.gameObject.SetActive(true);
+            btn.interactable = true;
+            BringToFront(btn.gameObject, BUTTON_SORT_ORDER, true);
+        }
+
+        if (linkedObject != null)
+        {
+            linkedObject.SetActive(true);
+            BringToFrontAsNonBlocking(linkedObject, LINKED_OBJ_SORT_ORDER);
         }
 
         if (btn != null)
@@ -1015,6 +1323,29 @@ public class TutorialManager : MonoBehaviour
         {
             onClickCallback?.Invoke();
         }
+    }
+
+    private void BringToFrontAsNonBlocking(GameObject obj, int sortOrder)
+    {
+        if (obj == null) return;
+
+        if (obj.GetComponentInChildren<Button>(true) == null)
+        {
+            Graphic[] graphics = obj.GetComponentsInChildren<Graphic>(true);
+            foreach (Graphic g in graphics)
+            {
+                if (g != null && g.raycastTarget)
+                {
+                    if (!modifiedRaycastTargets.ContainsKey(g))
+                    {
+                        modifiedRaycastTargets[g] = g.raycastTarget;
+                    }
+                    g.raycastTarget = false;
+                }
+            }
+        }
+
+        BringToFront(obj, sortOrder, false);
     }
 
     private void BringToFront(GameObject obj, int sortOrder, bool needsRaycaster = true)
@@ -1038,7 +1369,7 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-        if (needsRaycaster || obj.GetComponentInChildren<Button>(true) != null)
+        if (needsRaycaster || obj.GetComponentInChildren<Button>(true) != null || obj.GetComponentInParent<Button>(true) != null)
         {
             if (obj.GetComponent<GraphicRaycaster>() == null)
             {
@@ -1054,6 +1385,15 @@ public class TutorialManager : MonoBehaviour
 
     private void RestoreHighlightedObjects()
     {
+        foreach (var kvp in modifiedRaycastTargets)
+        {
+            if (kvp.Key != null)
+            {
+                kvp.Key.raycastTarget = kvp.Value;
+            }
+        }
+        modifiedRaycastTargets.Clear();
+
         foreach (GameObject obj in currentHighlightedObjects)
         {
             if (obj == null) continue;

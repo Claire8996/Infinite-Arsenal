@@ -306,6 +306,8 @@ public class WeaponInventoryManager : MonoBehaviour
     // セーブ・ロード用のキー
     private const string SAVE_KEY_WEAPONS_COORDS = "SavedInventory_Weapons_ExactCoords";
     private const string SAVE_KEY_ARMORS_COORDS = "SavedInventory_Armors_ExactCoords";
+    private const string SAVE_KEY_EQUIPPED_WEAPONS = "SavedInventory_EquippedWeapons_Indices";
+    private const string SAVE_KEY_EQUIPPED_ARMORS = "SavedInventory_EquippedArmors_Indices";
 
     void Start()
     {
@@ -367,6 +369,9 @@ public class WeaponInventoryManager : MonoBehaviour
         CheckAndAddNewItemsFromKeeper();
         SortWeapons();
 
+        // 装備情報の復元（セーブデータからロード）
+        LoadEquippedSelections();
+
         currentRarityIndex = -1;
         UpdateRarityButtonColors();
 
@@ -417,6 +422,7 @@ public class WeaponInventoryManager : MonoBehaviour
             }
 
             SaveInventoryData();
+            SaveEquippedSelections();
             UpdateStatusTexts();
             UpdateWeaponStatTexts();
             UpdateEvolutionButtonState();
@@ -506,6 +512,105 @@ public class WeaponInventoryManager : MonoBehaviour
                 if (restoredList.Count > 0)
                 {
                     armorPrefabs = restoredList.ToArray();
+                }
+            }
+        }
+    }
+
+    // ==========================================
+    // 💡 追加：装備・選択状態（武器スロット・防具カテゴリ）のセーブとロード
+    // ==========================================
+    private void SaveEquippedSelections()
+    {
+        // 武器スロットのインデックスをカンマ区切りで保存（未選択は-1）
+        if (selectedWeaponItemIndices != null)
+        {
+            List<string> indices = new List<string>();
+            foreach (int idx in selectedWeaponItemIndices)
+            {
+                indices.Add(idx.ToString());
+            }
+            PlayerPrefs.SetString(SAVE_KEY_EQUIPPED_WEAPONS, string.Join(",", indices));
+        }
+
+        // 防具カテゴリのインデックスをカンマ区切りで保存（未選択は-1）
+        if (selectedArmorItemIndices != null)
+        {
+            List<string> indices = new List<string>();
+            foreach (int idx in selectedArmorItemIndices)
+            {
+                indices.Add(idx.ToString());
+            }
+            PlayerPrefs.SetString(SAVE_KEY_EQUIPPED_ARMORS, string.Join(",", indices));
+        }
+
+        PlayerPrefs.Save();
+    }
+
+    private void LoadEquippedSelections()
+    {
+        if (PlayerPrefs.HasKey(SAVE_KEY_EQUIPPED_WEAPONS))
+        {
+            string savedStr = PlayerPrefs.GetString(SAVE_KEY_EQUIPPED_WEAPONS, "");
+            if (!string.IsNullOrEmpty(savedStr))
+            {
+                string[] parts = savedStr.Split(',');
+                for (int s = 0; s < parts.Length && s < selectedWeaponItemIndices.Length; s++)
+                {
+                    if (int.TryParse(parts[s], out int idx))
+                    {
+                        selectedWeaponItemIndices[s] = idx;
+                        if (idx >= 0 && testWeaponPrefabs != null && idx < testWeaponPrefabs.Length)
+                        {
+                            selectedSlotWeaponPrefabs[s] = testWeaponPrefabs[idx];
+                            if (WeaponDataKeeper.equippedWeaponPrefabs != null && s < WeaponDataKeeper.equippedWeaponPrefabs.Length)
+                            {
+                                WeaponDataKeeper.equippedWeaponPrefabs[s] = testWeaponPrefabs[idx];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (PlayerPrefs.HasKey(SAVE_KEY_EQUIPPED_ARMORS))
+        {
+            string savedStr = PlayerPrefs.GetString(SAVE_KEY_EQUIPPED_ARMORS, "");
+            if (!string.IsNullOrEmpty(savedStr))
+            {
+                string[] parts = savedStr.Split(',');
+                for (int c = 0; c < parts.Length && c < selectedArmorItemIndices.Length; c++)
+                {
+                    if (int.TryParse(parts[c], out int idx))
+                    {
+                        selectedArmorItemIndices[c] = idx;
+                        if (idx >= 0 && armorPrefabs != null && idx < armorPrefabs.Length)
+                        {
+                            GameObject armorPrefab = armorPrefabs[idx];
+                            ArmorStats stats = armorPrefab != null ? armorPrefab.GetComponentInChildren<ArmorStats>(true) : null;
+                            ArmorStats.EquipArmor(c, stats);
+
+                            // スプライトの復元
+                            if (categoryButtons != null && c < categoryButtons.Length && categoryButtons[c] != null)
+                            {
+                                ContentCategoryButton cat = categoryButtons[c];
+                                if (cat.uiToHideOnSelect != null) cat.uiToHideOnSelect.SetActive(false);
+                                if (cat.targetArmorImage != null && cat.displayTargetPrefabs != null)
+                                {
+                                    foreach (ArmorTargetElement elem in cat.displayTargetPrefabs)
+                                    {
+                                        if (elem != null && elem.targetPrefab == armorPrefab)
+                                        {
+                                            cat.targetArmorImage.sprite = elem.armorSprite;
+                                            cat.targetArmorImage.enabled = true;
+                                            UpdateArmorImageAlpha(cat.targetArmorImage);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -788,9 +893,6 @@ public class WeaponInventoryManager : MonoBehaviour
         multiSelectFrames.Clear();
     }
 
-    // ==========================================
-    // 進化（合成）判定およびアニメーション・実行処理
-    // ==========================================
     private void UpdateEvolutionButtonState()
     {
         if (!isMultiSelectMode)
@@ -842,7 +944,6 @@ public class WeaponInventoryManager : MonoBehaviour
         }
     }
 
-    // ★修正：通常時は黒色（Color.black）、超過時は赤色（Color.red）に変更
     private void UpdateEvolutionRemainingCountTexts()
     {
         if (!isMultiSelectMode || multiSelectFrames == null || multiSelectFrames.Count == 0)
@@ -922,7 +1023,6 @@ public class WeaponInventoryManager : MonoBehaviour
             {
                 evolutionRemainingCountText.text = diffCount.ToString();
 
-                // 0未満（超過している場合）は赤色、それ以外は黒色にする
                 if (diffCount < 0)
                 {
                     evolutionRemainingCountText.color = Color.red;
@@ -1248,6 +1348,7 @@ public class WeaponInventoryManager : MonoBehaviour
                         {
                             selectedWeapons[s] = null;
                             selectedSlotWeaponPrefabs[s] = null;
+                            selectedWeaponItemIndices[s] = -1;
                             if (WeaponDataKeeper.equippedWeaponPrefabs != null && s < WeaponDataKeeper.equippedWeaponPrefabs.Length)
                             {
                                 WeaponDataKeeper.equippedWeaponPrefabs[s] = null;
@@ -1292,11 +1393,9 @@ public class WeaponInventoryManager : MonoBehaviour
         }
 
         SaveInventoryData();
+        SaveEquippedSelections();
     }
 
-    // ==========================================
-    // 既存の管理メソッド群（削除・レアリティ等）
-    // ==========================================
     public void OnClickDeleteSelectedPrefabs()
     {
         if (!isMultiSelectMode) return;
@@ -1335,6 +1434,7 @@ public class WeaponInventoryManager : MonoBehaviour
                         {
                             selectedWeapons[s] = null;
                             selectedSlotWeaponPrefabs[s] = null;
+                            selectedWeaponItemIndices[s] = -1;
                             if (WeaponDataKeeper.equippedWeaponPrefabs != null && s < WeaponDataKeeper.equippedWeaponPrefabs.Length)
                             {
                                 WeaponDataKeeper.equippedWeaponPrefabs[s] = null;
@@ -1446,6 +1546,7 @@ public class WeaponInventoryManager : MonoBehaviour
         }
 
         SaveInventoryData();
+        SaveEquippedSelections();
         UpdateEvolutionButtonState();
     }
 
@@ -2137,6 +2238,8 @@ public class WeaponInventoryManager : MonoBehaviour
             }
             ArmorStats.EquipArmor(currentCategoryIndex, stats);
 
+            SaveEquippedSelections();
+
             UpdateStatusTexts();
             UpdateWeaponStatTexts();
 
@@ -2160,6 +2263,8 @@ public class WeaponInventoryManager : MonoBehaviour
             currentSelectionFrame.transform.localPosition = Vector3.zero;
             currentSelectionFrame.transform.SetAsLastSibling();
         }
+
+        SaveEquippedSelections();
 
         currentStatSlotIndex = currentSlotIndex;
         UpdateWeaponStatTexts();
